@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import jumpLogo from '../../assets/images/icons/jump_cellpainting-343x221.png';
+import vistaLogo from '../../assets/images/icons/vista_logo-transparent.png';
+import oasisLogo from '../../assets/images/icons/oasis_logo-trimmed.png';
 
 const base = import.meta.env.BASE_URL;
 
@@ -13,8 +15,9 @@ const projects = [
       'When a critical protein ends up in the wrong place inside a cell, disease can follow. We systematically screen thousands of approved drugs to find ones that guide these proteins back to where they belong, turning medicines we already have into new cures.',
     url: 'https://vista-consortium.broadinstitute.org/',
     label: 'VISTA Consortium',
-    from: 'var(--purdue-gold)',
-    to: 'var(--purdue-aged)',
+    logo: vistaLogo,
+    logoAlt: 'VISTA Consortium logo: a mountain wrapped in a DNA double helix.',
+    figMax: '340px',
   },
   {
     title: 'Predicting Chemical Safety',
@@ -22,8 +25,10 @@ const projects = [
       'We combine cellular imaging, transcriptomics, and proteomics across a global network of scientists to build predictive tools for chemical safety, reducing reliance on animal testing and bringing safer medicines to people faster.',
     url: 'https://oasisconsortium.org/',
     label: 'OASIS Consortium',
-    from: 'var(--purdue-rush)',
-    to: 'var(--purdue-aged)',
+    logo: oasisLogo,
+    logoAlt: 'OASIS Consortium logo: a stylized palm and caduceus in a blue disc.',
+    figMax: '270px',
+    reversed: true,
   },
   {
     title: 'Mapping the Chemical Universe',
@@ -104,13 +109,17 @@ const projects = [
       </div>
 
       <div class="project-list">
-      {projects.map((p, i) => (
-        p.image ? (
-          /* Feature row — two-tone band: pale zone holds the illustration,
-             gold zone holds the text, magnified cell straddles the seam */
-          <article class="project-row feature-row">
+      {projects.map((p) => {
+        const fig = p.image ?? p.logo;
+        return fig ? (
+          /* Feature row — consortium logo/illustration overlapping a gold text
+             panel. `reversed` mirrors it (image right, text left) for rhythm. */
+          <article
+            class={`project-row feature-row ${p.reversed ? 'is-reversed' : ''}`}
+            style={p.figMax ? `--fig-max: ${p.figMax}` : undefined}
+          >
             <figure class="feature-image">
-              <Image src={p.image} alt={p.imageAlt} widths={[343]} sizes="(max-width: 767px) 80vw, 40vw" />
+              <Image src={fig} alt={p.imageAlt ?? p.logoAlt} sizes="(max-width: 767px) 70vw, 34vw" />
             </figure>
 
             <div class="feature-text">
@@ -125,13 +134,10 @@ const projects = [
             </div>
           </article>
         ) : (
-          <article class={`project-row ${i % 2 === 1 ? 'is-reversed' : ''}`}>
-            <!-- Media placeholder — Purdue colour block until imagery is added -->
+          <article class="project-row">
             <div class="project-media" style={`--from: ${p.from}; --to: ${p.to};`}>
               <span class="project-media-label">Image coming soon</span>
             </div>
-
-            <!-- Text -->
             <div class="project-text">
               <h3 class="project-title">{p.title}</h3>
               <p class="project-desc">{p.description}</p>
@@ -143,8 +149,8 @@ const projects = [
               </a>
             </div>
           </article>
-        )
-      ))}
+        );
+      })}
       </div>
     </div>
   </div>
@@ -268,44 +274,56 @@ const projects = [
     transform: translateX(4px);
   }
 
-  /* ─── Feature row: image rectangle partially overlapping a gold panel ─── */
+  /* ─── Feature row: logo / illustration lapping onto a gold text panel ────
+     Flex + negative margin so the overlap holds for ANY figure width. The
+     figure keeps its natural size on the outer edge; the gold panel is pulled
+     back under the figure's inner edge by --lap. --fig-max sets the figure's
+     display width per project (JUMP's big illustration vs. compact logos). */
   .feature-row {
     position: relative;
-    /* image-zone | shared overlap | text — image fills the left, its right
-       edge lapping onto the gold panel that starts under the overlap track */
-    grid-template-columns: 36% 6% 58%;
-    gap: 0;
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    gap: 0;
+    --lap: 4.5rem;             /* how far the panel tucks under the figure */
   }
-  /* The text block IS the gold panel; the image overlaps its left edge */
+  .feature-image {
+    flex: 0 0 auto;
+    z-index: 2;                /* figure sits above the panel */
+    margin: 0;
+  }
+  .feature-image :global(img) {
+    display: block;
+    width: var(--fig-max, 520px);
+    max-width: 46vw;           /* never overpower the row on mid-width screens */
+    height: auto;
+    filter: drop-shadow(0 14px 24px rgba(142, 111, 62, 0.20));
+  }
+  /* The text block IS the gold panel; the figure laps onto its inner edge */
   .feature-text {
-    grid-row: 1;
-    grid-column: 2 / 4;
+    flex: 1 1 auto;
     z-index: 1;
     align-self: stretch;
     display: flex;
     flex-direction: column;
     justify-content: center;
     background: linear-gradient(135deg, #F5E8C2 0%, #ECD8A2 100%);
-    border: none;
-    border-radius: 0;
     box-shadow: 0 12px 34px rgba(142, 111, 62, 0.10);
-    /* left padding clears the overlapping illustration */
-    padding: 2.5rem 3rem 2.5rem 4.5rem;
+    /* slide under the figure, then pad past the overlap so text stays clear */
+    margin-left: calc(-1 * var(--lap));
+    padding: 2.5rem 3rem 2.5rem calc(var(--lap) + 2rem);
   }
-  .feature-image {
-    grid-row: 1;
-    grid-column: 1 / 3;
-    z-index: 2;
-    margin: 0;
-    justify-self: start;       /* flush to the band's left edge — no left gap */
+
+  /* ─── Reversed feature row: text left, figure lapping from the right ─── */
+  .feature-row.is-reversed {
+    flex-direction: row-reverse;
   }
-  .feature-image :global(img) {
-    display: block;
-    width: 100%;
-    max-width: 520px;
-    height: auto;
-    filter: drop-shadow(0 14px 24px rgba(142, 111, 62, 0.20));
+  .feature-row.is-reversed .feature-text {
+    /* mirror the gradient + overlap side */
+    background: linear-gradient(225deg, #F5E8C2 0%, #ECD8A2 100%);
+    margin-left: 0;
+    margin-right: calc(-1 * var(--lap));
+    padding: 2.5rem calc(var(--lap) + 2rem) 2.5rem 3rem;
   }
   .feature-link {
     font-size: 1.2rem;        /* a touch larger than the standard project link */
@@ -333,26 +351,29 @@ const projects = [
       text-align: left;
     }
 
-    /* Feature row collapses: illustration on top dips onto the gold panel below */
-    .feature-row {
-      grid-template-columns: 1fr;
+    /* Feature row collapses: figure on top dips onto the gold panel below.
+       Reversed rows collapse the same way (logo on top, text below). */
+    .feature-row,
+    .feature-row.is-reversed {
+      flex-direction: column;
       gap: 0;
     }
-    .feature-image {
-      grid-row: 1;
-      grid-column: 1;
-      justify-self: center;
+    .feature-image,
+    .feature-row.is-reversed .feature-image {
+      align-self: center;
       margin: 0;
       transform: translateY(1.75rem);
       z-index: 2;
     }
     .feature-image :global(img) {
-      margin: 0 auto;
+      width: min(var(--fig-max, 280px), 72vw);
       max-width: 280px;
+      margin: 0 auto;
     }
-    .feature-text {
-      grid-row: 2;
-      grid-column: 1;
+    .feature-text,
+    .feature-row.is-reversed .feature-text {
+      width: 100%;
+      margin: 0;
       padding: 3.5rem 1.75rem 2.25rem;
       text-align: center;
     }
