@@ -92,23 +92,20 @@ const { heroUnderlay = false } = Astro.props;
 </header>
 
 <style>
-  /* ─── Adaptive bar ─── */
-  /* Solid cream by default; transparent over the dark hero (homepage top). */
+  /* ─── Bar ─── */
+  /* Opaque cream at every scroll position — the bar never goes translucent, so
+     it can't bleed the dark hero through and read as grey. One consistent
+     colour whether at the top or scrolled down. */
   .site-header {
-    background: var(--nav-bg);
-    border-bottom: 1px solid var(--nav-border);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    transition: background 0.3s ease, border-color 0.3s ease, -webkit-backdrop-filter 0.3s ease, backdrop-filter 0.3s ease;
-  }
-  /* At the top of the homepage the bar keeps its exact cream look but drops the
-     bottom border entirely (width 0, not just transparent — otherwise the 1px
-     border row shows as a thin line under the JOIN THE LAB button). So the bar
-     meets the dark hero flush. On scroll (over light content) the border returns. */
-  .site-header.over-hero {
-    /* Opaque cream over the dark hero — otherwise the 85%-translucent bar lets
-       the near-black imagery bleed through and reads as grey. */
     background: var(--bg-page);
+    border-bottom: 1px solid var(--nav-border);
+    transition: border-color 0.3s ease;
+  }
+  /* At the very top of the homepage the bar meets the dark hero flush: drop the
+     1px bottom border (width 0, not just transparent — otherwise the border row
+     shows as a thin line under the JOIN THE LAB button). On scroll over light
+     content the border returns. The background colour never changes. */
+  .site-header.over-hero {
     border-bottom-width: 0;
   }
   .menu-btn {
