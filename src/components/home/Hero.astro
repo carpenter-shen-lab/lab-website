@@ -30,8 +30,8 @@ const [panelL, panelM, panelR] = await Promise.all([
   <div class="hero-scrim" aria-hidden="true"></div>
 
   <div class="relative z-10 hero-content animate-fade-in">
-    <h1 class="hero-title">
-      <span class="cw cw-cell">Cell</span><span class="cw cw-to">to</span><span class="cw cw-cure">Cure</span>
+    <h1 class="hero-title" aria-label="Cell to Cure">
+      <span class="cw cw-cell">Cell</span><span class="cw-two" aria-hidden="true"><svg viewBox="0 0 1050 720" preserveAspectRatio="none"><path d="M 272 168 C 272 68 497 38 612 134 C 681 192 646 278 566 322 C 473 373 362 472 300 576 C 286 602 300 628 338 632 C 440 662 566 667 736 626 C 838 601 918 566 984 520 C 892 556 766 590 616 602 C 500 608 388 580 380 505 C 384 430 470 355 512 290 C 551 233 552 199 510 168 C 459 131 368 135 320 178 C 306 191 288 186 272 168 Z"/></svg></span><span class="cw cw-cure">Cure</span>
     </h1>
 
     <p class="hero-lead">
@@ -108,6 +108,10 @@ const [panelL, panelM, panelR] = await Promise.all([
     margin: 0 auto;
     padding: 6rem 1.5rem;
     text-align: center;
+    /* Nudge the whole lockup (wordmark + lead + button) down off the exact
+       vertical centre so it sits lower in the banner. translateY moves it the
+       full amount, unlike padding which the flex centring would halve. */
+    transform: translateY(3rem);
   }
 
   /* ─── "Cell to Cure" wordmark ─── */
@@ -115,34 +119,78 @@ const [panelL, panelM, panelR] = await Promise.all([
     font-family: var(--font-cure);
     font-optical-sizing: auto;
     line-height: 0.98;
-    margin: 0 0 1.6rem 0;
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 0.28em;
+    /* margin-bottom carries ~44px extra over .hero-lead's margin-bottom because
+       "Cure" and the 2's swash hang well below the title's layout box, so a plain
+       equal margin would leave the lead sitting too close to the wordmark. This
+       compensation makes the visual gap wordmark->lead match the lead->button gap
+       (lead sits centred between the two). */
+    margin: 0 0 6.25rem 0;
+    /* 3-column grid pins the centre "2" to the banner's centre axis (the same
+       vertical line as the OUR RESEARCH button), with Cell and Cure hugging it
+       at equal gaps. A plain centred flex row would push it left of centre,
+       because "Cure" is wider than "Cell" and shifts the block's midpoint. The
+       two 1fr side columns are always equal, so the auto centre column — and the
+       "2" inside it — lands on the exact centre regardless of word widths.
+       align-items:center vertically centres the oversized numeral on the words. */
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    column-gap: 0;
     white-space: nowrap;
     text-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
   }
   .cw {
     font-size: clamp(3.6rem, 10.5vw, 7.4rem);
   }
+  /* Diagonal tuck: Cell rides up-and-left into the 2's top cave, Cure drops
+     down-and-right into its lower cave, so the words interlock with the numeral
+     as one compact mark. The horizontal offsets are asymmetric (Cell moves left
+     ~0.44em more than Cure moves right) precisely because "Cure" is that much
+     wider than "Cell" — the net effect is that Cell's left edge and Cure's right
+     edge sit an equal distance from the centre axis. All offsets are em-based so
+     the lockup scales with the words. */
   .cw-cell {
     font-weight: 900;
     color: var(--purdue-rush);      /* Boilermaker Rush Gold */
     letter-spacing: -0.015em;
+    justify-self: end;              /* right edge meets the centre axis */
+    position: relative;
+    z-index: 2;                     /* sit on top of the 2 */
+    transform: translate(-0.61em, -0.34em);
   }
-  .cw-to {
-    font-weight: 600;
-    font-style: italic;
-    font-size: clamp(2.2rem, 6vw, 4.4rem);   /* larger, more compatible */
-    color: rgba(250, 247, 239, 0.92);
-    letter-spacing: 0.005em;
-    padding: 0 0.05em;
+  .cw-two {
+    /* Zero-width centre grid item that anchors the custom "2" on the banner's
+       centre axis. The SVG is absolutely positioned, so it never widens the
+       column — Cell and Cure stay symmetric about the centre. font-size tracks
+       .cw so the SVG (sized in em) scales with the words. */
+    font-size: clamp(3.6rem, 10.5vw, 7.4rem);
+    width: 0;
+    align-self: center;
+    position: relative;
+    z-index: 1;                     /* behind Cell + Cure */
+  }
+  .cw-two svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 5.6em;
+    height: 2.55em;
+    transform: translate(-50%, -56%);
+    overflow: visible;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.5));
+  }
+  .cw-two path {
+    fill: #FFFFFF;
   }
   .cw-cure {
     font-weight: 900;
-    color: #7CFF33;                 /* GFP green */
+    color: var(--cure-green);       /* GFP green */
     letter-spacing: -0.015em;
+    justify-self: start;            /* left edge meets the centre axis */
+    position: relative;
+    z-index: 2;                     /* sit on top of the 2 */
+    transform: translate(0.04em, 0.18em);
   }
 
   /* ─── Lead / mission line ─── */
@@ -153,7 +201,7 @@ const [panelL, panelM, panelR] = await Promise.all([
     line-height: 1.55;
     color: rgba(250, 247, 239, 0.96);
     max-width: 760px;
-    margin: 0 auto 2.5rem auto;
+    margin: 0 auto 3.5rem auto;
     text-align: center;
     text-shadow: 0 1px 18px rgba(0, 0, 0, 0.7);
   }
@@ -185,8 +233,9 @@ const [panelL, panelM, panelR] = await Promise.all([
   }
 
   @media (max-width: 520px) {
-    .hero-title { gap: 0.2em; }
     .cw { font-size: clamp(2.4rem, 15vw, 3.4rem); }
+    /* keep the "2" SVG scaling with the smaller words on mobile */
+    .cw-two { font-size: clamp(2.4rem, 15vw, 3.4rem); }
   }
 </style>
 
