@@ -1,111 +1,192 @@
 ---
+import { getImage } from 'astro:assets';
+import rhoGfp from '../../assets/images/cells/rho-gfp.png';
+import rhoComposite from '../../assets/images/cells/rho-composite.png';
+import rhoVarGfp from '../../assets/images/cells/rho-cys110tyr-gfp.png';
+
 const base = import.meta.env.BASE_URL;
+
+// VarChamp Batch-13 cell images (cpg0020-varchamp), reference channel palette.
+// Left -> right: RHO protein (GFP) -> RHO morphology composite -> RHO_Cys110Tyr
+// protein (GFP). Served as optimized WebP from the 1080x1080 masters.
+const [panelL, panelM, panelR] = await Promise.all([
+  getImage({ src: rhoGfp, format: 'webp', width: 1080, quality: 82 }),
+  getImage({ src: rhoComposite, format: 'webp', width: 1080, quality: 82 }),
+  getImage({ src: rhoVarGfp, format: 'webp', width: 1080, quality: 82 }),
+]);
 ---
 
-<section class="hero-section relative min-h-screen flex items-center overflow-hidden"
-         style="background: var(--bg-page);">
+<section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
 
-  <!-- Atmospheric radial gold wash -->
-  <div class="absolute inset-0 pointer-events-none" style="background: var(--hero-wash);"></div>
+  <!-- Cell-image triptych: protein -> morphology -> variant protein -->
+  <div class="hero-triptych" aria-hidden="true">
+    <div class="hero-panel" style={`background-image: url(${panelL.src})`}></div>
+    <div class="hero-panel" style={`background-image: url(${panelM.src})`}></div>
+    <div class="hero-panel" style={`background-image: url(${panelR.src})`}></div>
+  </div>
 
-  <!-- Subtle Boilermaker grain — Dust circles, very faint -->
-  <div class="absolute inset-0 pointer-events-none opacity-[0.06]"
-       style="background-image: radial-gradient(circle, #8E6F3E 1px, transparent 1px); background-size: 56px 56px;"></div>
+  <!-- Legibility scrim: deepens the center behind the text, keeps the cells
+       vivid toward the edges. No top fade, so the imagery meets the nav cleanly. -->
+  <div class="hero-scrim" aria-hidden="true"></div>
 
-  <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full py-24">
+  <div class="relative z-10 hero-content animate-fade-in">
+    <h1 class="hero-title">
+      <span class="cw cw-cell">Cell</span><span class="cw cw-to">to</span><span class="cw cw-cure">Cure</span>
+    </h1>
 
-    <!-- Mission visual box — bordered cream card, fully justified -->
-    <div class="hero-card animate-fade-in">
-      <h1 class="hero-headline">
-        Very few people get to solve puzzles all day long and <strong class="hero-accent">directly help patients</strong> suffering from disease.
-      </h1>
+    <p class="hero-lead">
+      Very few people get to solve puzzles all day long and directly help patients suffering from disease.
+    </p>
 
-      <p class="hero-body">
-        We develop advanced methods and software to make discoveries in
-        <span class="text-accent">cell images</span>.
-        The rich information can reveal the causes and cures for diseases, and the impact of chemicals on biological systems.
-        We work across all disease areas, from
-        <span class="text-accent">cancer</span> and
-        <span class="text-accent">psychiatric disease</span> to
-        <span class="text-accent">rare disorders</span> and
-        <span class="text-accent">infectious disease</span>.
-      </p>
-
-      <div class="hero-ctas">
-        <a href={`${base}/#research`} class="cta-primary">
-          Explore Research
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
+    <div class="hero-ctas">
+      <a href={`${base}/#research`} class="hero-cta">Our Research</a>
     </div>
   </div>
 
   <!-- Scroll indicator -->
   <div id="scroll-hint"
-       class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500"
-       style="color: var(--purdue-aged);">
-    <span class="text-xs font-medium tracking-widest uppercase" style="font-family: var(--font-label);">Scroll</span>
-    <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+       class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500">
+    <span class="text-xs font-medium tracking-widest uppercase" style="font-family: var(--font-label); color: rgba(250,247,239,0.75);">Scroll</span>
+    <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: rgba(250,247,239,0.75);">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
     </svg>
   </div>
 </section>
 
 <style>
-  /* Pull the hero up under the fixed header (which adds pt-20 / 5rem on
-     <main>) and restore that space as internal padding. This makes the
-     background + gold wash + grain continuous from the very top, removing
-     the flat-cream strip that otherwise showed as a seam under the nav. */
+  /* Pull the hero up under the fixed header and restore that space as padding,
+     so the imagery is continuous from the very top (no seam under the nav). */
   .hero-section {
     margin-top: -5rem;
     padding-top: 5rem;
+    background: #0a0805;
   }
 
-  .hero-card {
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px solid rgba(142, 111, 62, 0.18);
-    border-radius: 4px;
-    padding: clamp(1.75rem, 3.5vw, 2.75rem);
-    box-shadow: 0 1px 2px rgba(26, 26, 26, 0.03), 0 12px 40px rgba(142, 111, 62, 0.08);
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-    max-width: 720px;
+  /* Three equal cell-image columns spanning the full-bleed hero. */
+  .hero-triptych {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    background: rgba(142, 111, 62, 0.55);
+    pointer-events: none;
+  }
+  .hero-panel {
+    background-size: cover;
+    background-position: center;
   }
 
-  .hero-headline {
-    font-family: var(--font-condensed);
+  /* Deepen the center (behind the wordmark + lead) while letting the cells stay
+     vivid toward the edges. Warm near-black so it reads Purdue, not cold. */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      /* focus behind the wordmark + lead, lighter so cells stay vivid */
+      radial-gradient(
+        ellipse 80% 60% at 50% 50%,
+        rgba(8, 6, 4, 0.6) 0%,
+        rgba(8, 6, 4, 0.32) 48%,
+        rgba(8, 6, 4, 0.08) 80%,
+        rgba(8, 6, 4, 0) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(8, 6, 4, 0.24) 0%,
+        rgba(8, 6, 4, 0.1) 26%,
+        rgba(8, 6, 4, 0.1) 72%,
+        rgba(8, 6, 4, 0.4) 100%
+      );
+  }
+
+  /* ─── Centered content ─── */
+  .hero-content {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+    text-align: center;
+  }
+
+  /* ─── "Cell to Cure" wordmark ─── */
+  .hero-title {
+    font-family: var(--font-cure);
+    font-optical-sizing: auto;
+    line-height: 0.98;
+    margin: 0 0 1.6rem 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.28em;
+    white-space: nowrap;
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
+  }
+  .cw {
+    font-size: clamp(3.6rem, 10.5vw, 7.4rem);
+  }
+  .cw-cell {
+    font-weight: 900;
+    color: var(--purdue-rush);      /* Boilermaker Rush Gold */
+    letter-spacing: -0.015em;
+  }
+  .cw-to {
     font-weight: 600;
-    font-size: clamp(1.45rem, 2.6vw, 2.05rem);
-    line-height: 1.25;
-    letter-spacing: -0.005em;
-    color: var(--text-heading);
-    text-align: justify;
-    text-justify: inter-word;
-    margin: 0 0 1.5rem 0;
+    font-style: italic;
+    font-size: clamp(2.2rem, 6vw, 4.4rem);   /* larger, more compatible */
+    color: rgba(250, 247, 239, 0.92);
+    letter-spacing: 0.005em;
+    padding: 0 0.05em;
   }
-  .hero-headline .hero-accent {
-    font-style: normal;
-    font-weight: 700;
-    color: var(--purdue-aged);
+  .cw-cure {
+    font-weight: 900;
+    color: #7CFF33;                 /* GFP green */
+    letter-spacing: -0.015em;
   }
 
-  .hero-body {
-    font-family: var(--font-condensed);
+  /* ─── Lead / mission line ─── */
+  .hero-lead {
+    font-family: var(--font-body);
     font-weight: 500;
-    font-size: clamp(1rem, 1.2vw, 1.1rem);
-    line-height: 1.6;
-    color: var(--text-primary);
-    text-align: justify;
-    text-justify: inter-word;
-    margin: 0 0 1.75rem 0;
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    line-height: 1.55;
+    color: rgba(250, 247, 239, 0.96);
+    max-width: 760px;
+    margin: 0 auto 2.5rem auto;
+    text-align: center;
+    text-shadow: 0 1px 18px rgba(0, 0, 0, 0.7);
   }
 
+  /* ─── CTA (works on the dark band) ─── */
   .hero-ctas {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    justify-content: center;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2.3rem;
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: 1.22rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #1A1A1A;
+    background: var(--purdue-rush);
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.4);
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+  .hero-cta:hover {
+    background: var(--purdue-field);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 520px) {
+    .hero-title { gap: 0.2em; }
+    .cw { font-size: clamp(2.4rem, 15vw, 3.4rem); }
   }
 </style>
 
