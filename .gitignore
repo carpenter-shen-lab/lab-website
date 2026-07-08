@@ -22,6 +22,17 @@ node_modules/
 .DS_Store
 Thumbs.db
 
+# --- VarChamp image-QC tooling (this branch only) ---
+.pixi/
+.direnv/
+result
+__pycache__/
+*.pyc
+__marimo__/
+# raw TIFFs streamed from S3 (re-fetchable) and rendered/exported PNGs (regenerable)
+cache/
+selected/
+
 # stray reference screenshots / drop-zone uploads (kept local only)
 Screenshot*.png
 *.webp
