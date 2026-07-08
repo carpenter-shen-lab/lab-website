@@ -6,8 +6,8 @@ import oasisLogo from '../../assets/images/icons/oasis_logo-trimmed.png';
 
 const base = import.meta.env.BASE_URL;
 
-// Research problems, in priority order. Each "media" is a Purdue-branded
-// colour placeholder for now; real project imagery drops in here later.
+// Research problems, in priority order. Each renders as a feature row with the
+// consortium logo (or illustration) in a gold tile beside the description.
 const projects = [
   {
     title: 'Rescuing Mislocalized Proteins',
@@ -38,8 +38,6 @@ const projects = [
       'We are building the world’s largest open library of how cells respond to over 136,000 drugs and genetic changes, giving AI the training data it needs to accelerate the discovery of new medicines for any disease.',
     url: 'https://jump-cellpainting.broadinstitute.org/',
     label: 'JUMP Consortium',
-    from: 'var(--purdue-field)',
-    to: 'var(--purdue-aged)',
     image: jumpLogo,
     imageAlt:
       'JUMP Cell Painting illustration: a field of stained cells with one magnified to show its organelles.',
@@ -115,13 +113,13 @@ const projects = [
       <div class="project-list">
       {projects.map((p) => {
         const fig = p.image ?? p.logo;
-        return fig ? (
+        return (
           /* Feature row — consortium logo/illustration overlapping a gold text
              panel. `reversed` mirrors it (image right, text left) for rhythm. */
           <article class={`project-row feature-row ${p.reversed ? 'is-reversed' : ''}`}>
             <figure class="feature-image">
               <div class="feature-logo">
-                <Image src={fig} alt={p.imageAlt ?? p.logoAlt} sizes="(max-width: 767px) 62vw, 30vw" />
+                <Image src={fig} alt={p.imageAlt ?? p.logoAlt} />
               </div>
               <figcaption class="feature-caption-name">
                 <span class="cap-long">{p.longName}</span>
@@ -134,22 +132,6 @@ const projects = [
               <p class="project-desc">{p.description}</p>
               <a href={p.url} target="_blank" rel="noopener noreferrer" class="project-link feature-link">
                 {p.label}
-                <svg class="project-link-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </div>
-          </article>
-        ) : (
-          <article class="project-row">
-            <div class="project-media" style={`--from: ${p.from}; --to: ${p.to};`}>
-              <span class="project-media-label">Image coming soon</span>
-            </div>
-            <div class="project-text">
-              <h3 class="project-title">{p.title}</h3>
-              <p class="project-desc">{p.description}</p>
-              <a href={p.url} target="_blank" rel="noopener noreferrer" class="project-link">
-                Learn more
                 <svg class="project-link-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -199,39 +181,6 @@ const projects = [
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: clamp(2rem, 5vw, 4.5rem);
-  }
-  /* Alternate the media to the opposite side on every other row */
-  .project-row.is-reversed .project-media {
-    order: 2;
-  }
-
-  /* Media placeholder */
-  .project-media {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    border-radius: 8px;
-    overflow: hidden;
-    background:
-      repeating-linear-gradient(
-        77deg,
-        rgba(255, 255, 255, 0.06) 0,
-        rgba(255, 255, 255, 0.06) 2px,
-        transparent 2px,
-        transparent 26px
-      ),
-      linear-gradient(135deg, var(--from) 0%, var(--to) 100%);
-    box-shadow: 0 1px 2px rgba(26, 26, 26, 0.05), 0 14px 40px rgba(142, 111, 62, 0.12);
-  }
-  .project-media-label {
-    position: absolute;
-    bottom: 0.9rem;
-    right: 1.1rem;
-    font-family: var(--font-label);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(26, 26, 26, 0.55);
   }
 
   /* Text block */
@@ -403,9 +352,6 @@ const projects = [
     .project-row.is-reversed {
       grid-template-columns: 1fr;
       gap: 1.5rem;
-    }
-    .project-row.is-reversed .project-media {
-      order: 0;
     }
     .project-desc {
       text-align: left;
