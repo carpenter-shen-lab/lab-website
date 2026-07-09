@@ -12,18 +12,18 @@ const { member, variant = 'member' } = Astro.props;
 const accent = 'var(--purdue-aged)';
 
 const isLead = variant === 'lead';
-const padClass = isLead ? 'p-10' : 'p-8';
-const photoClass = isLead ? 'w-40 h-40' : 'w-32 h-32';
+const padClass = 'p-8';
+const photoClass = isLead ? 'w-36 h-36' : 'w-32 h-32';
 const nameClass = isLead ? 'text-2xl' : 'text-xl';
 const titleSize = isLead ? '0.95rem' : '0.9rem';
 ---
 
 <div class={`card-base text-center group ${padClass} flex flex-col`}>
-  <div class="pb-8">
+  <div class="pb-6">
     <img
       src={member.photoSrc}
       alt={member.name}
-      class={`${photoClass} rounded-full mx-auto mb-6 object-cover`}
+      class={`${photoClass} rounded-full mx-auto mb-5 object-cover`}
       style={`border: 3px solid ${accent};`}
     />
 
@@ -35,12 +35,12 @@ const titleSize = isLead ? '0.95rem' : '0.9rem';
     </span>
 
     {member.title && (
-      <p class="text-base font-medium font-mono mt-1 mb-5 text-center" style={`color: var(--text-secondary); font-size: ${titleSize};`}>
+      <p class="text-base font-medium font-mono mt-1 mb-4 text-center" style={`color: var(--text-secondary); font-size: ${titleSize};`}>
         {member.title}
       </p>
     )}
 
-    <p class="text-base leading-relaxed mt-5" style="color: var(--text-secondary);">
+    <p class="text-base leading-relaxed mt-4" style="color: var(--text-secondary);">
       {member.bio}
     </p>
   </div>

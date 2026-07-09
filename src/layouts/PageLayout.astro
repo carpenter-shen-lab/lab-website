@@ -7,13 +7,14 @@ import '../assets/styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  heroUnderlay?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, heroUnderlay = false } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <Header />
+  <Header heroUnderlay={heroUnderlay} />
   <main class="pt-20">
     <slot />
   </main>

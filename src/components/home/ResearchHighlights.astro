@@ -1,10 +1,13 @@
 ---
-// import vimeoThumbnail from '../../assets/images/icons/vimeo_thumbnail.png';
+import { Image } from 'astro:assets';
+import jumpLogo from '../../assets/images/icons/jump_cellpainting-343x221.png';
+import vistaLogo from '../../assets/images/icons/vista_logo-transparent.png';
+import oasisLogo from '../../assets/images/icons/oasis_logo-trimmed.png';
 
 const base = import.meta.env.BASE_URL;
 
-// Research problems, in priority order. Each "media" is a Purdue-branded
-// colour placeholder for now; real project imagery drops in here later.
+// Research problems, in priority order. Each renders as a feature row with the
+// consortium logo (or illustration) in a gold tile beside the description.
 const projects = [
   {
     title: 'Rescuing Mislocalized Proteins',
@@ -12,8 +15,10 @@ const projects = [
       'When a critical protein ends up in the wrong place inside a cell, disease can follow. We systematically screen thousands of approved drugs to find ones that guide these proteins back to where they belong, turning medicines we already have into new cures.',
     url: 'https://vista-consortium.broadinstitute.org/',
     label: 'VISTA Consortium',
-    from: 'var(--purdue-gold)',
-    to: 'var(--purdue-aged)',
+    logo: vistaLogo,
+    logoAlt: 'VISTA Consortium logo: a mountain wrapped in a DNA double helix.',
+    longName: 'Variant Integration for Screening Therapeutic Approaches',
+    acronym: 'VISTA',
   },
   {
     title: 'Predicting Chemical Safety',
@@ -21,32 +26,43 @@ const projects = [
       'We combine cellular imaging, transcriptomics, and proteomics across a global network of scientists to build predictive tools for chemical safety, reducing reliance on animal testing and bringing safer medicines to people faster.',
     url: 'https://oasisconsortium.org/',
     label: 'OASIS Consortium',
-    from: 'var(--purdue-rush)',
-    to: 'var(--purdue-aged)',
+    logo: oasisLogo,
+    logoAlt: 'OASIS Consortium logo: a stylized palm and caduceus in a blue disc.',
+    longName: 'Omics for Assessing Signatures for Integrated Safety',
+    acronym: 'OASIS',
+    reversed: true,
   },
   {
     title: 'Mapping the Chemical Universe',
     description:
       'We are building the world’s largest open library of how cells respond to over 136,000 drugs and genetic changes, giving AI the training data it needs to accelerate the discovery of new medicines for any disease.',
     url: 'https://jump-cellpainting.broadinstitute.org/',
-    label: 'JUMP Cell Painting',
-    from: 'var(--purdue-field)',
-    to: 'var(--purdue-aged)',
+    label: 'JUMP Consortium',
+    image: jumpLogo,
+    imageAlt:
+      'JUMP Cell Painting illustration: a field of stained cells with one magnified to show its organelles.',
+    longName: 'Joint Undertaking in Morphological Profiling',
+    acronym: 'JUMP',
   },
 ];
 ---
 
-<section id="research" class="py-28 px-4 sm:px-6 lg:px-8 scroll-mt-24" style="background: var(--bg-content);">
-  <div class="max-w-7xl mx-auto">
-    <!-- Section header -->
-    <div class="text-center mb-16">
-      <span class="section-label">What We Do</span>
-      <h2 class="mt-4" style="color: var(--text-heading);">Research</h2>
-      <div class="section-divider mt-8 w-24 mx-auto"></div>
-    </div>
+<section id="research" class="scroll-mt-16" style="background: var(--bg-content);">
+  <!-- Full-viewport video banner: jumping to #research shows only this -->
+  <div class="research-banner px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto w-full">
+      <!-- Section header -->
+      <div class="text-center mb-10">
+        <span class="section-label">What We Do</span>
+        <h2 class="mt-3" style="color: var(--text-heading);">Research</h2>
+        <p class="mt-6 max-w-6xl mx-auto" style="color: var(--text-secondary); font-size: clamp(1.05rem, 1.25vw, 1.2rem); line-height: 1.6; text-align: justify; text-justify: inter-word;">
+          We develop advanced methods and software to make discoveries in cell images. The rich information can reveal the causes and cures for diseases, and the impact of chemicals on biological systems. We work across all disease areas, from cancer and psychiatric disease to rare disorders and infectious disease.
+        </p>
+        <div class="section-divider mt-7 w-24 mx-auto"></div>
+      </div>
 
-    <!-- Videos: Anne's YouTube on left, Runxi's YouTube on right -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+      <!-- Videos: Anne's YouTube on left, Runxi's YouTube on right -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Anne's YouTube: Lab overview / research talk -->
       <div>
         <div class="rounded-xl overflow-hidden shadow-lg" style="background: var(--bg-card); border: 1px solid var(--border-card);">
@@ -80,41 +96,71 @@ const projects = [
         </div>
         <p class="video-caption">Runxi Shen: Cell Painting for Rare Disease and Drug Discovery</p>
       </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Problems we want to solve — alternating text / media rows -->
-    <div class="text-center mb-16">
-      <span class="section-label">Our Focus</span>
-      <h2 class="mt-4" style="color: var(--text-heading);">Problems to solve</h2>
-      <div class="section-divider mt-8 w-24 mx-auto"></div>
-    </div>
+  <!-- Problems to solve — separate block, revealed on scroll below the banner -->
+  <div class="px-4 sm:px-6 lg:px-8 pt-12 pb-24">
+    <div class="max-w-7xl mx-auto">
+      <!-- Problems we want to solve — alternating text / media rows -->
+      <div class="text-center mb-16">
+        <span class="section-label">Our Focus</span>
+        <h2 class="mt-4" style="color: var(--text-heading);">Problems to solve</h2>
+        <div class="section-divider mt-8 w-24 mx-auto"></div>
+      </div>
 
-    <div class="project-list">
-      {projects.map((p, i) => (
-        <article class={`project-row ${i % 2 === 1 ? 'is-reversed' : ''}`}>
-          <!-- Media placeholder — Purdue colour block until imagery is added -->
-          <div class="project-media" style={`--from: ${p.from}; --to: ${p.to};`}>
-            <span class="project-media-label">Image coming soon</span>
-          </div>
+      <div class="project-list">
+      {projects.map((p) => {
+        const fig = p.image ?? p.logo;
+        return (
+          /* Feature row — consortium logo/illustration overlapping a gold text
+             panel. `reversed` mirrors it (image right, text left) for rhythm. */
+          <article class={`project-row feature-row ${p.reversed ? 'is-reversed' : ''}`}>
+            <figure class="feature-image">
+              <div class="feature-logo">
+                <Image src={fig} alt={p.imageAlt ?? p.logoAlt} />
+              </div>
+              <figcaption class="feature-caption-name">
+                <span class="cap-long">{p.longName}</span>
+                <span class="cap-acr">({p.acronym})</span>
+              </figcaption>
+            </figure>
 
-          <!-- Text -->
-          <div class="project-text">
-            <h3 class="project-title">{p.title}</h3>
-            <p class="project-desc">{p.description}</p>
-            <a href={p.url} target="_blank" rel="noopener noreferrer" class="project-link">
-              Learn more
-              <svg class="project-link-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-          </div>
-        </article>
-      ))}
+            <div class="feature-text">
+              <h3 class="project-title">{p.title}</h3>
+              <p class="project-desc">{p.description}</p>
+              <a href={p.url} target="_blank" rel="noopener noreferrer" class="project-link feature-link">
+                {p.label}
+                <svg class="project-link-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        );
+      })}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
+  /* Full-viewport banner: fills the screen below the fixed 65px nav, content
+     vertically centered. min-height (not height) lets it grow on short windows
+     so nothing clips. svh keeps it stable across browser/fullscreen chrome. */
+  .research-banner {
+    min-height: calc(100svh - 65px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  @supports not (height: 100svh) {
+    .research-banner { min-height: calc(100vh - 65px); }
+  }
+
   .video-caption {
     margin-top: 0.75rem;
     text-align: center;
@@ -135,39 +181,6 @@ const projects = [
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: clamp(2rem, 5vw, 4.5rem);
-  }
-  /* Alternate the media to the opposite side on every other row */
-  .project-row.is-reversed .project-media {
-    order: 2;
-  }
-
-  /* Media placeholder */
-  .project-media {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    border-radius: 8px;
-    overflow: hidden;
-    background:
-      repeating-linear-gradient(
-        77deg,
-        rgba(255, 255, 255, 0.06) 0,
-        rgba(255, 255, 255, 0.06) 2px,
-        transparent 2px,
-        transparent 26px
-      ),
-      linear-gradient(135deg, var(--from) 0%, var(--to) 100%);
-    box-shadow: 0 1px 2px rgba(26, 26, 26, 0.05), 0 14px 40px rgba(142, 111, 62, 0.12);
-  }
-  .project-media-label {
-    position: absolute;
-    bottom: 0.9rem;
-    right: 1.1rem;
-    font-family: var(--font-label);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(26, 26, 26, 0.55);
   }
 
   /* Text block */
@@ -217,6 +230,122 @@ const projects = [
     transform: translateX(4px);
   }
 
+  /* ─── Feature row: a light-gold logo tile lapping onto a honey text panel ──
+     Every row shares identical geometry (same tile size, same panel size, same
+     overlap band), so the three consortia read as one system. The TILE does the
+     overlapping — never the logo — so a wide logo, a square emblem, and a busy
+     illustration all sit in the same frame. --fig-h sets one shared logo height
+     so the marks are visually comparable despite different aspect ratios. */
+  .feature-row {
+    position: relative;
+    display: grid;
+    /* tile-zone | shared overlap | panel — tile is the minority so the panel
+       reads wide; the 4% band is where the tile laps onto the panel */
+    grid-template-columns: 34% 4% 62%;
+    align-items: stretch;
+    gap: 0;
+  }
+  .feature-row.is-reversed {
+    grid-template-columns: 62% 4% 34%;   /* panel | overlap | tile */
+  }
+
+  /* Logo tile — light-gold surface holding the mark above its formal name.
+     Both columns share a min-height so every row is the same height. */
+  .feature-image {
+    grid-row: 1;
+    grid-column: 1 / 3;
+    z-index: 2;
+    margin: 0;
+    min-height: clamp(345px, 33vw, 395px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.85rem, 1.6vw, 1.35rem);
+    /* generous vertical padding, tight horizontal so the name can run wide */
+    padding: clamp(1.5rem, 2.6vw, 2.25rem) clamp(0.75rem, 1.4vw, 1.15rem);
+    background: linear-gradient(150deg, #FBF5E2 0%, #F6EDCB 100%);
+    box-shadow: 0 14px 34px rgba(142, 111, 62, 0.16);
+  }
+  .feature-row.is-reversed .feature-image {
+    grid-column: 2 / 4;
+  }
+  /* Logo fills the space above the caption — sized to the frame, not fixed */
+  .feature-logo {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feature-logo :global(img) {
+    display: block;
+    width: auto;
+    /* explicit height so small source logos scale UP to match, not just cap */
+    height: clamp(165px, 16vw, 210px);
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 14px rgba(142, 111, 62, 0.16));
+  }
+  /* Consortium name under the mark: full name over its acronym */
+  .feature-caption-name {
+    flex: 0 0 auto;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    text-align: center;
+    font-family: var(--font-body);
+  }
+  .cap-long {
+    /* runs nearly tile-wide so the longest name (VISTA) stays on one line */
+    font-size: clamp(0.85rem, 1vw, 0.95rem);
+    line-height: 1.35;
+    font-weight: 600;
+    color: #5f4d2e;            /* dark gold-brown */
+  }
+  .cap-acr {
+    font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--purdue-aged); /* AA-safe gold accent */
+  }
+
+  /* Text panel — honey gold, stretched to the tile height, text centered */
+  .feature-text {
+    grid-row: 1;
+    grid-column: 2 / 4;
+    z-index: 1;
+    align-self: stretch;
+    min-height: clamp(345px, 33vw, 395px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, #F5E8C2 0%, #ECD8A2 100%);
+    box-shadow: 0 12px 34px rgba(142, 111, 62, 0.10);
+    /* left padding clears the overlapping tile */
+    padding: 2.75rem 3.25rem 2.75rem 5rem;
+  }
+  .feature-row.is-reversed .feature-text {
+    grid-column: 1 / 3;
+    /* mirror the gradient + overlap clearance */
+    background: linear-gradient(225deg, #F5E8C2 0%, #ECD8A2 100%);
+    padding: 2.75rem 5rem 2.75rem 3.25rem;
+  }
+  .feature-link {
+    font-size: 1.2rem;        /* a touch larger than the standard project link */
+    margin-top: 0.35rem;
+  }
+  .feature-link .project-link-arrow {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .feature-text .project-desc {
+    color: #4a4334;        /* warm dark for contrast on the gold panel */
+  }
+
   /* ─── Mobile: stack, media always on top ─── */
   @media (max-width: 767px) {
     .project-row,
@@ -224,10 +353,37 @@ const projects = [
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
-    .project-row.is-reversed .project-media {
-      order: 0;
-    }
     .project-desc {
+      text-align: left;
+    }
+
+    /* Feature row collapses: logo tile (mark + name) stacks above the panel. */
+    .feature-row,
+    .feature-row.is-reversed {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .feature-image,
+    .feature-row.is-reversed .feature-image {
+      grid-row: 1;
+      grid-column: 1;
+      min-height: 220px;
+      z-index: 2;
+    }
+    .feature-logo :global(img) {
+      height: clamp(130px, 34vw, 175px);
+      max-width: 74%;
+    }
+    .feature-text,
+    .feature-row.is-reversed .feature-text {
+      grid-row: 2;
+      grid-column: 1;
+      width: 100%;
+      min-height: 0;
+      padding: 2.5rem 1.75rem 2.25rem;
+      text-align: center;
+    }
+    .feature-text .project-desc {
       text-align: left;
     }
   }
