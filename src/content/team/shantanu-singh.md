@@ -5,7 +5,7 @@ title: "Senior Consultant"
 bio: "Expert in image-based profiling, machine learning, and statistical methods for cellular phenotyping. Based at the Broad Institute."
 order: 3
 active: true
-hidden: true
+hidden: false
 affiliation: "Broad Institute"
 ---
 
