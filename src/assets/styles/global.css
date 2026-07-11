@@ -61,9 +61,10 @@
   --accent-teal-light:  var(--purdue-field);
 
   /* ─── Signature accents (deliberate, scoped extensions beyond the Purdue
-     palette — we love these and use them only for the hero "Cell to Cure"
-     wordmark, paired with the Fraunces serif above) ─── */
-  --cure-green:         #7CFF33;   /* GFP green — the "Cure" word in the hero */
+     palette — we love these and use them only for the hero wordmark,
+     paired with the Fraunces serif above) ─── */
+  --cure-green:         #7CFF33;   /* GFP green — kept for reference */
+  --cure-red:           #B82035;   /* crimson — "Cures" word in the hero */
 
   /* ─── Borders ─── */
   --border-subtle: rgba(26, 26, 26, 0.08);

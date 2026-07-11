@@ -30,8 +30,8 @@ const [panelL, panelM, panelR] = await Promise.all([
   <div class="hero-scrim" aria-hidden="true"></div>
 
   <div class="relative z-10 hero-content animate-fade-in">
-    <h1 class="hero-title" aria-label="Cell to Cure">
-      <span class="cw cw-cell">Cell</span><span class="cw-two" aria-hidden="true"><svg viewBox="0 0 1050 720" preserveAspectRatio="none"><path d="M 272 168 C 272 68 497 38 612 134 C 681 192 646 278 566 322 C 473 373 362 472 300 576 C 286 602 300 628 338 632 C 440 662 566 667 736 626 C 838 601 918 566 984 520 C 892 556 766 590 616 602 C 500 608 388 580 380 505 C 384 430 470 355 512 290 C 551 233 552 199 510 168 C 459 131 368 135 320 178 C 306 191 288 186 272 168 Z"/></svg></span><span class="cw cw-cure">Cure</span>
+    <h1 class="hero-title" aria-label="Cells to Cures">
+      <span class="cw cw-cell">Cells</span><span class="cw-two" aria-hidden="true"><svg viewBox="0 0 1050 720" preserveAspectRatio="none"><path d="M 272 168 C 272 68 497 38 612 134 C 681 192 646 278 566 322 C 473 373 362 472 300 576 C 286 602 300 628 338 632 C 440 662 566 667 736 626 C 838 601 918 566 984 520 C 892 556 766 590 616 602 C 500 608 388 580 380 505 C 384 430 470 355 512 290 C 551 233 552 199 510 168 C 459 131 368 135 320 178 C 306 191 288 186 272 168 Z"/></svg></span><span class="cw cw-cure">Cures</span>
     </h1>
 
     <p class="hero-lead">
@@ -185,12 +185,12 @@ const [panelL, panelM, panelR] = await Promise.all([
   }
   .cw-cure {
     font-weight: 900;
-    color: var(--cure-green);       /* GFP green */
+    color: var(--cure-red);         /* deep crimson */
     letter-spacing: -0.015em;
     justify-self: start;            /* left edge meets the centre axis */
     position: relative;
     z-index: 2;                     /* sit on top of the 2 */
-    transform: translate(0.04em, 0.18em);
+    transform: translate(0.04em, 0.10em);
   }
 
   /* ─── Lead / mission line ─── */

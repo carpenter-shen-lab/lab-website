@@ -1,12 +1,14 @@
 ---
 name: "Shantanu Singh"
-role: "senior-consultant"
-title: "Senior Consultant"
-bio: "Expert in image-based profiling, machine learning, and statistical methods for cellular phenotyping. Based at the Broad Institute."
+role: "senior-group-leader"
+title: "Principal Investigator, Broad Institute"
+photo: "shantanu_singh_resized.jpg"
+bio: "I lead the image-based profiling team at the Broad Institute of MIT and Harvard. We develop machine learning and statistical methods to create fingerprints of genes, chemicals, and diseases from microscopy images of cells."
 order: 3
 active: true
-hidden: true
-affiliation: "Broad Institute"
+hidden: false
+links:
+  cv: "https://broad.io/ShantanuSinghCV"
 ---
 
-Shantanu Singh is a Senior Consultant to the Carpenter-Shen Lab, based at the Broad Institute. He brings deep expertise in machine learning and statistical methods for creating fingerprints of genes, chemicals, and diseases from microscopy images of cells. He previously co-led the Carpenter-Singh Lab as Principal Investigator.
+I lead the image-based profiling team at the Broad Institute of MIT and Harvard. We develop machine learning and statistical methods to create fingerprints of genes, chemicals, and diseases from microscopy images of cells.

@@ -1,5 +1,6 @@
 ---
 import purdueLogo from '../../assets/images/icons/purdue-logo.svg';
+import { joinUrl } from '../../lib/site';
 
 const base = import.meta.env.BASE_URL;
 
@@ -9,8 +10,6 @@ const navLinks = [
   { label: 'Papers',      href: `${base}/papers/` },
   { label: 'Latest News', href: `${base}/news/` },
 ];
-
-const joinUrl = 'https://docs.google.com/document/d/1R5kSSUX4A3x0CZYsTUdUtxPJYHRwZ04SIl5G06_MrlQ/preview?tab=t.0';
 const purdueUrl = 'https://www.purdue.edu/';
 
 // When true (homepage), the bar starts transparent over the dark hero and snaps
