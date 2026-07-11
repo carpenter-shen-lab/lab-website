@@ -9,6 +9,7 @@ const team = defineCollection({
       'principal-investigator',
       'co-pi',
       'senior-consultant',
+      'senior-group-leader',
       'postdoc',
       'phd-student',
       'research-scientist',

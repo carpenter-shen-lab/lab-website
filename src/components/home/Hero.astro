@@ -178,9 +178,7 @@ const [panelL, panelM, panelR] = await Promise.all([
     transform: translate(-50%, -56%);
     overflow: visible;
     pointer-events: none;
-    /* black shadow grounds the shape; white glow traces its outline so
-       the numeral reads as a "2" rather than a decorative swoop. */
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.55)) drop-shadow(0 2px 20px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.5));
   }
   .cw-two path {
     fill: #FFFFFF;
@@ -192,7 +190,7 @@ const [panelL, panelM, panelR] = await Promise.all([
     justify-self: start;            /* left edge meets the centre axis */
     position: relative;
     z-index: 2;                     /* sit on top of the 2 */
-    transform: translate(0.04em, 0.18em);
+    transform: translate(0.04em, 0.10em);
   }
 
   /* ─── Lead / mission line ─── */
