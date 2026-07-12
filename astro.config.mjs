@@ -5,11 +5,11 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
   // ─── Hosting Configuration ───────────────────────────────────────────
-  // GitHub Pages at https://runxi-shen.github.io/carpenter-shen-lab-website/
-  // `base` MUST be the exact GitHub repo name (carpenter-shen-lab-website)
+  // GitHub Pages at https://carpenter-shen-lab.github.io/lab-website/
+  // `base` MUST be the exact GitHub repo name (lab-website)
   // or every asset in production will 404 while local dev still works.
-  site: 'https://runxi-shen.github.io',
-  base: '/carpenter-shen-lab-website',
+  site: 'https://carpenter-shen-lab.github.io',
+  base: '/lab-website',
   // ─────────────────────────────────────────────────────────────────────
 
   output: 'static',

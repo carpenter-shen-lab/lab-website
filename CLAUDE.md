@@ -55,8 +55,9 @@ src/
 - Body paragraphs are globally `text-align: justify`; section subtitles under headers should be `text-center` to override it.
 
 ### Hosting
-- Currently configured for GitHub Pages at `runxi-shen.github.io/carpenter-shen-lab-website` (`base: '/carpenter-shen-lab-website'` in `astro.config.mjs` — must match the exact GitHub repo name `runxi-shen/carpenter-shen-lab-website`, otherwise every asset 404s in production)
+- Hosted on GitHub Pages at `https://carpenter-shen-lab.github.io/lab-website/` (`base: '/lab-website'` in `astro.config.mjs` — must match the exact GitHub repo name `carpenter-shen-lab/lab-website`, otherwise every asset 404s in production)
 - To switch to a Purdue domain: set `site: 'https://carpenter-shen-lab.purdue.edu'`, `base: '/'`, and add a `CNAME` file in `public/`
+- The old personal repo (`runxi-shen/carpenter-shen-lab-website`) is archived; development continues in the org repo.
 - GitHub Actions deploy workflow in `.github/workflows/deploy.yml`
 
 ## Content
@@ -92,7 +93,7 @@ When brand and impeccable conflict (e.g. impeccable's "use OKLCH, never `#000`" 
 ## Development
 
 ```bash
-npm run dev      # Local dev server at localhost:4321/carpenter-shen-lab
+npm run dev      # Local dev server at localhost:4321/lab-website
 npm run build    # Static build to dist/
 npm run preview  # Preview production build
 ```

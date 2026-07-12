@@ -14,7 +14,7 @@ Source code and content for the Carpenter-Shen Lab website at Purdue University.
 
 ```bash
 npm install        # Install dependencies
-npm run dev        # Local dev server at localhost:4321/carpenter-shen-lab
+npm run dev        # Local dev server at localhost:4321/lab-website
 npm run build      # Production build to dist/
 npm run preview    # Preview production build
 ```
@@ -23,11 +23,11 @@ npm run preview    # Preview production build
 
 Currently deployed via GitHub Pages. The site builds and deploys automatically on push to `main` via GitHub Actions.
 
-- **GitHub Pages:** `runxi-shen.github.io/carpenter-shen-lab`
-- **Custom domain:** When ready, update `site` and `base` in `astro.config.mjs`
+- **GitHub Pages:** `https://carpenter-shen-lab.github.io/lab-website/`
+- **Custom domain:** When ready, update `site` and `base` in `astro.config.mjs` and add a `CNAME` file in `public/`
 
 ### Visibility Notes
 
-- The **repository** is private (requires GitHub Pro or equivalent for Pages support on private repos).
+- The **repository** (`carpenter-shen-lab/lab-website`) is public.
 - The **deployed site** on GitHub Pages is always publicly accessible, even from a private repo. There is no built-in way to restrict access to collaborators only.
 - For collaborator-only access during development, alternatives include Cloudflare Pages + Access, Netlify with password protection, or Vercel with password protection.
