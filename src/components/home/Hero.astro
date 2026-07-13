@@ -3,8 +3,13 @@ import { getImage } from 'astro:assets';
 import rhoGfp from '../../assets/images/cells/rho-gfp.png';
 import rhoComposite from '../../assets/images/cells/rho-composite.png';
 import rhoVarGfp from '../../assets/images/cells/rho-cys110tyr-gfp.png';
+import cures2 from '../../assets/images/cells2cures-2.png';
 
 const base = import.meta.env.BASE_URL;
+
+// Hand-drawn "2" wordmark glyph (white brushstroke on transparent). Served as
+// optimized WebP so the alpha edge stays crisp while the file stays small.
+const two = await getImage({ src: cures2, format: 'webp', width: 1111, quality: 90 });
 
 // VarChamp Batch-13 cell images (cpg0020-varchamp), reference channel palette.
 // Left -> right: RHO protein (GFP) -> RHO morphology composite -> RHO_Cys110Tyr
@@ -31,11 +36,11 @@ const [panelL, panelM, panelR] = await Promise.all([
 
   <div class="relative z-10 hero-content animate-fade-in">
     <h1 class="hero-title" aria-label="Cells to Cures">
-      <span class="cw cw-cell">Cells</span><span class="cw-two" aria-hidden="true"><svg viewBox="0 0 1050 720" preserveAspectRatio="none"><path d="M 272 168 C 272 68 497 38 612 134 C 681 192 646 278 566 322 C 473 373 362 472 300 576 C 286 602 300 628 338 632 C 440 662 566 667 736 626 C 838 601 918 566 984 520 C 892 556 766 590 616 602 C 500 608 388 580 380 505 C 384 430 470 355 512 290 C 551 233 552 199 510 168 C 459 131 368 135 320 178 C 306 191 288 186 272 168 Z"/></svg></span><span class="cw cw-cure">Cures</span>
+      <span class="cw cw-cell">Cells</span><span class="cw-two" aria-hidden="true"><img src={two.src} width={two.attributes.width} height={two.attributes.height} alt="" /></span><span class="cw cw-cure">Cures</span>
     </h1>
 
     <p class="hero-lead">
-      Very few people get to solve puzzles all day long and directly help patients suffering from disease.
+      Very few people get to solve puzzles all day long <br class="lead-break" />and directly help patients suffering from disease.
     </p>
 
     <div class="hero-ctas">
@@ -119,12 +124,13 @@ const [panelL, panelM, panelR] = await Promise.all([
     font-family: var(--font-cure);
     font-optical-sizing: auto;
     line-height: 0.98;
-    /* margin-bottom carries ~44px extra over .hero-lead's margin-bottom because
-       "Cure" and the 2's swash hang well below the title's layout box, so a plain
-       equal margin would leave the lead sitting too close to the wordmark. This
+    /* margin-bottom carries extra over .hero-lead's margin-bottom because "Cure"
+       and the 2's swash hang well below the title's layout box, so a plain equal
+       margin would leave the lead sitting too close to the wordmark. This
        compensation makes the visual gap wordmark->lead match the lead->button gap
-       (lead sits centred between the two). */
-    margin: 0 0 6.25rem 0;
+       (lead sits centred between the two). Tuned for the new "2" swash, which hangs
+       lower than the old glyph. */
+    margin: 0 0 6.8rem 0;
     /* 3-column grid pins the centre "2" to the banner's centre axis (the same
        vertical line as the OUR RESEARCH button), with Cell and Cure hugging it
        at equal gaps. A plain centred flex row would push it left of centre,
@@ -156,7 +162,13 @@ const [panelL, panelM, panelR] = await Promise.all([
     justify-self: end;              /* right edge meets the centre axis */
     position: relative;
     z-index: 2;                     /* sit on top of the 2 */
-    transform: translate(-0.61em, -0.34em);
+    /* x/y position Cells within the lockup, then a shared -0.22em is folded in
+       to shift the whole "Cells 2 Cures" group left ~26px so its combined
+       bounding box centres on the banner axis (Cures is the wider word, so a
+       group with symmetric inner edges otherwise sits ~26px right of centre).
+       The same -0.22em is applied to Cures and the 2, preserving their relative
+       positions while re-centring the group. */
+    transform: translate(-0.29em, -0.68em);
   }
   .cw-two {
     /* Zero-width centre grid item that anchors the custom "2" on the banner's
@@ -169,19 +181,29 @@ const [panelL, panelM, panelR] = await Promise.all([
     position: relative;
     z-index: 1;                     /* behind Cell + Cure */
   }
-  .cw-two svg {
+  .cw-two img {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 5.6em;
-    height: 2.55em;
-    transform: translate(-50%, -56%);
-    overflow: visible;
+    /* Match the old inline SVG's exact footprint: it filled a 5.6em x 2.55em box
+       (preserveAspectRatio="none"), flatter than the glyph's natural 1.435 aspect.
+       Setting both width and height fills the box the same way (object-fit: fill),
+       so the swash no longer hangs down into the lead line below. */
+    width: 3.5em;
+    height: 2.25em;
+    /* Opt out of Tailwind Preflight's `img { max-width: 100% }`: the img's
+       positioned parent (.cw-two) is width:0, so max-width:100% would clamp
+       the glyph to 0. The old inline SVG was immune (rule targets img/video). */
+    max-width: none;
+    /* translateX carries an optical-centering nudge beyond the -50% box centring.
+       The glyph's ink centroid sits ~13% left of its bounding-box centre (the thin
+       swash tail extends far right, inflating the box on that side), so a purely
+       box-centred "2" reads as shifted left. The +0.3em shifts the numeral's visual
+       mass onto the banner's centre axis (a fraction of the full 0.45em centroid
+       offset, since the eye under-weights the faint tail). */
+    transform: translate(calc(-50% + 0.3em - 0.22em), -56%);
     pointer-events: none;
     filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.5));
-  }
-  .cw-two path {
-    fill: #FFFFFF;
   }
   .cw-cure {
     font-weight: 900;
@@ -190,7 +212,9 @@ const [panelL, panelM, panelR] = await Promise.all([
     justify-self: start;            /* left edge meets the centre axis */
     position: relative;
     z-index: 2;                     /* sit on top of the 2 */
-    transform: translate(0.04em, 0.10em);
+    /* y: dropped so Cures' "C" clears the top swash of the 2 instead of overlapping it.
+       x carries the shared -0.22em group-centring shift (see .cw-cell). */
+    transform: translate(-0.15em, 0.21em);
   }
 
   /* ─── Lead / mission line ─── */
@@ -201,7 +225,7 @@ const [panelL, panelM, panelR] = await Promise.all([
     line-height: 1.55;
     color: rgba(250, 247, 239, 0.96);
     max-width: 760px;
-    margin: 0 auto 3.5rem auto;
+    margin: 0 auto 3.1rem auto;
     text-align: center;
     text-shadow: 0 1px 18px rgba(0, 0, 0, 0.7);
   }
@@ -232,9 +256,15 @@ const [panelL, panelM, panelR] = await Promise.all([
     transform: translateY(-1px);
   }
 
+  /* Below ~640px the lead is narrow enough that a forced break after "long" would
+     leave ragged lines; let the text reflow naturally there instead. */
+  @media (max-width: 640px) {
+    .lead-break { display: none; }
+  }
+
   @media (max-width: 520px) {
     .cw { font-size: clamp(2.4rem, 15vw, 3.4rem); }
-    /* keep the "2" SVG scaling with the smaller words on mobile */
+    /* keep the "2" image scaling with the smaller words on mobile */
     .cw-two { font-size: clamp(2.4rem, 15vw, 3.4rem); }
   }
 </style>

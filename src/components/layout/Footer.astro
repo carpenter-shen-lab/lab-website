@@ -13,7 +13,7 @@ const year = new Date().getFullYear();
         <a href="https://www.purdue.edu" target="_blank" rel="noopener noreferrer" class="mb-4 opacity-90 hover:opacity-100 transition-opacity inline-block">
           <img src={purdueLogo.src} alt="Purdue University" class="h-10 w-auto" />
         </a>
-        <p class="text-sm font-body leading-relaxed" style="color: var(--footer-text);">
+        <p class="text-lg font-body leading-relaxed" style="color: var(--footer-text);">
           Purdue University<br />
           West Lafayette, IN 47907
         </p>
@@ -31,7 +31,7 @@ const year = new Date().getFullYear();
           ].map(link => (
             <li>
               <a href={link.href}
-                 class="text-sm transition-colors hover:text-[var(--accent-gold)]"
+                 class="text-lg transition-colors hover:text-[var(--accent-gold)]"
                  style="color: var(--footer-text);">
                 {link.label}
               </a>
@@ -55,7 +55,7 @@ const year = new Date().getFullYear();
 
     <!-- Bottom Bar -->
     <div class="mt-12 pt-6 text-center" style="border-top: 1px solid rgba(207, 185, 145, 0.15);">
-      <p class="text-xs" style="color: var(--text-on-dark-secondary);">
+      <p class="text-base" style="color: var(--text-on-dark-secondary);">
         &copy; {year} Carpenter-Shen Lab, Purdue University. All rights reserved.
       </p>
     </div>

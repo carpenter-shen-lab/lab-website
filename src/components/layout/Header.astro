@@ -8,7 +8,7 @@ const navLinks = [
   { label: 'Research',    href: `${base}/#research` },
   { label: 'People',      href: `${base}/people/` },
   { label: 'Papers',      href: `${base}/papers/` },
-  { label: 'Latest News', href: `${base}/news/` },
+  { label: 'News',        href: `${base}/news/` },
 ];
 const purdueUrl = 'https://www.purdue.edu/';
 
@@ -41,8 +41,11 @@ const { heroUnderlay = false } = Astro.props;
         </a>
       </div>
 
-      <!-- Desktop Navigation — all items vertically centered -->
-      <nav class="hidden lg:flex items-center gap-0">
+      <!-- Desktop Navigation — all items vertically centered.
+           Shows at xl (1280px), not lg (1024px): the enlarged nav links + CTA
+           plus the brand need ~1131px to fit the row without the two clusters
+           overlapping, so the hamburger covers everything below xl. -->
+      <nav class="hidden xl:flex items-center gap-0">
         {navLinks.map(link => (
           <a href={link.href} class="nav-link">
             {link.label}
@@ -63,7 +66,7 @@ const { heroUnderlay = false } = Astro.props;
       <!-- Mobile hamburger -->
       <button
         id="mobile-menu-btn"
-        class="menu-btn lg:hidden p-2 rounded-md self-center"
+        class="menu-btn xl:hidden p-2 rounded-md self-center"
         aria-label="Toggle menu"
       >
         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +79,7 @@ const { heroUnderlay = false } = Astro.props;
   <!-- Mobile Navigation -->
   <div
     id="mobile-menu"
-    class="lg:hidden hidden border-t"
+    class="xl:hidden hidden border-t"
     style="background: var(--nav-bg); border-color: var(--nav-border);"
   >
     <div class="px-6 py-4 space-y-1">
@@ -172,7 +175,7 @@ const { heroUnderlay = false } = Astro.props;
     padding: 0.4rem 0.7rem;
     font-family: var(--font-label);
     font-weight: 600;                    /* less bold, still larger */
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     letter-spacing: 0.03em;
     text-transform: uppercase;
     color: var(--text-heading);
@@ -193,7 +196,7 @@ const { heroUnderlay = false } = Astro.props;
     padding: 0 1.4rem;
     font-family: var(--font-label);
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #1A1A1A;
