@@ -1,0 +1,17 @@
+---
+// Renders a JSON-LD <script> for one schema.org node or a linked set of them.
+// Pass a single node object, or an array (emitted under @graph, the correct
+// way to express multiple linked nodes). Use `slot="head"` so it lands in
+// <head> via the BaseLayout head slot.
+interface Props {
+  schema: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { schema } = Astro.props;
+
+const json = Array.isArray(schema)
+  ? { '@context': 'https://schema.org', '@graph': schema }
+  : { '@context': 'https://schema.org', ...schema };
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(json)} />

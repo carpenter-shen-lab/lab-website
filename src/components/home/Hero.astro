@@ -4,8 +4,7 @@ import rhoGfp from '../../assets/images/cells/rho-gfp.png';
 import rhoComposite from '../../assets/images/cells/rho-composite.png';
 import rhoVarGfp from '../../assets/images/cells/rho-cys110tyr-gfp.png';
 import cures2 from '../../assets/images/cells2cures-2.png';
-
-const base = import.meta.env.BASE_URL;
+import { withBase } from '../../lib/paths';
 
 // Hand-drawn "2" wordmark glyph (white brushstroke on transparent). Served as
 // optimized WebP so the alpha edge stays crisp while the file stays small.
@@ -35,26 +34,20 @@ const [panelL, panelM, panelR] = await Promise.all([
   <div class="hero-scrim" aria-hidden="true"></div>
 
   <div class="relative z-10 hero-content animate-fade-in">
-    <h1 class="hero-title" aria-label="Cells to Cures">
+    <!-- The page heading is the header wordmark "Carpenter-Shen Lab" (top-left),
+         so the "Cells 2 Cures" mark here is a second-level heading. The wordmark
+         markup and its protected hand-drawn "2" glyph are unchanged. -->
+    <h2 class="hero-title" aria-label="Cells to Cures">
       <span class="cw cw-cell">Cells</span><span class="cw-two" aria-hidden="true"><img src={two.src} width={two.attributes.width} height={two.attributes.height} alt="" /></span><span class="cw cw-cure">Cures</span>
-    </h1>
+    </h2>
 
     <p class="hero-lead">
       Very few people get to solve puzzles all day long <br class="lead-break" />and directly help patients suffering from disease.
     </p>
 
     <div class="hero-ctas">
-      <a href={`${base}/#research`} class="hero-cta">Our Research</a>
+      <a href={withBase('/#research')} class="hero-cta">Our Research</a>
     </div>
-  </div>
-
-  <!-- Scroll indicator -->
-  <div id="scroll-hint"
-       class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500">
-    <span class="text-xs font-medium tracking-widest uppercase" style="font-family: var(--font-label); color: rgba(250,247,239,0.75);">Scroll</span>
-    <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: rgba(250,247,239,0.75);">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-    </svg>
   </div>
 </section>
 
@@ -268,23 +261,3 @@ const [panelL, panelM, panelR] = await Promise.all([
     .cw-two { font-size: clamp(2.4rem, 15vw, 3.4rem); }
   }
 </style>
-
-<script>
-  function initScrollHint() {
-    const hint = document.getElementById('scroll-hint');
-    if (!hint || hint.dataset.listenerAttached) return;
-    hint.dataset.listenerAttached = 'true';
-
-    let hidden = false;
-    window.addEventListener('scroll', () => {
-      if (!hidden && window.scrollY > 50) {
-        hint.style.opacity = '0';
-        hint.style.pointerEvents = 'none';
-        hidden = true;
-      }
-    }, { passive: true });
-  }
-
-  initScrollHint();
-  document.addEventListener('astro:after-swap', initScrollHint);
-</script>

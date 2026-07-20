@@ -1,15 +1,28 @@
 ---
+import { SITE } from '../lib/site';
+import { withBase } from '../lib/paths';
+
 interface Props {
   title?: string;
   description?: string;
+  /** Absolute-from-site path or full URL for the OG/Twitter image. */
+  image?: string;
+  /** og:type — 'website' for pages, 'article' for blog/news posts. */
+  type?: 'website' | 'article';
 }
 
 const {
-  title = 'Carpenter-Shen Lab | Purdue University',
-  description = 'Developing advanced methods and software tools to quantify and mine cellular images, accelerating the discovery of new medicines at Purdue University.',
+  title = SITE.defaultTitle,
+  description = SITE.defaultDescription,
+  image,
+  type = 'website',
 } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
+// Astro.site is the origin (no base); Astro.url.pathname already includes the
+// base, so this builds the correct absolute URL under any base. Reused for
+// canonical + og:url. og:image must be absolute, hence the URL() resolve too.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image ?? SITE.defaultImage, Astro.site);
 ---
 
 <!doctype html>
@@ -17,9 +30,34 @@ const base = import.meta.env.BASE_URL;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
-  <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
   <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL.href} />
+  <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+
+  {/* Open Graph */}
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL.href} />
+  <meta property="og:image" content={ogImageURL.href} />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:locale" content="en_US" />
+
+  {/* Twitter */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL.href} />
+  {SITE.twitterHandle && <meta name="twitter:site" content={SITE.twitterHandle} />}
+
+  {/* Google Search Console verification (only when a token is set) */}
+  {SITE.googleSiteVerification && (
+    <meta name="google-site-verification" content={SITE.googleSiteVerification} />
+  )}
+
+  {/* Per-page structured data (JSON-LD) + any extra head tags */}
+  <slot name="head" />
 </head>
 <body class="min-h-screen">
   <slot />

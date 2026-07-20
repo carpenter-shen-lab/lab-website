@@ -1,20 +1,23 @@
 ---
 import purdueLogo from '../../assets/images/icons/purdue-logo.svg';
 import { joinUrl } from '../../lib/site';
-
-const base = import.meta.env.BASE_URL;
+import { withBase } from '../../lib/paths';
 
 const navLinks = [
-  { label: 'Research',    href: `${base}/#research` },
-  { label: 'People',      href: `${base}/people/` },
-  { label: 'Papers',      href: `${base}/papers/` },
-  { label: 'News',        href: `${base}/news/` },
+  { label: 'Research',    href: withBase('/#research') },
+  { label: 'People',      href: withBase('/people/') },
+  { label: 'Papers',      href: withBase('/papers/') },
+  { label: 'News',        href: withBase('/news/') },
 ];
 const purdueUrl = 'https://www.purdue.edu/';
 
 // When true (homepage), the bar starts transparent over the dark hero and snaps
 // to the solid cream bar on scroll. Elsewhere it is always solid.
-const { heroUnderlay = false } = Astro.props;
+// brandAsH1: render the "Carpenter-Shen Lab" wordmark as the page <h1> (set on
+// the homepage, whose hero has no other h1). Other pages keep their own h1 and
+// render the wordmark as a plain <span>, so there's exactly one h1 per page.
+const { heroUnderlay = false, brandAsH1 = false } = Astro.props;
+const BrandTag = brandAsH1 ? 'h1' : 'span';
 ---
 
 <header
@@ -36,8 +39,8 @@ const { heroUnderlay = false } = Astro.props;
           <img src={purdueLogo.src} alt="Purdue University" class="purdue-mark" />
         </a>
         <span class="wordmark-divider" aria-hidden="true"></span>
-        <a href={base} class="wordmark-link" aria-label="Carpenter-Shen Lab — Home">
-          <span class="wordmark-title">Carpenter-Shen Lab</span>
+        <a href={withBase('/')} class="wordmark-link" aria-label="Carpenter-Shen Lab — Home">
+          <BrandTag class="wordmark-title">Carpenter-Shen Lab</BrandTag>
         </a>
       </div>
 
@@ -100,15 +103,9 @@ const { heroUnderlay = false } = Astro.props;
      colour whether at the top or scrolled down. */
   .site-header {
     background: var(--bg-page);
-    border-bottom: 1px solid var(--nav-border);
-    transition: border-color 0.3s ease;
-  }
-  /* At the very top of the homepage the bar meets the dark hero flush: drop the
-     1px bottom border (width 0, not just transparent — otherwise the border row
-     shows as a thin line under the JOIN THE LAB button). On scroll over light
-     content the border returns. The background colour never changes. */
-  .site-header.over-hero {
-    border-bottom-width: 0;
+    /* Soft, always-on shadow instead of a hairline border — a gentler, less
+       obvious separation from the page content below, at every scroll position. */
+    box-shadow: 0 3px 8px -2px rgba(142, 111, 62, 0.16);
   }
   .menu-btn {
     color: var(--nav-text);
@@ -149,9 +146,10 @@ const { heroUnderlay = false } = Astro.props;
   }
   .wordmark-title {
     display: inline-block;
+    margin: 0;                            /* reset <h1> default margin (brandAsH1) */
     font-family: var(--font-label);      /* Plus Jakarta Sans — natural width */
     font-weight: 700;
-    font-size: 1.65rem;
+    font-size: calc(1.65rem + 1px);       /* nudged 1px larger */
     letter-spacing: -0.025em;             /* denser, slightly narrower */
     color: var(--text-heading);
     text-transform: uppercase;

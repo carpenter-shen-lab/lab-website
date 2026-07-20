@@ -1,0 +1,24 @@
+# Carpenter-Shen Lab
+
+> The Carpenter-Shen Lab is a research lab at Purdue University, led by Dr. Anne
+> E. Carpenter and Dr. Runxi Shen. We apply and develop advanced methods and software
+> to make discoveries in cell images. The rich information can reveal the causes and
+> cures for diseases, and the impact of chemicals on biological systems. We work
+> across all disease areas, from cancer and psychiatric disease to rare disorders
+> and infectious disease.
+
+## People
+- [People](https://carpentershenlab.org/people/): Principal investigators and lab members.
+
+## Publications
+- [Papers](https://carpentershenlab.org/papers/): Peer-reviewed publications and preprints.
+
+## News
+- [News](https://carpentershenlab.org/news/): Announcements and lab updates.
+
+## Key facts
+- Institution: Purdue University, West Lafayette, Indiana, USA
+- Principal Investigators: Anne E. Carpenter (Professor, Biological Sciences and Computer Science); Runxi Shen (Research Assistant Professor, Co-PI, Biological Sciences)
+- Software and assays: CellProfiler, Cell Painting
+- Consortia: JUMP, OASIS, VISTA; Cells-to-Cures Engine
+- Focus: image-based / morphological profiling for chemicals, genetic variants, and diseases, resolving variants of uncertain significance, rare-disease drug discovery, chemical safety and toxicology
