@@ -2,15 +2,16 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Hero from '../components/home/Hero.astro';
 import ResearchHighlights from '../components/home/ResearchHighlights.astro';
+import StructuredData from '../components/seo/StructuredData.astro';
+import { organizationSchema } from '../lib/site';
 // TeamPreview moved to People page (/people/)
 // LatestNews moved to its own page (/news/)
+// title/description omitted here so they inherit SITE.defaultTitle /
+// SITE.defaultDescription (single source of truth in src/lib/site.ts).
 ---
 
-<PageLayout
-  title="Carpenter-Shen Lab | Purdue University"
-  description="Developing advanced methods and software tools to quantify and mine cellular images, accelerating the discovery of new medicines at Purdue University."
-  heroUnderlay
->
+<PageLayout brandAsH1>
+  <StructuredData slot="head" schema={organizationSchema()} />
   <Hero />
   <div class="section-divider"></div>
   <ResearchHighlights />

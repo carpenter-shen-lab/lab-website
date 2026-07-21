@@ -44,13 +44,13 @@ src/
 - **Authoritative brand rules for this repo** live in [`.agents/skills/purdue-brand/`](.agents/skills/purdue-brand/) (palette, typography, logo, voice, checklist).
 - **Signature accents (intentional extensions beyond the Purdue palette).** Runxi likes these and they are deliberately kept, scoped to the hero "Cell to Cure" wordmark only: **GFP green `#7CFF33`** (the "Cure" word), exposed as the `--cure-green` token in `global.css`. Not a convention violation — use the token, do not hardcode the hex, and do not spread it to other surfaces.
 
-### Typography (Hanken Grotesk everywhere, plus one signature serif)
-- **The body of the site uses one font: Hanken Grotesk** (free, Google Fonts) — a warm humanist sans in the spirit of Capitana on meghan-barrett.com. Per Runxi's preference, the old serif (Source Serif 4) and the Barlow family were dropped — do not reintroduce them. (Hanken replaced Plus Jakarta Sans, the earlier free stand-in; don't reintroduce Plus Jakarta either.)
+### Typography (Plus Jakarta Sans everywhere, plus one signature serif)
+- **The body of the site uses one font: Plus Jakarta Sans** (free, Google Fonts). Per Runxi's preference, the old serif (Source Serif 4) and the Barlow family were dropped — do not reintroduce them. (Hanken Grotesk was trialed as a replacement and reverted — some of its letterforms, e.g. the double-f in "suffering", read oddly; don't re-swap to Hanken.)
 - **One intentional exception (loved, kept):** the hero "Cell to Cure" wordmark uses **Fraunces** (warm high-contrast serif, Google Fonts), exposed as the `--font-cure` token in `global.css`. This is a deliberate, scoped extension — Fraunces is for the wordmark only and must not spread to headings or body copy.
-- Purdue's real brand fonts (Acumin Pro, United Sans) are **paid Adobe Fonts** and cannot be self-hosted on the public GitHub Pages site, so a free face (Hanken Grotesk) stands in. To use real Acumin/United Sans, an Adobe Fonts web-project kit ID would be required (the licensed route — self-hosting the paid OTF publicly is a license violation).
-- All five font CSS variables (`--font-display`, `--font-heading`, `--font-body`, `--font-label`, `--font-condensed` in `global.css`) point to Hanken Grotesk. Kept as separate tokens for flexibility, but currently identical.
+- Purdue's real brand fonts (Acumin Pro, United Sans) are **paid Adobe Fonts** and cannot be self-hosted on the public GitHub Pages site, so Plus Jakarta Sans stands in as a free Acumin/Proxima-style geometric sans. To use real Acumin, an Adobe Fonts web-project kit ID would be required.
+- All five font CSS variables (`--font-display`, `--font-heading`, `--font-body`, `--font-label`, `--font-condensed` in `global.css`) point to Plus Jakarta Sans. Kept as separate tokens for flexibility, but currently identical.
 - **Two sources of truth for fonts** — `global.css` (CSS variables) AND `tailwind.config.mjs` (`fontFamily`, used by `font-*` utility classes like the footer's `font-body`). Change BOTH when swapping fonts, and **restart the dev server** (Tailwind config is not hot-reloaded).
-- The wordmark **CARPENTER-SHEN LAB** uses Hanken Grotesk at natural width (no condensed squeeze — `scaleX` distorts the letterforms).
+- The wordmark **CARPENTER-SHEN LAB** uses Plus Jakarta at natural width (no condensed squeeze — `scaleX` distorts the letterforms).
 - Section header pattern: a larger eyebrow (`.section-label`, ~1.2rem) over a smaller `h2` heading (capped ~2.5rem) so the pair reads balanced.
 - Body paragraphs are globally `text-align: justify`; section subtitles under headers should be `text-center` to override it.
 
@@ -70,7 +70,7 @@ src/
 ### Writing Style
 - No em dashes in body text. Use commas or restructure sentences instead.
 - Body paragraphs are justified (both-side aligned).
-- Section headers use the `.section-label` class (uppercase Hanken Grotesk, gold, flanked by decorative lines).
+- Section headers use the `.section-label` class (uppercase Plus Jakarta, gold, flanked by decorative lines).
 
 ## Design workflow
 
