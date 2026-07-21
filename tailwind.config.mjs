@@ -5,10 +5,10 @@ export default {
     extend: {
       colors: {},
       fontFamily: {
-        display: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
-        body: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
-        mono: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
-        sans: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', '"Acumin Pro"', 'system-ui', 'sans-serif'],
+        body: ['"Plus Jakarta Sans"', '"Acumin Pro"', 'system-ui', 'sans-serif'],
+        mono: ['"Plus Jakarta Sans"', '"Acumin Pro"', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', '"Acumin Pro"', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {},
       boxShadow: {},
