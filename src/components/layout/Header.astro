@@ -11,19 +11,14 @@ const navLinks = [
 ];
 const purdueUrl = 'https://www.purdue.edu/';
 
-// When true (homepage), the bar starts transparent over the dark hero and snaps
-// to the solid cream bar on scroll. Elsewhere it is always solid.
 // brandAsH1: render the "Carpenter-Shen Lab" wordmark as the page <h1> (set on
 // the homepage, whose hero has no other h1). Other pages keep their own h1 and
 // render the wordmark as a plain <span>, so there's exactly one h1 per page.
-const { heroUnderlay = false, brandAsH1 = false } = Astro.props;
+const { brandAsH1 = false } = Astro.props;
 const BrandTag = brandAsH1 ? 'h1' : 'span';
 ---
 
-<header
-  class:list={["site-header fixed top-0 left-0 right-0 z-50", { 'over-hero': heroUnderlay }]}
-  data-hero-underlay={heroUnderlay ? 'true' : 'false'}
->
+<header class="site-header fixed top-0 left-0 right-0 z-50">
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
     <div class="flex items-center justify-between h-16">
 
@@ -252,22 +247,6 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
     }
   }
 
-  // Transparent over the hero at the top; solid cream once scrolled. Only pages
-  // that opted in (data-hero-underlay) participate; everything else stays solid.
-  function initHeaderScroll() {
-    const header = document.querySelector('.site-header');
-    if (!header || header.dataset.scrollBound) return;
-    if (header.dataset.heroUnderlay !== 'true') return;
-    header.dataset.scrollBound = 'true';
-    const sync = () => header.classList.toggle('over-hero', window.scrollY < 60);
-    sync();
-    window.addEventListener('scroll', sync, { passive: true });
-  }
-
   initMobileMenu();
-  initHeaderScroll();
-  document.addEventListener('astro:after-swap', () => {
-    initMobileMenu();
-    initHeaderScroll();
-  });
+  document.addEventListener('astro:after-swap', initMobileMenu);
 </script>

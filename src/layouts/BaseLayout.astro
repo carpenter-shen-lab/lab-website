@@ -22,7 +22,10 @@ const {
 // base, so this builds the correct absolute URL under any base. Reused for
 // canonical + og:url. og:image must be absolute, hence the URL() resolve too.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(image ?? SITE.defaultImage, Astro.site);
+// Base-aware like the favicon: prefix site-relative paths with the base, but
+// pass through an already-absolute URL untouched. Absolute against Astro.site.
+const rawImage = image ?? SITE.defaultImage;
+const ogImageURL = new URL(rawImage.startsWith('http') ? rawImage : withBase(rawImage), Astro.site);
 ---
 
 <!doctype html>

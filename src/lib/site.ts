@@ -2,6 +2,7 @@
 // defaults. BaseLayout (meta/OG/canonical), the JSON-LD entity, the sitemap
 // (via `site` in astro.config), and shared components all draw from here so
 // values stay in sync.
+import { withBase } from './paths';
 
 export const SITE = {
   name: 'Carpenter-Shen Lab',
@@ -11,9 +12,9 @@ export const SITE = {
   // Original site description, only re-led with the lab name + Purdue so the
   // indexed snippet contains the query verbatim (see SEO plan, step 2).
   defaultDescription:
-    'The Carpenter-Shen Lab at Purdue University develops and applies advanced ' +
-    'computational methods and software tools to quantify and mine cellular images, ' +
-    'accelerating the discovery of new medicines.',
+    'The Carpenter-Shen Lab at Purdue University develops and applies ' +
+    'computational methods to make discoveries in cell images, accelerating ' +
+    'drug discovery.',
 
   // Absolute-from-site paths (resolved against Astro.site in BaseLayout).
   // TODO: add a real 1200x630 social card at public/og-image.png, then point
@@ -66,7 +67,7 @@ export function organizationSchema() {
     name: SITE.name,
     url: SITE.url,
     description: SITE.defaultDescription,
-    logo: `${SITE.url}${SITE.logoPath}`,
+    logo: `${SITE.url}${withBase(SITE.logoPath)}`,
     parentOrganization: {
       '@type': 'CollegeOrUniversity',
       name: 'Purdue University',

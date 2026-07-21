@@ -9,17 +9,16 @@ interface Props {
   description?: string;
   image?: string;
   type?: 'website' | 'article';
-  heroUnderlay?: boolean;
   brandAsH1?: boolean;
 }
 
-const { title, description, image, type, heroUnderlay = false, brandAsH1 = false } = Astro.props;
+const { title, description, image, type, brandAsH1 = false } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} image={image} type={type}>
   {/* Re-forward the head slot so pages can inject JSON-LD through PageLayout. */}
   <slot name="head" slot="head" />
-  <Header heroUnderlay={heroUnderlay} brandAsH1={brandAsH1} />
+  <Header brandAsH1={brandAsH1} />
   <main class="pt-20">
     <slot />
   </main>
