@@ -17,9 +17,8 @@ export const SITE = {
     'drug discovery.',
 
   // Absolute-from-site paths (resolved against Astro.site in BaseLayout).
-  // TODO: add a real 1200x630 social card at public/og-image.png, then point
-  // defaultImage at '/og-image.png'. Until then the favicon keeps OG tags valid.
-  defaultImage: '/favicon.svg',
+  // 1200x630 social card shown when the site is shared (Slack, X, LinkedIn, etc.).
+  defaultImage: '/og-image.png',
   logoPath: '/favicon.svg', // used by JSON-LD `logo`
 
   twitterHandle: '@DrAnneCarpenter',
