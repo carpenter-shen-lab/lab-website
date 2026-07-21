@@ -55,10 +55,12 @@ src/
 - Body paragraphs are globally `text-align: justify`; section subtitles under headers should be `text-center` to override it.
 
 ### Hosting
-- Hosted on GitHub Pages at `https://carpenter-shen-lab.github.io/lab-website/` (`base: '/lab-website'` in `astro.config.mjs` — must match the exact GitHub repo name `carpenter-shen-lab/lab-website`, otherwise every asset 404s in production)
-- To switch to a Purdue domain: set `site: 'https://carpenter-shen-lab.purdue.edu'`, `base: '/'`, and add a `CNAME` file in `public/`
+- Hosted on GitHub Pages at the **custom domain `https://carpentershenlab.org`** (`site: 'https://carpentershenlab.org'`, `base: '/'` in `astro.config.mjs`). The domain is bound via `public/CNAME`; the Pages host stays `carpenter-shen-lab.github.io` and 301-redirects to the custom domain. HTTPS is enforced and the domain is org-verified (anti-takeover).
+- **Cloudflare DNS** (registrar + zone): apex and `www` are `CNAME` records to `carpenter-shen-lab.github.io`, **DNS-only (grey cloud)**. Do not proxy (orange) unless SSL/TLS is set to Full (strict), or GitHub cert provisioning / redirects break.
+- **`base: '/'` gotcha:** use `withBase()` from `src/lib/paths.ts` for internal links/assets, never `` `${import.meta.env.BASE_URL}/path` `` (which double-slashes to `//path` at root base).
+- **SEO / AI discovery** (all sourced from `src/lib/site.ts`): `@astrojs/sitemap` emits `/sitemap-index.xml` (submitted to Google Search Console + Bing); `public/robots.txt` (welcomes AI crawlers) + `public/llms.txt`; `BaseLayout` renders canonical + Open Graph + Twitter tags + a JSON-LD `ResearchOrganization` entity (`sameAs` disambiguates from the Broad-based Carpenter-Singh Lab); social card at `public/og-image.png`.
+- **Deploys are triggered manually** via `workflow_dispatch` (`gh workflow run "Deploy to GitHub Pages" --ref main`) — the `push` trigger in `.github/workflows/deploy.yml` has not been firing on this repo, so a merge to `main` does not auto-deploy.
 - The old personal repo (`runxi-shen/carpenter-shen-lab-website`) is archived; development continues in the org repo.
-- GitHub Actions deploy workflow in `.github/workflows/deploy.yml`
 
 ## Content
 
