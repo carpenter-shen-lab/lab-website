@@ -1,30 +1,24 @@
 ---
 import { getImage } from 'astro:assets';
-import cellNetworkMotion from '../../assets/images/hero/hero-cell-network-circle-champagne-motion-v3.png';
-import cellNetworkStatic from '../../assets/images/hero/hero-cell-network-circle-champagne-v2.png';
+import cellNetworkMotion from '../../assets/images/hero/hero-cell-network-circle-champagne-motion-v3-4k-crisp.png';
 import { withBase } from '../../lib/paths';
 
-const [networkMotion, networkStatic] = await Promise.all([
-  getImage({ src: cellNetworkMotion, format: 'webp', width: 1080, quality: 88 }),
-  getImage({ src: cellNetworkStatic, format: 'webp', width: 2400, quality: 84 }),
+const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Promise.all([
+  getImage({ src: cellNetworkMotion, format: 'webp', width: 1200, quality: 96 }),
+  getImage({ src: cellNetworkMotion, format: 'webp', width: 2400, quality: 96 }),
+  getImage({ src: cellNetworkMotion, format: 'webp', width: 3840, quality: 96 }),
 ]);
 ---
 
 <section class="hero-section">
   <div class="hero-network-frame" aria-hidden="true">
     <img
-      class="hero-network-static"
-      src={networkStatic.src}
-      width={networkStatic.attributes.width}
-      height={networkStatic.attributes.height}
-      alt=""
-      decoding="async"
-    />
-    <img
       class="hero-network-motion"
-      src={networkMotion.src}
-      width={networkMotion.attributes.width}
-      height={networkMotion.attributes.height}
+      src={networkMotionSmall.src}
+      srcset={`${networkMotionSmall.src} ${networkMotionSmall.attributes.width}w, ${networkMotionMedium.src} ${networkMotionMedium.attributes.width}w, ${networkMotionLarge.src} ${networkMotionLarge.attributes.width}w`}
+      sizes="(max-width: 700px) 285vw, (max-width: 1100px) 209vw, 168vw"
+      width={networkMotionLarge.attributes.width}
+      height={networkMotionLarge.attributes.height}
       alt=""
       loading="eager"
       fetchpriority="high"
@@ -118,24 +112,10 @@ const [networkMotion, networkStatic] = await Promise.all([
     height: 100%;
     max-width: none;
     object-fit: contain;
+    transform: scale(1.9);
     transform-origin: center;
     animation: network-rotation 120s linear infinite;
     will-change: transform;
-  }
-
-  /* The supplied full-width reference becomes the static fallback for users
-     who disable motion. Its circle is aligned to the same square frame. */
-  .hero-network-static {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: -166%;
-    width: 300%;
-    height: 100%;
-    max-width: none;
-    object-fit: fill;
-    transform: scale(1.9);
-    transform-origin: 72% center;
   }
 
   @keyframes network-rotation {
@@ -319,15 +299,18 @@ const [networkMotion, networkStatic] = await Promise.all([
     .lead-break { display: none; }
   }
 
+  /* Match the header's sm:px-8 gutter from Tailwind's 640px breakpoint. */
+  @media (min-width: 640px) and (max-width: 700px) {
+    .hero-content {
+      width: calc(100% - 4rem);
+      margin-left: 2rem;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-network-motion {
-      display: none;
       animation: none;
       will-change: auto;
-    }
-
-    .hero-network-static {
-      display: block;
     }
   }
 </style>
