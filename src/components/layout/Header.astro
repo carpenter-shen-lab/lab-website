@@ -18,7 +18,7 @@ const { brandAsH1 = false } = Astro.props;
 const BrandTag = brandAsH1 ? 'h1' : 'span';
 ---
 
-<header class="site-header fixed top-0 left-0 right-0 z-50">
+<header class="site-header relative z-50">
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
     <div class="flex items-center justify-between h-16">
 
@@ -93,14 +93,9 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
 
 <style>
   /* ─── Bar ─── */
-  /* Opaque cream at every scroll position — the bar never goes translucent, so
-     it can't bleed the dark hero through and read as grey. One consistent
-     colour whether at the top or scrolled down. */
+  /* Opaque cream in normal document flow. */
   .site-header {
     background: var(--bg-page);
-    /* Soft, always-on shadow instead of a hairline border — a gentler, less
-       obvious separation from the page content below, at every scroll position. */
-    box-shadow: 0 3px 8px -2px rgba(142, 111, 62, 0.16);
   }
   .menu-btn {
     color: var(--nav-text);
