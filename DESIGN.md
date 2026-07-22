@@ -31,7 +31,7 @@ Surfaces (light theme — current)
 
 ### Color strategy
 
-**Committed** (impeccable taxonomy). One saturated color — Boilermaker Gold + its Aged/Rush family — carries identity in 30–60% of compositions. The hero is a warm-cream surface with a gold radial wash and a transparent abstract cell illustration; text is near-black; CTA is a black pill with cream label. The footer stays dark for visual rhythm.
+**Committed** (impeccable taxonomy). One saturated color — Boilermaker Gold + its Aged/Rush family — carries identity in 30–60% of compositions. The hero and navigation share the warm-cream page surface. The hero pairs near-black copy with a champagne cellular-network illustration and a near-black rectangular CTA. The footer stays dark for visual rhythm.
 
 ### Known deviation — resolved
 
@@ -39,35 +39,35 @@ The legacy `--accent-teal` (`#0D9488`) and `--accent-teal-light` (`#14B8A6`) tok
 
 ## Typography
 
-The hero now leads with **Source Serif 4** — the Purdue-official serif — set as an editorial display headline with italic emphasis on key phrases (impeccable's "commit to a bold direction"). Barlow stays for UI and secondary headings.
+The public site uses **Plus Jakarta Sans** for every general-purpose typography role. It is the free geometric-sans substitute for Purdue's licensed Acumin Pro and United Sans families. **Fraunces** is the only exception and is scoped to the hero's "Cells" and "Cures" signature words.
 
 ```
-Display              Source Serif 4 (italic-aware)   — Purdue-official serif
-                     weights: 400 600 700 + italic
-                     Hero headline: 600, italic for emphasis
-                     letter-spacing -0.02em
-
-Heading / UI         Barlow      — Acumin Pro free alternate
-                     weights: 400 500 600 700
-                     CTAs, nav, secondary headings
-
-Labels / eyebrows    Barlow Condensed   — United Sans free alternate
+Display / heading    Plus Jakarta Sans
                      weights: 500 600 700
-                     UPPERCASE, letter-spacing 0.16em–0.18em
+                     natural width; never horizontally distorted
 
-Body / long-form     Source Serif 4
-                     weights: 400 600 700
+UI / labels          Plus Jakarta Sans
+                     weights: 500 600 700
+                     uppercase and tracked only where the component calls for it
+
+Body / long-form     Plus Jakarta Sans
+                     weights: 400 500 600 700
                      line-height 1.65, text-align: justify
+
+Hero signature       Fraunces
+                     weight: 900, upright
+                     "Cells" and "Cures" only
 ```
 
 Scale (current):
 
 ```
-hero h1   clamp(2.4rem, 5.4vw, 4.6rem)  — Source Serif 4 italic-aware
-h1        clamp(2.75rem, 6vw, 5.25rem)
-h2        clamp(2rem, 4vw, 3.25rem)
-h3        clamp(1.4rem, 2.5vw, 1.9rem)
-body      1rem (16px), line-height 1.65
+hero lab name         clamp(2rem, 3.6vw, 4rem)
+hero signature line   clamp(2.65rem, 4.8vw, 5.2rem)
+h1                    clamp(2.75rem, 6vw, 5.25rem)
+h2                    clamp(2rem, 4vw, 3.25rem)
+h3                    clamp(1.4rem, 2.5vw, 1.9rem)
+body                  1rem (16px), line-height 1.65
 ```
 
 Rules: no em dashes. Justified body. Section subtitles override to `text-center`.
@@ -86,28 +86,28 @@ Rules: no em dashes. Justified body. Section subtitles override to `text-center`
 
 ## Motion
 
-Quiet. Two named animations:
+Quiet. Two general-purpose named animations:
 
 - `fade-in` (0.6s ease-out)
 - `slide-up` (0.6s ease-out, 20px)
 
-Anything more aggressive needs justification. No parallax. No scroll-jacking. No infinite loops competing for attention.
+The homepage hero additionally permits one ambient animation: the cellular-network image rotates clockwise once every 120 seconds with linear timing. Reduced-motion mode disables it completely. No other infinite motion, parallax, pulsing, bouncing, or scroll-jacking is permitted.
 
 ## Graphic devices
 
 - **Diagonals**: 77° (matches Acumin italic incline). See [purdue-brand/reference/graphic-elements.md](.agents/skills/purdue-brand/reference/graphic-elements.md).
 - **Type offset / outline**: 0.5–1pt stroke (~1–2px web).
-- **`.section-label`**: Barlow Condensed 600, 1rem, UPPERCASE, letter-spacing 0.14em, gold, flanked by 2rem gold rules.
-- **`.mono-label`**: Barlow Condensed 600, 0.8rem, UPPERCASE, letter-spacing 0.1em, gold-dim.
+- **`.section-label`**: Plus Jakarta Sans 600, 1rem, UPPERCASE, letter-spacing 0.14em, gold, flanked by 2rem gold rules.
+- **`.mono-label`**: Plus Jakarta Sans 600, 0.8rem, UPPERCASE, letter-spacing 0.1em, gold-dim.
 - **`.gold-underline`**: 3px gradient bar 4px below text. Currently gold→teal; should become gold→Rush for full Purdue compliance.
-- **`.dot-grid`**: 40px gold dots at 15% opacity, decorative on dark hero only.
+- **`.dot-grid`**: legacy 40px gold-dot texture; do not add it to the current homepage hero.
 
 ## Layout & grid
 
 - Max content width: `max-w-7xl` (~1280px).
 - 12-column grid, generous gutters (`gap-12 lg:gap-16`).
 - Vertical rhythm in multiples of 8px.
-- Surfaces alternate dark (hero, nav, footer at `#111`) and light (content at white / `#F5F5F0`).
+- Navigation and hero use warm cream (`#FAF7EF`); content alternates warm cream, deep cream, and white; only the footer uses the near-black surface.
 
 ## Accessibility
 

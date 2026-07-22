@@ -36,17 +36,17 @@ src/
 ### Color Scheme
 - Single light theme: warm cream hero/nav + white content cards, with a single dark footer.
 - No theme switcher (dropped per Anne's feedback, issue #2).
-- All colors use CSS custom properties in `src/assets/styles/global.css`.
+- Visible brand, text, surface, border, and accent colors use CSS custom properties in `src/assets/styles/global.css`. Component-local neutral black/white alpha values are allowed for masks, shadows, and overlays when they do not introduce a new hue or identity color; CSS masks may use black because only alpha is rendered.
 - **Light surfaces** (hero, nav, content): warm cream page (#FAF7EF), white cards (#FFFFFF), dark text (#1A1A1A). Accents are Boilermaker Gold (#CFB991), Aged Gold (#8E6F3E, AA-safe for text/links), and Rush Gold (#DAAA00).
 - **Footer**: the only dark surface, near-black (#1A1A1A) with Boilermaker Gold accents.
 - **Legacy `--accent-teal`** now aliases Rush Gold (#DAAA00); teal is not in the Purdue palette (see [`.agents/skills/purdue-brand/reference/color.md`](.agents/skills/purdue-brand/reference/color.md)). Avoid using it for text on white (low contrast).
 - Purdue brand reference: https://marcom.purdue.edu/our-brand/visual-identity/
 - **Authoritative brand rules for this repo** live in [`.agents/skills/purdue-brand/`](.agents/skills/purdue-brand/) (palette, typography, logo, voice, checklist).
-- **Signature accents (intentional extensions beyond the Purdue palette).** Runxi likes these and they are deliberately kept, scoped to the hero "Cell to Cure" wordmark only: **GFP green `#7CFF33`** (the "Cure" word), exposed as the `--cure-green` token in `global.css`. Not a convention violation — use the token, do not hardcode the hex, and do not spread it to other surfaces.
+- **Hero signature colors.** "Cells" uses Purdue Steel and "Cures" uses Purdue Aged through the existing global tokens. The legacy `--cure-green` token is not part of the current wordmark treatment and should not be reused elsewhere.
 
 ### Typography (Plus Jakarta Sans everywhere, plus one signature serif)
 - **The body of the site uses one font: Plus Jakarta Sans** (free, Google Fonts). Per Runxi's preference, the old serif (Source Serif 4) and the Barlow family were dropped — do not reintroduce them. (Hanken Grotesk was trialed as a replacement and reverted — some of its letterforms, e.g. the double-f in "suffering", read oddly; don't re-swap to Hanken.)
-- **One intentional exception (loved, kept):** the hero "Cell to Cure" wordmark uses **Fraunces** (warm high-contrast serif, Google Fonts), exposed as the `--font-cure` token in `global.css`. This is a deliberate, scoped extension — Fraunces is for the wordmark only and must not spread to headings or body copy.
+- **One intentional exception (loved, kept):** the hero's "Cells" and "Cures" signature words use **Fraunces** (warm high-contrast serif, Google Fonts), exposed as the `--font-cure` token in `global.css`. This is a deliberate, scoped extension — Fraunces is for those two words only and must not spread to headings or body copy.
 - Purdue's real brand fonts (Acumin Pro, United Sans) are **paid Adobe Fonts** and cannot be self-hosted on the public GitHub Pages site, so Plus Jakarta Sans stands in as a free Acumin/Proxima-style geometric sans. To use real Acumin, an Adobe Fonts web-project kit ID would be required.
 - All five font CSS variables (`--font-display`, `--font-heading`, `--font-body`, `--font-label`, `--font-condensed` in `global.css`) point to Plus Jakarta Sans. Kept as separate tokens for flexibility, but currently identical.
 - **Two sources of truth for fonts** — `global.css` (CSS variables) AND `tailwind.config.mjs` (`fontFamily`, used by `font-*` utility classes like the footer's `font-body`). Change BOTH when swapping fonts, and **restart the dev server** (Tailwind config is not hot-reloaded).
@@ -95,7 +95,7 @@ When brand and impeccable conflict (e.g. impeccable's "use OKLCH, never `#000`" 
 ## Development
 
 ```bash
-npm run dev      # Local dev server at localhost:4321/lab-website
+npm run dev      # Local dev server at localhost:4321/
 npm run build    # Static build to dist/
 npm run preview  # Preview production build
 ```
