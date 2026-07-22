@@ -1,11 +1,10 @@
 /* ─── Google Fonts Import (must be first) ──────────────────────────── */
-/* Single typeface across the whole site. Purdue's real brand fonts (Acumin
-   Pro / United Sans) are paid Adobe Fonts, so we use Plus Jakarta Sans — a
-   free Acumin/Proxima-style geometric sans. The wordmark fakes a condensed
-   cut with a horizontal scale, since Plus Jakarta has no condensed width.   */
+/* Plus Jakarta Sans is the site's single general-purpose typeface. Purdue's
+   real brand fonts (Acumin Pro / United Sans) are paid Adobe Fonts, so this
+   free geometric sans fills all display, heading, body, label, and UI roles. */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap');
-/* Fraunces — a warm high-contrast serif, used ONLY for the "Cell" / "Cure" words
-   of the hero wordmark (a deliberate, scoped exception to the single-typeface rule). */
+/* Fraunces is a scoped signature exception used only for the hero's upright
+   "Cells" and "Cures" words. */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,500;1,9..144,600&display=swap');
 
 @tailwind base;
@@ -13,7 +12,7 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════════
-   LIGHT PURDUE THEME — warm cream surface, editorial serif display
+   LIGHT PURDUE THEME — warm cream surface, geometric sans typography
    Bright, sophisticated, brand-compliant.
    ═══════════════════════════════════════════════════════════════════ */
 
@@ -60,11 +59,10 @@
   --accent-teal:        var(--purdue-rush);
   --accent-teal-light:  var(--purdue-field);
 
-  /* ─── Signature accents (deliberate, scoped extensions beyond the Purdue
-     palette — we love these and use them only for the hero wordmark,
-     paired with the Fraunces serif above) ─── */
-  --cure-green:         #7CFF33;   /* GFP green — kept for reference */
-  --cure-red:           #B82035;   /* crimson — "Cures" word in the hero */
+  /* Retired signature-color references. The current hero uses Purdue Steel
+     for "Cells" and Purdue Aged for "Cures"; do not reuse these legacy tokens. */
+  --cure-green:         #7CFF33;
+  --cure-red:           #B82035;
 
   /* ─── Borders ─── */
   --border-subtle: rgba(26, 26, 26, 0.08);
@@ -100,7 +98,7 @@
   --font-body:       'Plus Jakarta Sans', 'Acumin Pro', system-ui, sans-serif;
   --font-label:      'Plus Jakarta Sans', 'Acumin Pro', system-ui, sans-serif;
   --font-condensed:  'Plus Jakarta Sans', 'Acumin Pro', system-ui, sans-serif;
-  --font-cure:       'Fraunces', 'Georgia', serif;   /* hero "Cell"/"Cure" only */
+  --font-cure:       'Fraunces', 'Georgia', serif;   /* hero "Cells"/"Cures" only */
 }
 
 

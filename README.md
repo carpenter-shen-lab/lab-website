@@ -14,17 +14,19 @@ Source code and content for the Carpenter-Shen Lab website at Purdue University.
 
 ```bash
 npm install        # Install dependencies
-npm run dev        # Local dev server at localhost:4321/lab-website
+npm run dev        # Local dev server at localhost:4321/
 npm run build      # Production build to dist/
 npm run preview    # Preview production build
 ```
 
 ## Deployment
 
-Currently deployed via GitHub Pages. The site builds and deploys automatically on push to `main` via GitHub Actions.
+Deployed via GitHub Pages at the custom domain. Deployments are currently triggered manually with the `Deploy to GitHub Pages` workflow because the repository's push trigger has not been firing reliably.
 
-- **GitHub Pages:** `https://carpenter-shen-lab.github.io/lab-website/`
-- **Custom domain:** When ready, update `site` and `base` in `astro.config.mjs` and add a `CNAME` file in `public/`
+- **Public site:** `https://carpentershenlab.org/`
+- **GitHub Pages host:** `https://carpenter-shen-lab.github.io/` redirects to the custom domain
+- **Astro configuration:** `site: 'https://carpentershenlab.org'` and `base: '/'`
+- **Custom-domain binding:** `public/CNAME`
 
 ### Visibility Notes
 

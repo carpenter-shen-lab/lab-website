@@ -13,15 +13,15 @@ const year = new Date().getFullYear();
         <a href="https://www.purdue.edu" target="_blank" rel="noopener noreferrer" class="mb-4 opacity-90 hover:opacity-100 transition-opacity inline-block">
           <img src={purdueLogo.src} alt="Purdue University" class="h-10 w-auto" />
         </a>
-        <p class="text-lg font-body leading-relaxed" style="color: var(--footer-text);">
-          Purdue University<br />
-          West Lafayette, IN 47907
+        <p class="footer-location font-body" style="color: var(--footer-text);">
+          West Lafayette,<br />
+          IN 47907
         </p>
       </div>
 
       <!-- Quick Links -->
       <div>
-        <h4 class="mono-label mb-4">Navigate</h4>
+        <h4 class="mono-label footer-heading mb-4">Navigate</h4>
         <ul class="space-y-2">
           {[
             { label: 'Research', href: withBase('/#research') },
@@ -42,7 +42,7 @@ const year = new Date().getFullYear();
 
       <!-- Connect -->
       <div>
-        <h4 class="mono-label mb-4">Connect</h4>
+        <h4 class="mono-label footer-heading mb-4">Connect</h4>
         <div class="flex gap-3">
           <a href="https://github.com/carpenter-shen-lab" class="transition-colors hover:text-[var(--accent-gold)]" style="color: var(--footer-text);" aria-label="GitHub">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -56,8 +56,21 @@ const year = new Date().getFullYear();
     <!-- Bottom Bar -->
     <div class="mt-12 pt-6 text-center" style="border-top: 1px solid rgba(207, 185, 145, 0.15);">
       <p class="text-base" style="color: var(--text-on-dark-secondary);">
-        &copy; {year} Carpenter-Shen Lab, Purdue University. All rights reserved.
+        &copy; {year} Carpenter-Shen Lab. All rights reserved.
       </p>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .footer-location {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+</style>
