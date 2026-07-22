@@ -1,6 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
-import cellNetworkMotion from '../../assets/images/hero/hero-cell-network-circle-champagne-motion.png';
+import cellNetworkMotion from '../../assets/images/hero/hero-cell-network-circle-champagne-motion-v3.png';
 import cellNetworkStatic from '../../assets/images/hero/hero-cell-network-circle-champagne-v2.png';
 import { withBase } from '../../lib/paths';
 
@@ -94,9 +94,9 @@ const [networkMotion, networkStatic] = await Promise.all([
       transparent 8%,
       rgba(0, 0, 0, 0.35) 13%,
       #000 20%,
-      #000 65%,
-      rgba(0, 0, 0, 0.35) 75%,
-      transparent 85%
+      #000 62%,
+      rgba(0, 0, 0, 0.35) 72%,
+      transparent 82%
     );
     mask-image: linear-gradient(
       to right,
@@ -104,9 +104,9 @@ const [networkMotion, networkStatic] = await Promise.all([
       transparent 8%,
       rgba(0, 0, 0, 0.35) 13%,
       #000 20%,
-      #000 65%,
-      rgba(0, 0, 0, 0.35) 75%,
-      transparent 85%
+      #000 62%,
+      rgba(0, 0, 0, 0.35) 72%,
+      transparent 82%
     );
     transform: translateY(-50%);
     pointer-events: none;
@@ -134,13 +134,13 @@ const [networkMotion, networkStatic] = await Promise.all([
     height: 100%;
     max-width: none;
     object-fit: fill;
-    transform: scale(1.6);
+    transform: scale(1.9);
     transform-origin: 72% center;
   }
 
   @keyframes network-rotation {
-    from { transform: scale(1.6) rotate(0deg); }
-    to { transform: scale(1.6) rotate(360deg); }
+    from { transform: scale(1.9) rotate(0deg); }
+    to { transform: scale(1.9) rotate(360deg); }
   }
 
   .hero-content {
@@ -191,8 +191,6 @@ const [networkMotion, networkStatic] = await Promise.all([
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: 900;
-    transform: skewX(-7deg);
-    transform-origin: center bottom;
   }
 
   .hero-cells {
