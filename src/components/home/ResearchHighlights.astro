@@ -1,11 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import jumpLogo from '../../assets/images/icons/jump_cellpainting-343x221.png';
+import VideoCard from './VideoCard.astro';
+import jumpGraphic from '../../assets/images/icons/jump_cellpainting-343x221.png';
 import vistaLogo from '../../assets/images/icons/vista_logo-transparent.png';
 import oasisLogo from '../../assets/images/icons/oasis_logo-trimmed.png';
+import annePortrait from '../../assets/images/team/Anne_Carpenter_resized.png';
+import runxiPortrait from '../../assets/images/team/Runxi_Shen_resized.jpg';
+import rhoComposite from '../../assets/images/cells/rho-composite.png';
+import rhoCys110TyrGfp from '../../assets/images/cells/rho-cys110tyr-gfp.png';
 
-// Research problems, in priority order. Each renders as a feature row with the
-// consortium logo (or illustration) in a gold tile beside the description.
 const projects = [
   {
     title: 'Rescuing Mislocalized Proteins',
@@ -13,8 +16,8 @@ const projects = [
       'When a critical protein ends up in the wrong place inside a cell, disease can follow. We systematically screen thousands of approved drugs to find ones that guide these proteins back to where they belong, turning medicines we already have into new cures.',
     url: 'https://vista-consortium.broadinstitute.org/',
     label: 'VISTA Consortium',
-    logo: vistaLogo,
-    logoAlt: 'VISTA Consortium logo: a mountain wrapped in a DNA double helix.',
+    graphic: vistaLogo,
+    graphicAlt: 'VISTA Consortium logo: a mountain wrapped in a DNA double helix.',
     longName: 'Variant Integration for Screening Therapeutic Approaches',
     acronym: 'VISTA',
   },
@@ -24,8 +27,8 @@ const projects = [
       'We combine cellular imaging, transcriptomics, and proteomics across a global network of scientists to build predictive tools for chemical safety, reducing reliance on animal testing and bringing safer medicines to people faster.',
     url: 'https://oasisconsortium.org/',
     label: 'OASIS Consortium',
-    logo: oasisLogo,
-    logoAlt: 'OASIS Consortium logo: a stylized palm and caduceus in a blue disc.',
+    graphic: oasisLogo,
+    graphicAlt: 'OASIS Consortium logo: a stylized palm and caduceus in a blue disc.',
     longName: 'Omics for Assessing Signatures for Integrated Safety',
     acronym: 'OASIS',
     reversed: true,
@@ -36,8 +39,8 @@ const projects = [
       'We are building the world’s largest open library of how cells respond to over 136,000 drugs and genetic changes, giving AI the training data it needs to accelerate the discovery of new medicines for any disease.',
     url: 'https://jump-cellpainting.broadinstitute.org/',
     label: 'JUMP Consortium',
-    image: jumpLogo,
-    imageAlt:
+    graphic: jumpGraphic,
+    graphicAlt:
       'JUMP Cell Painting illustration: a field of stained cells with one magnified to show its organelles.',
     longName: 'Joint Undertaking in Morphological Profiling',
     acronym: 'JUMP',
@@ -45,344 +48,449 @@ const projects = [
 ];
 ---
 
-<section id="research" class="scroll-mt-16" style="background: var(--bg-content);">
-  <!-- Full-viewport video banner: jumping to #research shows only this -->
-  <div class="research-banner px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto w-full">
-      <!-- Section header -->
-      <div class="text-center mb-10">
-        <span class="section-label">What We Do</span>
-        <h2 class="mt-3" style="color: var(--text-heading);">Research</h2>
-        <p class="mt-6 max-w-6xl mx-auto" style="color: var(--text-secondary); font-size: clamp(1.05rem, 1.25vw, 1.2rem); line-height: 1.6; text-align: justify; text-justify: inter-word;">
+<section id="research" class="research-section">
+  <div class="research-overview">
+    <div class="research-container">
+      <header class="research-intro">
+        <div class="section-heading">
+          <span class="home-kicker">What We Do</span>
+          <h2>Research</h2>
+        </div>
+        <p class="research-lead">
           At the Carpenter-Shen Lab at Purdue University, we develop advanced methods and software to make discoveries in cell images. The rich information can reveal the causes and cures for diseases, and the impact of chemicals on biological systems. We work across all disease areas, from cancer and psychiatric disease to rare disorders and infectious disease.
         </p>
-        <div class="section-divider mt-7 w-24 mx-auto"></div>
-      </div>
+      </header>
 
-      <!-- Videos: Anne's YouTube on left, Runxi's YouTube on right -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Anne's YouTube: Lab overview / research talk -->
-      <div>
-        <div class="rounded-xl overflow-hidden shadow-lg" style="background: var(--bg-card); border: 1px solid var(--border-card);">
-          <iframe
-            src="https://www.youtube.com/embed/KDQFUmDJ3nY?start=12"
-            class="w-full"
-            style="min-height: 300px;"
-            frameborder="0"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            title="Anne Carpenter — Research Talk"
-          ></iframe>
-        </div>
-        <p class="video-caption">Anne Carpenter: When Biology Meets Computer Science</p>
-      </div>
-
-      <!-- Runxi's YouTube: Cell Painting for Rare Disease and Drug Discovery -->
-      <div>
-        <div class="rounded-xl overflow-hidden shadow-lg" style="background: var(--bg-card); border: 1px solid var(--border-card);">
-          <iframe
-            src="https://www.youtube.com/embed/wZFXWg_WfkU"
-            class="w-full"
-            style="min-height: 300px;"
-            frameborder="0"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            title="Cell Painting for Rare Disease and Drug Discovery"
-          ></iframe>
-        </div>
-        <p class="video-caption">Runxi Shen: Cell Painting for Rare Disease and Drug Discovery</p>
-      </div>
+      <div class="video-grid">
+        <VideoCard
+          speaker="Anne Carpenter"
+          title="When Biology Meets Computer Science"
+          videoId="KDQFUmDJ3nY"
+          start={12}
+          portrait={annePortrait}
+          portraitAlt="Anne Carpenter"
+          portraitPosition="center 32%"
+          backdrop={rhoComposite}
+        />
+        <VideoCard
+          speaker="Runxi Shen"
+          title="Cell Painting for Rare Disease and Drug Discovery"
+          videoId="wZFXWg_WfkU"
+          portrait={runxiPortrait}
+          portraitAlt="Runxi Shen"
+          portraitPosition="center 30%"
+          backdrop={rhoCys110TyrGfp}
+        />
       </div>
     </div>
   </div>
 
-  <!-- Problems to solve — separate block, revealed on scroll below the banner -->
-  <div class="px-4 sm:px-6 lg:px-8 pt-12 pb-24">
-    <div class="max-w-7xl mx-auto">
-      <!-- Problems we want to solve — alternating text / media rows -->
-      <div class="text-center mb-16">
-        <span class="section-label">Our Focus</span>
-        <h2 class="mt-4" style="color: var(--text-heading);">Problems to solve</h2>
-        <div class="section-divider mt-8 w-24 mx-auto"></div>
-      </div>
+  <div class="problems-section">
+    <div class="research-container">
+      <header class="focus-intro">
+        <div class="section-heading">
+          <span class="home-kicker">Our Focus</span>
+          <h2>Problems to solve</h2>
+        </div>
+      </header>
 
       <div class="project-list">
-      {projects.map((p) => {
-        const fig = p.image ?? p.logo;
-        return (
-          /* Feature row — consortium logo/illustration overlapping a gold text
-             panel. `reversed` mirrors it (image right, text left) for rhythm. */
-          <article class={`project-row feature-row ${p.reversed ? 'is-reversed' : ''}`}>
+        {projects.map((project, index) => (
+          <article class={`feature-row ${project.reversed ? 'is-reversed' : ''}`}>
             <figure class="feature-image">
-              <div class="feature-logo">
-                <Image src={fig} alt={p.imageAlt ?? p.logoAlt} />
+              <div
+                class={`feature-logo ${project.acronym === 'OASIS' ? 'feature-logo--oasis' : ''}`}
+              >
+                <Image
+                  src={project.graphic}
+                  alt={project.graphicAlt}
+                  widths={[320, 520, 720]}
+                  sizes="(max-width: 767px) 72vw, 28vw"
+                />
               </div>
-              <figcaption class="feature-caption-name">
-                <span class="cap-long">{p.longName}</span>
-                <span class="cap-acr">({p.acronym})</span>
+              <figcaption class="feature-caption">
+                <span class="caption-long">{project.longName}</span>
+                <span class="caption-acronym">({project.acronym})</span>
               </figcaption>
             </figure>
 
             <div class="feature-text">
-              <h3 class="project-title">{p.title}</h3>
-              <p class="project-desc">{p.description}</p>
-              <a href={p.url} target="_blank" rel="noopener noreferrer" class="project-link feature-link">
-                {p.label}
-                <svg class="project-link-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <span class="project-index" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h3 class="project-title">{project.title}</h3>
+              <p class="project-description">{project.description}</p>
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+              >
+                <span>{project.label}</span>
+                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
                 </svg>
               </a>
             </div>
           </article>
-        );
-      })}
+        ))}
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Full-viewport banner: fills the screen below the fixed 65px nav, content
-     vertically centered. min-height (not height) lets it grow on short windows
-     so nothing clips. svh keeps it stable across browser/fullscreen chrome. */
-  .research-banner {
-    min-height: calc(100svh - 65px);
+  .research-section {
+    scroll-margin-top: -2rem;
+    background: var(--bg-page);
+  }
+
+  .research-overview {
+    padding: clamp(5.5rem, 8vw, 8rem) 0 clamp(6rem, 9vw, 9rem);
+    background: var(--bg-page-alt);
+  }
+
+  .research-container {
+    width: min(
+      calc(100% - var(--site-gutter) - var(--site-gutter)),
+      var(--content-frame-max)
+    );
+    margin: 0 auto;
+  }
+
+  .research-intro {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: end;
+    column-gap: clamp(12rem, 18vw, 20rem);
+    margin-bottom: clamp(3rem, 5vw, 4.75rem);
+  }
+
+  .focus-intro {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1.72fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
+  }
+
+  .focus-intro .section-heading {
+    grid-column: 1 / -1;
+  }
+
+  .section-heading {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-  @supports not (height: 100svh) {
-    .research-banner { min-height: calc(100vh - 65px); }
+    align-items: flex-start;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
   }
 
-  .video-caption {
-    margin-top: 0.75rem;
-    text-align: center;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1rem;
+  .home-kicker {
+    margin-bottom: 0.9rem;
+    color: var(--purdue-aged);
+    font-family: var(--font-label);
+    font-size: clamp(1.05rem, 1.4vw, 1.22rem);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .section-heading h2 {
+    margin: 0;
     color: var(--text-heading);
+    font-size: clamp(2.15rem, 4.2vw, 3.4rem);
+    line-height: 1.05;
   }
 
-  /* ─── Project rows ─── */
+  .focus-intro h2 {
+    white-space: nowrap;
+  }
+
+  .research-lead {
+    align-self: end;
+    justify-self: end;
+    width: 100%;
+    margin: 0;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+    line-height: 1.72;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2.4vw, 2rem);
+  }
+
+  .problems-section {
+    padding: clamp(6rem, 9vw, 9rem) 0 clamp(7rem, 10vw, 10rem);
+    background: var(--bg-page);
+  }
+
   .project-list {
     display: flex;
     flex-direction: column;
-    gap: 5rem;
-  }
-  .project-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: clamp(2rem, 5vw, 4.5rem);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
   }
 
-  /* Text block */
-  .project-title {
-    font-family: var(--font-display);        /* Plus Jakarta Sans, site heading font */
-    font-weight: 700;
-    font-size: clamp(1.5rem, 2.3vw, 2rem);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-    color: var(--text-heading);
-    margin: 0 0 1.1rem 0;
-  }
-  .project-desc {
-    font-family: var(--font-body);           /* Plus Jakarta Sans, site body font */
-    font-weight: 400;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    text-align: justify;
-    text-justify: inter-word;
-    margin: 0 0 1.5rem 0;
-  }
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-label);
-    font-weight: 600;
-    font-size: 1.05rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--purdue-aged);
-    border-bottom: 2px solid transparent;
-    padding-bottom: 2px;
-    transition: color 0.18s ease, border-color 0.18s ease;
-  }
-  .project-link:hover {
-    color: var(--purdue-rush);
-    border-bottom-color: var(--purdue-rush);
-  }
-  .project-link-arrow {
-    width: 1.05rem;
-    height: 1.05rem;
-    transition: transform 0.18s ease;
-  }
-  .project-link:hover .project-link-arrow {
-    transform: translateX(4px);
-  }
-
-  /* ─── Feature row: a light-gold logo tile lapping onto a honey text panel ──
-     Every row shares identical geometry (same tile size, same panel size, same
-     overlap band), so the three consortia read as one system. The TILE does the
-     overlapping — never the logo — so a wide logo, a square emblem, and a busy
-     illustration all sit in the same frame. --fig-h sets one shared logo height
-     so the marks are visually comparable despite different aspect ratios. */
   .feature-row {
-    position: relative;
     display: grid;
-    /* tile-zone | shared overlap | panel — tile is the minority so the panel
-       reads wide; the 4% band is where the tile laps onto the panel */
-    grid-template-columns: 34% 4% 62%;
-    align-items: stretch;
-    gap: 0;
-  }
-  .feature-row.is-reversed {
-    grid-template-columns: 62% 4% 34%;   /* panel | overlap | tile */
+    grid-template-areas: 'media text';
+    grid-template-columns: minmax(25rem, 1fr) minmax(0, 1.15fr);
+    min-height: clamp(24rem, 31vw, 27rem);
+    overflow: hidden;
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    background: var(--bg-card);
+    box-shadow: 0 10px 34px rgba(26, 26, 26, 0.055);
   }
 
-  /* Logo tile — light-gold surface holding the mark above its formal name.
-     Both columns share a min-height so every row is the same height. */
+  .feature-row.is-reversed {
+    grid-template-areas: 'text media';
+    grid-template-columns: minmax(0, 1.15fr) minmax(25rem, 1fr);
+  }
+
   .feature-image {
-    grid-row: 1;
-    grid-column: 1 / 3;
-    z-index: 2;
-    margin: 0;
-    min-height: clamp(345px, 33vw, 395px);
+    grid-area: media;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.85rem, 1.6vw, 1.35rem);
-    /* generous vertical padding, tight horizontal so the name can run wide */
-    padding: clamp(1.5rem, 2.6vw, 2.25rem) clamp(0.75rem, 1.4vw, 1.15rem);
-    background: linear-gradient(150deg, #FBF5E2 0%, #F6EDCB 100%);
-    box-shadow: 0 14px 34px rgba(142, 111, 62, 0.16);
+    gap: clamp(1.25rem, 2.2vw, 1.85rem);
+    min-width: 0;
+    margin: 0;
+    padding: clamp(2.5rem, 4.5vw, 4.25rem) clamp(1rem, 2.1vw, 1.75rem);
+    background: var(--bg-page-alt);
   }
-  .feature-row.is-reversed .feature-image {
-    grid-column: 2 / 4;
-  }
-  /* Logo fills the space above the caption — sized to the frame, not fixed */
+
   .feature-logo {
-    flex: 1 1 auto;
-    min-height: 0;
-    width: 100%;
     display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
     align-items: center;
     justify-content: center;
   }
+
   .feature-logo :global(img) {
     display: block;
     width: auto;
-    /* explicit height so small source logos scale UP to match, not just cap */
-    height: clamp(165px, 16vw, 210px);
-    max-width: 100%;
+    height: clamp(8.5rem, 13vw, 11rem);
+    max-width: min(100%, 21rem);
     object-fit: contain;
-    filter: drop-shadow(0 6px 14px rgba(142, 111, 62, 0.16));
   }
-  /* Consortium name under the mark: full name over its acronym */
-  .feature-caption-name {
-    flex: 0 0 auto;
-    max-width: 100%;
+
+  .feature-logo--oasis :global(img) {
+    height: clamp(10rem, 15vw, 12.75rem);
+  }
+
+  .feature-caption {
     display: flex;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
     flex-direction: column;
     align-items: center;
-    gap: 0.15rem;
-    text-align: center;
+    gap: 0.25rem;
+    color: var(--text-secondary);
     font-family: var(--font-body);
+    text-align: center;
   }
-  .cap-long {
-    /* runs nearly tile-wide so the longest name (VISTA) stays on one line */
-    font-size: clamp(0.85rem, 1vw, 0.95rem);
-    line-height: 1.35;
+
+  .caption-long {
+    font-size: clamp(0.78rem, 1.2vw, 1rem);
     font-weight: 600;
-    color: #5f4d2e;            /* dark gold-brown */
+    line-height: 1.45;
+    white-space: nowrap;
   }
-  .cap-acr {
-    font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+
+  .caption-acronym {
+    color: var(--purdue-aged);
+    font-size: clamp(1rem, 1.35vw, 1.15rem);
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: var(--purdue-aged); /* AA-safe gold accent */
   }
 
-  /* Text panel — honey gold, stretched to the tile height, text centered */
   .feature-text {
-    grid-row: 1;
-    grid-column: 2 / 4;
-    z-index: 1;
-    align-self: stretch;
-    min-height: clamp(345px, 33vw, 395px);
+    grid-area: text;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
-    background: linear-gradient(135deg, #F5E8C2 0%, #ECD8A2 100%);
-    box-shadow: 0 12px 34px rgba(142, 111, 62, 0.10);
-    /* left padding clears the overlapping tile */
-    padding: 2.75rem 3.25rem 2.75rem 5rem;
-  }
-  .feature-row.is-reversed .feature-text {
-    grid-column: 1 / 3;
-    /* mirror the gradient + overlap clearance */
-    background: linear-gradient(225deg, #F5E8C2 0%, #ECD8A2 100%);
-    padding: 2.75rem 5rem 2.75rem 3.25rem;
-  }
-  .feature-link {
-    font-size: 1.2rem;        /* a touch larger than the standard project link */
-    margin-top: 0.35rem;
-  }
-  .feature-link .project-link-arrow {
-    width: 1.2rem;
-    height: 1.2rem;
-  }
-  .feature-text .project-desc {
-    color: #4a4334;        /* warm dark for contrast on the gold panel */
+    padding: clamp(2.75rem, 5vw, 5rem);
   }
 
-  /* ─── Mobile: stack, media always on top ─── */
-  @media (max-width: 767px) {
-    .project-row,
-    .project-row.is-reversed {
+  .project-index {
+    margin-bottom: 1rem;
+    color: var(--purdue-aged);
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .project-title {
+    margin: 0 0 1.2rem;
+    color: var(--text-heading);
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 2.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.16;
+  }
+
+  .project-description {
+    max-width: 62ch;
+    margin: 0 0 1.75rem;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.25vw, 1.08rem);
+    line-height: 1.72;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0 0.25rem;
+    border-bottom: 2px solid var(--purdue-aged);
+    color: var(--purdue-aged);
+    font-family: var(--font-label);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    text-transform: uppercase;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .project-link svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-link:hover {
+    border-color: var(--purdue-rush);
+    color: var(--purdue-aged);
+  }
+
+  .project-link:hover svg {
+    transform: translateX(0.25rem);
+  }
+
+  .project-link:focus-visible {
+    border-radius: 2px;
+    outline: 3px solid var(--purdue-aged);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 1023px) {
+    .research-intro,
+    .focus-intro {
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
-    .project-desc {
+
+    .research-lead {
+      width: min(66ch, 100%);
+    }
+
+    .feature-row,
+    .feature-row.is-reversed {
+      grid-template-areas:
+        'media'
+        'text';
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .feature-image {
+      min-height: 19rem;
+      padding: 2.75rem 1.5rem 2.5rem;
+    }
+
+    .feature-text {
+      padding: clamp(2.25rem, 4vw, 3.5rem);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .research-lead {
+      width: min(56ch, 100%);
       text-align: left;
     }
 
-    /* Feature row collapses: logo tile (mark + name) stacks above the panel. */
+    .video-grid {
+      grid-template-columns: 1fr;
+    }
+
     .feature-row,
     .feature-row.is-reversed {
+      grid-template-areas:
+        'media'
+        'text';
       grid-template-columns: 1fr;
-      gap: 0;
-    }
-    .feature-image,
-    .feature-row.is-reversed .feature-image {
-      grid-row: 1;
-      grid-column: 1;
-      min-height: 220px;
-      z-index: 2;
-    }
-    .feature-logo :global(img) {
-      height: clamp(130px, 34vw, 175px);
-      max-width: 74%;
-    }
-    .feature-text,
-    .feature-row.is-reversed .feature-text {
-      grid-row: 2;
-      grid-column: 1;
-      width: 100%;
       min-height: 0;
-      padding: 2.5rem 1.75rem 2.25rem;
-      text-align: center;
     }
-    .feature-text .project-desc {
+
+    .feature-image {
+      min-height: 18rem;
+      padding: 2.5rem 1.5rem 2.25rem;
+    }
+
+    .feature-logo :global(img) {
+      height: clamp(8rem, 32vw, 10rem);
+      max-width: 78%;
+    }
+
+    .feature-logo--oasis :global(img) {
+      height: clamp(9.5rem, 38vw, 11.5rem);
+    }
+
+    .feature-text {
+      padding: 2.5rem 1.75rem 2.75rem;
+    }
+
+    .project-description {
+      max-width: none;
       text-align: left;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .feature-text {
+      padding-right: 1.35rem;
+      padding-left: 1.35rem;
+    }
+
+    .focus-intro h2 {
+      font-size: clamp(1.65rem, 8.5vw, 2.15rem);
+    }
+
+    .caption-long {
+      font-size: clamp(0.67rem, 3vw, 0.78rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-link,
+    .project-link svg {
+      transition: none;
     }
   }
 </style>
