@@ -75,38 +75,49 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
 
   /* This wrapper owns placement. Only the square image inside it rotates. */
   .hero-network-frame {
+    --network-scale: 1.9;
     position: absolute;
     z-index: 0;
     top: 50%;
-    right: 1vw;
-    width: min(88vw, calc(100svh + 18rem), 84rem);
+    right: 0;
+    width: min(96vw, calc(100svh + 26rem), 96rem);
     aspect-ratio: 1;
     overflow: hidden;
-    /* An 8% left and 10% right clear gutter balance the image optically,
-       with a longer fade on the right to soften its transition to the edge. */
+    /* Softer edge fade on both sides so more of the network remains visible
+       without the frame feeling like it was hard-cropped. */
+    /* Left side reveals more of the network: the ramp starts near the edge and
+       climbs through higher mid-opacities (many stops = smooth) to full opacity
+       by ~20%, so more image shows through on the left. The right side keeps its
+       shorter fade. All stops are percentages so the balance holds across sizes. */
     -webkit-mask-image: linear-gradient(
       to right,
       transparent 0%,
-      transparent 8%,
-      rgba(0, 0, 0, 0.15) 14%,
-      rgba(0, 0, 0, 0.45) 21%,
-      #000 28%,
-      #000 63%,
-      rgba(0, 0, 0, 0.45) 73%,
-      rgba(0, 0, 0, 0.15) 82%,
-      transparent 90%
+      transparent 6%,
+      rgba(0, 0, 0, 0.10) 9%,
+      rgba(0, 0, 0, 0.24) 12%,
+      rgba(0, 0, 0, 0.42) 15%,
+      rgba(0, 0, 0, 0.62) 18%,
+      rgba(0, 0, 0, 0.82) 21%,
+      #000 24%,
+      #000 80%,
+      rgba(0, 0, 0, 0.28) 88%,
+      rgba(0, 0, 0, 0.10) 94%,
+      transparent 98%
     );
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      transparent 8%,
-      rgba(0, 0, 0, 0.15) 14%,
-      rgba(0, 0, 0, 0.45) 21%,
-      #000 28%,
-      #000 63%,
-      rgba(0, 0, 0, 0.45) 73%,
-      rgba(0, 0, 0, 0.15) 82%,
-      transparent 90%
+      transparent 6%,
+      rgba(0, 0, 0, 0.10) 9%,
+      rgba(0, 0, 0, 0.24) 12%,
+      rgba(0, 0, 0, 0.42) 15%,
+      rgba(0, 0, 0, 0.62) 18%,
+      rgba(0, 0, 0, 0.82) 21%,
+      #000 24%,
+      #000 80%,
+      rgba(0, 0, 0, 0.28) 88%,
+      rgba(0, 0, 0, 0.10) 94%,
+      transparent 98%
     );
     transform: translateY(-50%);
     pointer-events: none;
@@ -118,22 +129,23 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     height: 100%;
     max-width: none;
     object-fit: contain;
-    transform: scale(1.9);
+    transform: scale(var(--network-scale));
     transform-origin: center;
     animation: network-rotation 120s linear infinite;
     will-change: transform;
   }
 
   @keyframes network-rotation {
-    from { transform: scale(1.9) rotate(0deg); }
-    to { transform: scale(1.9) rotate(360deg); }
+    from { transform: scale(var(--network-scale)) rotate(0deg); }
+    to { transform: scale(var(--network-scale)) rotate(360deg); }
   }
 
   .hero-content {
     position: relative;
     z-index: 1;
-    width: min(44vw, 42rem);
-    margin-left: max(3rem, calc((100vw - 80rem) / 2 + 3rem));
+    width: min(44rem, calc(100% - (var(--site-gutter) * 2)));
+    margin-left: var(--site-gutter);
+    margin-right: auto;
     padding: clamp(5rem, 10vh, 8rem) 0 4rem;
     text-align: left;
   }
@@ -236,14 +248,14 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
   @media (max-width: 1100px) {
     .hero-network-frame {
       top: 57%;
-      right: -12vw;
-      width: min(110vw, calc(100svh + 14rem));
+      right: -10vw;
+      width: min(122vw, calc(100svh + 20rem));
       opacity: 0.46;
     }
 
     .hero-content {
-      width: min(64vw, 38rem);
-      margin-left: 3rem;
+      width: min(38rem, calc(100% - (var(--site-gutter) * 2)));
+      margin-left: var(--site-gutter);
     }
 
     .hero-lab-name {
@@ -255,9 +267,16 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     }
   }
 
-  @media (max-width: 1023px) {
+  @media (min-width: 100rem) {
+    .hero-network-frame {
+      --network-scale: 1.5;
+      right: 0;
+      width: min(98vw, 94rem, calc(100svh + 26rem));
+    }
+
     .hero-content {
-      margin-left: 2rem;
+      width: min(40rem, calc(100% - (var(--site-gutter) * 2)));
+      margin-left: var(--site-gutter);
     }
   }
 
@@ -269,14 +288,14 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
 
     .hero-network-frame {
       top: 66%;
-      right: -30vw;
-      width: min(150vw, 40rem);
+      right: -26vw;
+      width: min(168vw, 46rem);
       opacity: 0.24;
     }
 
     .hero-content {
-      width: calc(100% - 3rem);
-      margin-left: 1.5rem;
+      width: calc(100% - (var(--site-gutter) * 2));
+      margin-left: var(--site-gutter);
       padding: clamp(8.5rem, 19vh, 10rem) 0 6rem;
     }
 
@@ -303,14 +322,6 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     }
 
     .lead-break { display: none; }
-  }
-
-  /* Match the header's sm:px-8 gutter from Tailwind's 640px breakpoint. */
-  @media (min-width: 640px) and (max-width: 700px) {
-    .hero-content {
-      width: calc(100% - 4rem);
-      margin-left: 2rem;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

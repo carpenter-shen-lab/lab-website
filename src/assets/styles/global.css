@@ -17,6 +17,18 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
+  /* ─── Responsive page frames ───
+     Two alignment systems that coincide on laptops and only diverge past
+     ~1824px:
+       .site-frame    — gutter-anchored chrome (the header) whose left edge
+                        always sits at --site-gutter, lining up with the hero
+                        wordmark at any width (its cap is effectively unreached).
+       .content-frame — the centered content column shared by the footer and
+                        every content section, capped so it never runs too wide. */
+  --site-gutter: clamp(1rem, 4vw, 5rem);
+  --site-frame-max: 187.5rem;
+  --content-frame-max: 104rem;
+
   /* ─── Surface system ─── */
   --bg-page: #FAF7EF;          /* warm cream — tinted toward Boilermaker Gold */
   --bg-page-alt: #F2EDDF;      /* slightly deeper cream — Dust-adjacent */
@@ -161,6 +173,20 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 @layer components {
+
+  .site-frame,
+  .content-frame {
+    width: calc(100% - var(--site-gutter) - var(--site-gutter));
+    margin-inline: auto;
+  }
+
+  .site-frame {
+    max-width: var(--site-frame-max);
+  }
+
+  .content-frame {
+    max-width: var(--content-frame-max);
+  }
 
   .card-base {
     background: var(--bg-card);
