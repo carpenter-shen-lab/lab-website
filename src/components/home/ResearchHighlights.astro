@@ -147,11 +147,63 @@ const projects = [
   </div>
 </section>
 
+<script>
+  // Align each project's caption acronym to the bottom edge of its consortium
+  // link. Both the caption (full name + acronym) and the link wrap differently
+  // at different widths, so their heights — and thus the acronym's and link's
+  // vertical positions — cannot be matched with a static CSS rule. We measure
+  // both at runtime and shift only the caption (a transform, so nothing else
+  // in the layout moves) to bring the two bottoms together. In the stacked
+  // mobile layout the two sit in one column, so alignment is a no-op there.
+  function alignResearchCaptions() {
+    const sideBySide = window.matchMedia('(min-width: 1024px)').matches;
+    document.querySelectorAll('.research-section .feature-row').forEach((row) => {
+      const caption = row.querySelector<HTMLElement>('.feature-caption');
+      const link = row.querySelector<HTMLElement>('.project-link');
+      if (!caption || !link) return;
+
+      // Clear any prior shift so the measurement reflects the resting position.
+      caption.style.transform = '';
+      if (!sideBySide) return;
+
+      const delta = link.getBoundingClientRect().bottom - caption.getBoundingClientRect().bottom;
+      caption.style.transform = `translateY(${delta}px)`;
+    });
+  }
+
+  function scheduleAlign() {
+    requestAnimationFrame(alignResearchCaptions);
+  }
+
+  scheduleAlign();
+  window.addEventListener('load', scheduleAlign);
+  window.addEventListener('resize', scheduleAlign);
+  // Fonts change text wrapping after first paint, which moves both bottoms.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(scheduleAlign);
+  }
+  // Re-run after Astro view-transition navigations swap the DOM.
+  document.addEventListener('astro:after-swap', scheduleAlign);
+</script>
+
 <style>
   .research-section {
-    /* Intentional negative offset so jumping to #research frames the research
-       content the way the section is designed to be entered. */
-    scroll-margin-top: -4rem;
+    /* Center the research overview block (the "Research" intro + the two
+       side-by-side video cards) in the viewport when jumping to #research,
+       keeping equal space above and below at any screen size.
+
+       To center a block of height H in a viewport of height V, the landing
+       offset is (V - H) / 2 = 50svh - H/2 (svh so mobile browser-UI changes
+       don't shift the framing). The catch is that H is not constant: the
+       video cards scale with the content width, so the overview measures
+       ~906px at a 1325px content frame and ~1008px once the frame caps at
+       104rem. That is a clean linear H/2 of ~(13.9vw + 15.8rem) that flattens
+       to 31.5rem past the cap, so H/2 = min(13.9vw + 15.8rem, 31.5rem).
+       Subtracting a min is adding a max, which keeps it one pure-CSS value. */
+    scroll-margin-top: max(
+      calc(50svh - 13.9vw - 15.8rem),
+      calc(50svh - 31.5rem)
+    );
     background: var(--bg-page);
   }
 
@@ -295,6 +347,12 @@ const projects = [
     flex-direction: column;
     align-items: center;
     gap: 0.25rem;
+    /* The caption is aligned to the consortium link's bottom edge at runtime
+       (see the align-captions script below) via a translateY on this element,
+       because the link and acronym heights both depend on how their text
+       wraps at the current width, which no single CSS value can track. This
+       margin is only a sane no-JS fallback resting position. */
+    margin-bottom: 1.45rem;
     color: var(--text-secondary);
     font-family: var(--font-body);
     text-align: center;
@@ -319,8 +377,8 @@ const projects = [
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-end;
-    padding: clamp(2.75rem, 5vw, 5rem) clamp(2.75rem, 5vw, 5rem) clamp(2.5rem, 4.5vw, 4.25rem);
+    justify-content: center;
+    padding: clamp(2.75rem, 5vw, 5rem);
   }
 
   .project-index {
