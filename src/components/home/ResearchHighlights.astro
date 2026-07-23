@@ -32,6 +32,8 @@ const projects = [
     longName: 'Omics for Assessing Signatures for Integrated Safety',
     acronym: 'OASIS',
     reversed: true,
+    // This logo's artwork reads small at the shared height, so scale it up.
+    logoScale: 1.16,
   },
   {
     title: 'Mapping the Chemical Universe',
@@ -50,7 +52,7 @@ const projects = [
 
 <section id="research" class="research-section">
   <div class="research-overview">
-    <div class="research-container">
+    <div class="content-frame">
       <header class="research-intro">
         <div class="section-heading">
           <span class="home-kicker">What We Do</span>
@@ -86,7 +88,7 @@ const projects = [
   </div>
 
   <div class="problems-section">
-    <div class="research-container">
+    <div class="content-frame">
       <header class="focus-intro">
         <div class="section-heading">
           <span class="home-kicker">Our Focus</span>
@@ -99,7 +101,8 @@ const projects = [
           <article class={`feature-row ${project.reversed ? 'is-reversed' : ''}`}>
             <figure class="feature-image">
               <div
-                class={`feature-logo ${project.acronym === 'OASIS' ? 'feature-logo--oasis' : ''}`}
+                class="feature-logo"
+                style={project.logoScale ? `--logo-scale: ${project.logoScale};` : undefined}
               >
                 <Image
                   src={project.graphic}
@@ -146,21 +149,15 @@ const projects = [
 
 <style>
   .research-section {
-    scroll-margin-top: -2rem;
+    /* Intentional negative offset so jumping to #research frames the research
+       content the way the section is designed to be entered. */
+    scroll-margin-top: -4rem;
     background: var(--bg-page);
   }
 
   .research-overview {
     padding: clamp(5.5rem, 8vw, 8rem) 0 clamp(6rem, 9vw, 9rem);
     background: var(--bg-page-alt);
-  }
-
-  .research-container {
-    width: min(
-      calc(100% - var(--site-gutter) - var(--site-gutter)),
-      var(--content-frame-max)
-    );
-    margin: 0 auto;
   }
 
   .research-intro {
@@ -285,13 +282,9 @@ const projects = [
   .feature-logo :global(img) {
     display: block;
     width: auto;
-    height: clamp(8.5rem, 13vw, 11rem);
+    height: calc(clamp(8.5rem, 13vw, 11rem) * var(--logo-scale, 1));
     max-width: min(100%, 21rem);
     object-fit: contain;
-  }
-
-  .feature-logo--oasis :global(img) {
-    height: clamp(10rem, 15vw, 12.75rem);
   }
 
   .feature-caption {
@@ -308,15 +301,15 @@ const projects = [
   }
 
   .caption-long {
-    font-size: clamp(0.78rem, 1.2vw, 1rem);
+    color: var(--text-primary);
+    font-size: clamp(0.98rem, 1.5vw, 1.3rem);
     font-weight: 600;
     line-height: 1.45;
-    white-space: nowrap;
   }
 
   .caption-acronym {
     color: var(--purdue-aged);
-    font-size: clamp(1rem, 1.35vw, 1.15rem);
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
     font-weight: 700;
     letter-spacing: 0.02em;
   }
@@ -326,8 +319,8 @@ const projects = [
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    padding: clamp(2.75rem, 5vw, 5rem);
+    justify-content: flex-end;
+    padding: clamp(2.75rem, 5vw, 5rem) clamp(2.75rem, 5vw, 5rem) clamp(2.5rem, 4.5vw, 4.25rem);
   }
 
   .project-index {
@@ -454,12 +447,8 @@ const projects = [
     }
 
     .feature-logo :global(img) {
-      height: clamp(8rem, 32vw, 10rem);
+      height: calc(clamp(8rem, 32vw, 10rem) * var(--logo-scale, 1));
       max-width: 78%;
-    }
-
-    .feature-logo--oasis :global(img) {
-      height: clamp(9.5rem, 38vw, 11.5rem);
     }
 
     .feature-text {
@@ -483,7 +472,7 @@ const projects = [
     }
 
     .caption-long {
-      font-size: clamp(0.67rem, 3vw, 0.78rem);
+      font-size: clamp(0.88rem, 3.6vw, 1.02rem);
     }
   }
 
