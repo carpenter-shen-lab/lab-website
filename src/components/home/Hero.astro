@@ -82,25 +82,31 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     width: min(88vw, calc(100svh + 18rem), 84rem);
     aspect-ratio: 1;
     overflow: hidden;
+    /* An 8% left and 10% right clear gutter balance the image optically,
+       with a longer fade on the right to soften its transition to the edge. */
     -webkit-mask-image: linear-gradient(
       to right,
       transparent 0%,
       transparent 8%,
-      rgba(0, 0, 0, 0.35) 13%,
-      #000 20%,
-      #000 62%,
-      rgba(0, 0, 0, 0.35) 72%,
-      transparent 82%
+      rgba(0, 0, 0, 0.15) 14%,
+      rgba(0, 0, 0, 0.45) 21%,
+      #000 28%,
+      #000 63%,
+      rgba(0, 0, 0, 0.45) 73%,
+      rgba(0, 0, 0, 0.15) 82%,
+      transparent 90%
     );
     mask-image: linear-gradient(
       to right,
       transparent 0%,
       transparent 8%,
-      rgba(0, 0, 0, 0.35) 13%,
-      #000 20%,
-      #000 62%,
-      rgba(0, 0, 0, 0.35) 72%,
-      transparent 82%
+      rgba(0, 0, 0, 0.15) 14%,
+      rgba(0, 0, 0, 0.45) 21%,
+      #000 28%,
+      #000 63%,
+      rgba(0, 0, 0, 0.45) 73%,
+      rgba(0, 0, 0, 0.15) 82%,
+      transparent 90%
     );
     transform: translateY(-50%);
     pointer-events: none;
