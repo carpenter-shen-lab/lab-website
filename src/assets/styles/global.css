@@ -17,6 +17,16 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
+  /* ─── Responsive page frames ───
+     The outer frame stays fluid on large displays, while content and reading
+     frames retain narrower caps appropriate to their material. */
+  /* Slightly tighter outer gutters keep wide screens from feeling overpadded
+     while preserving a small-screen minimum that matches the header edge. */
+  --site-gutter: clamp(1rem, 4vw, 5rem);
+  --site-frame-max: 187.5rem;
+  --content-frame-max: 104rem;
+  --reading-frame-max: 70rem;
+
   /* ─── Surface system ─── */
   --bg-page: #FAF7EF;          /* warm cream — tinted toward Boilermaker Gold */
   --bg-page-alt: #F2EDDF;      /* slightly deeper cream — Dust-adjacent */
@@ -161,6 +171,25 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 @layer components {
+
+  .site-frame,
+  .content-frame,
+  .reading-frame {
+    width: calc(100% - var(--site-gutter) - var(--site-gutter));
+    margin-inline: auto;
+  }
+
+  .site-frame {
+    max-width: var(--site-frame-max);
+  }
+
+  .content-frame {
+    max-width: var(--content-frame-max);
+  }
+
+  .reading-frame {
+    max-width: var(--reading-frame-max);
+  }
 
   .card-base {
     background: var(--bg-card);
