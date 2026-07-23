@@ -80,18 +80,25 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     z-index: 0;
     top: 50%;
     right: 0;
-    width: min(94vw, calc(100svh + 24rem), 92rem);
+    width: min(96vw, calc(100svh + 26rem), 96rem);
     aspect-ratio: 1;
     overflow: hidden;
     /* Softer edge fade on both sides so more of the network remains visible
        without the frame feeling like it was hard-cropped. */
+    /* Left side reveals more of the network: the ramp starts near the edge and
+       climbs through higher mid-opacities (many stops = smooth) to full opacity
+       by ~20%, so more image shows through on the left. The right side keeps its
+       shorter fade. All stops are percentages so the balance holds across sizes. */
     -webkit-mask-image: linear-gradient(
       to right,
       transparent 0%,
-      transparent 2%,
-      rgba(0, 0, 0, 0.10) 6%,
-      rgba(0, 0, 0, 0.28) 12%,
-      #000 20%,
+      transparent 6%,
+      rgba(0, 0, 0, 0.10) 9%,
+      rgba(0, 0, 0, 0.24) 12%,
+      rgba(0, 0, 0, 0.42) 15%,
+      rgba(0, 0, 0, 0.62) 18%,
+      rgba(0, 0, 0, 0.82) 21%,
+      #000 24%,
       #000 80%,
       rgba(0, 0, 0, 0.28) 88%,
       rgba(0, 0, 0, 0.10) 94%,
@@ -100,10 +107,13 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      transparent 2%,
-      rgba(0, 0, 0, 0.10) 6%,
-      rgba(0, 0, 0, 0.28) 12%,
-      #000 20%,
+      transparent 6%,
+      rgba(0, 0, 0, 0.10) 9%,
+      rgba(0, 0, 0, 0.24) 12%,
+      rgba(0, 0, 0, 0.42) 15%,
+      rgba(0, 0, 0, 0.62) 18%,
+      rgba(0, 0, 0, 0.82) 21%,
+      #000 24%,
       #000 80%,
       rgba(0, 0, 0, 0.28) 88%,
       rgba(0, 0, 0, 0.10) 94%,
@@ -261,7 +271,7 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     .hero-network-frame {
       --network-scale: 1.5;
       right: 0;
-      width: min(96vw, 90rem, calc(100svh + 24rem));
+      width: min(98vw, 94rem, calc(100svh + 26rem));
     }
 
     .hero-content {
