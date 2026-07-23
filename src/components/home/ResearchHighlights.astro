@@ -148,14 +148,25 @@ const projects = [
 </section>
 
 <script>
-  // Align each project's caption acronym to the bottom edge of its consortium
-  // link. Both the caption (full name + acronym) and the link wrap differently
-  // at different widths, so their heights — and thus the acronym's and link's
-  // vertical positions — cannot be matched with a static CSS rule. We measure
-  // both at runtime and shift only the caption (a transform, so nothing else
-  // in the layout moves) to bring the two bottoms together. In the stacked
-  // mobile layout the two sit in one column, so alignment is a no-op there.
-  function alignResearchCaptions() {
+  // Runtime layout for the research section, re-run on load, font swap, resize,
+  // and Astro navigations:
+  //   1. Center the research overview in the viewport for #research landings.
+  //      The block's height varies with content width (the video cards scale),
+  //      so measuring it here keeps equal space above and below at any size and
+  //      stays correct if the content changes (a third video, edited copy). The
+  //      CSS scroll-margin fallback below approximates this when JS is off.
+  //   2. Align each project's caption acronym to its consortium link. Both wrap
+  //      differently per width, so no static CSS value can match them; we shift
+  //      only the caption (a transform, so nothing else moves). No-op in the
+  //      stacked mobile layout where the two already share one column.
+  function updateResearchLayout() {
+    const section = document.querySelector<HTMLElement>('.research-section');
+    const overview = document.querySelector<HTMLElement>('.research-overview');
+    if (section && overview) {
+      const offset = (window.innerHeight - overview.getBoundingClientRect().height) / 2;
+      section.style.scrollMarginTop = `${offset}px`;
+    }
+
     const sideBySide = window.matchMedia('(min-width: 1024px)').matches;
     document.querySelectorAll('.research-section .feature-row').forEach((row) => {
       const caption = row.querySelector<HTMLElement>('.feature-caption');
@@ -171,35 +182,38 @@ const projects = [
     });
   }
 
-  function scheduleAlign() {
-    requestAnimationFrame(alignResearchCaptions);
+  // Coalesce bursts (notably rapid resize events) to one pass per frame.
+  let updatePending = false;
+  function scheduleUpdate() {
+    if (updatePending) return;
+    updatePending = true;
+    requestAnimationFrame(() => {
+      updatePending = false;
+      updateResearchLayout();
+    });
   }
 
-  scheduleAlign();
-  window.addEventListener('load', scheduleAlign);
-  window.addEventListener('resize', scheduleAlign);
-  // Fonts change text wrapping after first paint, which moves both bottoms.
+  scheduleUpdate();
+  window.addEventListener('load', scheduleUpdate);
+  window.addEventListener('resize', scheduleUpdate);
+  // Fonts change text wrapping after first paint, which moves the measured bottoms.
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(scheduleAlign);
+    document.fonts.ready.then(scheduleUpdate);
   }
   // Re-run after Astro view-transition navigations swap the DOM.
-  document.addEventListener('astro:after-swap', scheduleAlign);
+  document.addEventListener('astro:after-swap', scheduleUpdate);
 </script>
 
 <style>
   .research-section {
-    /* Center the research overview block (the "Research" intro + the two
-       side-by-side video cards) in the viewport when jumping to #research,
-       keeping equal space above and below at any screen size.
-
-       To center a block of height H in a viewport of height V, the landing
-       offset is (V - H) / 2 = 50svh - H/2 (svh so mobile browser-UI changes
-       don't shift the framing). The catch is that H is not constant: the
-       video cards scale with the content width, so the overview measures
-       ~906px at a 1325px content frame and ~1008px once the frame caps at
-       104rem. That is a clean linear H/2 of ~(13.9vw + 15.8rem) that flattens
-       to 31.5rem past the cap, so H/2 = min(13.9vw + 15.8rem, 31.5rem).
-       Subtracting a min is adding a max, which keeps it one pure-CSS value. */
+    /* No-JS fallback for centering the research overview on #research landings;
+       the script above refines this to the exact measured height at runtime, so
+       these constants only need to be approximately right. Centering a block of
+       height H in a viewport V wants an offset of (V - H)/2 = 50svh - H/2 (svh
+       so mobile browser-UI changes don't shift it). H grows ~linearly with
+       content width (the video cards scale) until the frame caps at 104rem,
+       giving H/2 = min(13.9vw + 15.8rem, 31.5rem); subtracting a min is adding
+       a max, keeping it one CSS value. */
     scroll-margin-top: max(
       calc(50svh - 13.9vw - 15.8rem),
       calc(50svh - 31.5rem)

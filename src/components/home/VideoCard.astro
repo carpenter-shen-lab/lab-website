@@ -96,7 +96,6 @@ const watchUrl = `https://www.youtube.com/watch?v=${videoId}${start > 0 ? `&t=${
       trigger.addEventListener('click', (event) => {
         // Intercept only a plain left-click so modifier/middle clicks still
         // open the YouTube link in a new tab as the anchor normally would.
-        if (event.defaultPrevented) return;
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
 
