@@ -17,16 +17,13 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ─── Responsive page frames ───
-     Two alignment systems that coincide on laptops and only diverge past
-     ~1824px:
-       .site-frame    — gutter-anchored chrome (the header) whose left edge
-                        always sits at --site-gutter, lining up with the hero
-                        wordmark at any width (its cap is effectively unreached).
-       .content-frame — the centered content column shared by the footer and
-                        every content section, capped so it never runs too wide. */
+  /* ─── Responsive page frame ───
+     One centered column shared by the header, hero, footer, and every content
+     section, so they all align to the same left/right edge at any width. It
+     hugs --site-gutter until it reaches --content-frame-max, then centers; the
+     hero reproduces this edge with a matching margin (see Hero.astro), since it
+     is left-anchored rather than a full frame. */
   --site-gutter: clamp(1rem, 4vw, 5rem);
-  --site-frame-max: 187.5rem;
   --content-frame-max: 104rem;
 
   /* ─── Surface system ─── */
@@ -174,18 +171,10 @@
 
 @layer components {
 
-  .site-frame,
   .content-frame {
     width: calc(100% - var(--site-gutter) - var(--site-gutter));
-    margin-inline: auto;
-  }
-
-  .site-frame {
-    max-width: var(--site-frame-max);
-  }
-
-  .content-frame {
     max-width: var(--content-frame-max);
+    margin-inline: auto;
   }
 
   .card-base {

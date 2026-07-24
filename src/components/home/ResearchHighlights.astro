@@ -20,6 +20,9 @@ const projects = [
     graphicAlt: 'VISTA Consortium logo: a mountain wrapped in a DNA double helix.',
     longName: 'Variant Integration for Screening Therapeutic Approaches',
     acronym: 'VISTA',
+    reversed: true,
+    logoShiftX: '-3rem',
+    logoShiftY: '1rem',
   },
   {
     title: 'Predicting Chemical Safety',
@@ -28,12 +31,15 @@ const projects = [
     url: 'https://oasisconsortium.org/',
     label: 'OASIS Consortium',
     graphic: oasisLogo,
-    graphicAlt: 'OASIS Consortium logo: a stylized palm and caduceus in a blue disc.',
+    graphicAlt: 'OASIS Consortium logo: a stylized palm and caduceus in a warm gray disc.',
     longName: 'Omics for Assessing Signatures for Integrated Safety',
     acronym: 'OASIS',
-    reversed: true,
     // This logo's artwork reads small at the shared height, so scale it up.
     logoScale: 1.16,
+    logoShiftX: '3rem',
+    logoShiftY: '1rem',
+    // Drop the caption a touch for more breathing room below the tall disc.
+    captionShiftY: '0.5rem',
   },
   {
     title: 'Mapping the Chemical Universe',
@@ -46,8 +52,30 @@ const projects = [
       'JUMP Cell Painting illustration: a field of stained cells with one magnified to show its organelles.',
     longName: 'Joint Undertaking in Morphological Profiling',
     acronym: 'JUMP',
+    reversed: true,
+    logoShiftX: '-3rem',
+    // The illustration sits high in its frame; nudge it down to sit level.
+    logoShiftY: '1rem',
   },
 ];
+
+// Split a long name into tokens, marking the leading capital of each word that
+// contributes a letter to the acronym (in order) so those initials can be
+// tinted to match the acronym. Lowercase connectors ("for", "in") are skipped
+// because their initial is not capitalised and so never matches.
+function acronymParts(longName: string, acronym: string) {
+  const letters = acronym.toUpperCase().split('');
+  let idx = 0;
+  return longName.split(/(\s+)/).map((token) => {
+    const first = token.charAt(0);
+    const isCapital = first !== '' && first === first.toUpperCase() && first !== first.toLowerCase();
+    if (isCapital && idx < letters.length && first.toUpperCase() === letters[idx]) {
+      idx += 1;
+      return { initial: first, rest: token.slice(1) };
+    }
+    return { plain: token };
+  });
+}
 ---
 
 <section id="research" class="research-section">
@@ -99,11 +127,16 @@ const projects = [
       <div class="project-list">
         {projects.map((project, index) => (
           <article class={`feature-row ${project.reversed ? 'is-reversed' : ''}`}>
-            <figure class="feature-image">
-              <div
-                class="feature-logo"
-                style={project.logoScale ? `--logo-scale: ${project.logoScale};` : undefined}
-              >
+            <figure
+              class="feature-image"
+              style={[
+                project.logoScale ? `--logo-scale: ${project.logoScale};` : '',
+                project.logoShiftX ? `--logo-shift-x: ${project.logoShiftX};` : '',
+                project.logoShiftY ? `--logo-shift-y: ${project.logoShiftY};` : '',
+                project.captionShiftY ? `--caption-shift-y: ${project.captionShiftY};` : '',
+              ].join(' ').trim() || undefined}
+            >
+              <div class="feature-logo">
                 <Image
                   src={project.graphic}
                   alt={project.graphicAlt}
@@ -112,7 +145,15 @@ const projects = [
                 />
               </div>
               <figcaption class="feature-caption">
-                <span class="caption-long">{project.longName}</span>
+                <span class="caption-long">
+                  {acronymParts(project.longName, project.acronym).map((part) =>
+                    'initial' in part ? (
+                      <><span class="caption-initial">{part.initial}</span>{part.rest}</>
+                    ) : (
+                      part.plain
+                    )
+                  )}
+                </span>
                 <span class="caption-acronym">({project.acronym})</span>
               </figcaption>
             </figure>
@@ -148,17 +189,14 @@ const projects = [
 </section>
 
 <script>
-  // Runtime layout for the research section, re-run on load, font swap, resize,
-  // and Astro navigations:
-  //   1. Center the research overview in the viewport for #research landings.
-  //      The block's height varies with content width (the video cards scale),
-  //      so measuring it here keeps equal space above and below at any size and
-  //      stays correct if the content changes (a third video, edited copy). The
-  //      CSS scroll-margin fallback below approximates this when JS is off.
-  //   2. Align each project's caption acronym to its consortium link. Both wrap
-  //      differently per width, so no static CSS value can match them; we shift
-  //      only the caption (a transform, so nothing else moves). No-op in the
-  //      stacked mobile layout where the two already share one column.
+  // Runtime layout for the research section:
+  //   1. Center the research overview in the viewport for #research landings
+  //      (its height varies with content width; the CSS scroll-margin is the
+  //      no-JS fallback).
+  //   2. In the side-by-side layout, bottom-align each caption's acronym with
+  //      its consortium link across the two columns. Their wrapping (and thus
+  //      heights) depends on width, so no static value tracks them; we shift
+  //      only the caption via a transform, preserving any --logo-shift-x.
   function updateResearchLayout() {
     const section = document.querySelector<HTMLElement>('.research-section');
     const overview = document.querySelector<HTMLElement>('.research-overview');
@@ -168,17 +206,28 @@ const projects = [
     }
 
     const sideBySide = window.matchMedia('(min-width: 1024px)').matches;
-    document.querySelectorAll('.research-section .feature-row').forEach((row) => {
+    // Tight glyph bottom (not the box edge): a Range measures the actual rendered
+    // text bounds, so we align what the eye sees rather than layout boxes. The
+    // link has padding + an underline border below its text and a smaller font,
+    // so its box bottom sits well below its glyphs; box alignment looked off.
+    const glyphBottom = (el: Element) => {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      return range.getBoundingClientRect().bottom;
+    };
+    document.querySelectorAll<HTMLElement>('.research-section .feature-row').forEach((row) => {
       const caption = row.querySelector<HTMLElement>('.feature-caption');
-      const link = row.querySelector<HTMLElement>('.project-link');
-      if (!caption || !link) return;
-
-      // Clear any prior shift so the measurement reflects the resting position.
+      const acronym = row.querySelector<HTMLElement>('.caption-acronym');
+      const linkText = row.querySelector<HTMLElement>('.project-link span');
+      if (!caption || !acronym || !linkText) return;
+      // Reset to the CSS resting transform (keeps --logo-shift-x, no vertical shift).
       caption.style.transform = '';
       if (!sideBySide) return;
-
-      const delta = link.getBoundingClientRect().bottom - caption.getBoundingClientRect().bottom;
-      caption.style.transform = `translateY(${delta}px)`;
+      // Align the acronym to the link, then apply any per-card downward nudge
+      // (--caption-shift-y) to open a little space between the logo and caption.
+      const delta = glyphBottom(linkText) - glyphBottom(acronym);
+      caption.style.transform =
+        `translate(var(--logo-shift-x, 0px), calc(${delta}px + var(--caption-shift-y, 0px)))`;
     });
   }
 
@@ -212,18 +261,23 @@ const projects = [
        height H in a viewport V wants an offset of (V - H)/2 = 50svh - H/2 (svh
        so mobile browser-UI changes don't shift it). H grows ~linearly with
        content width (the video cards scale) until the frame caps at 104rem,
-       giving H/2 = min(13.9vw + 15.8rem, 31.5rem); subtracting a min is adding
-       a max, keeping it one CSS value. */
+       giving H/2 = min(11.4vw + 14.2rem, 29rem); subtracting a min is adding
+       a max, keeping it one CSS value. (Retuned when .research-overview's bottom
+       pad was cut by ~5rem: −2.5vw fluid, −2.5rem at the cap, −1.6rem at the
+       narrow end.) */
     scroll-margin-top: max(
-      calc(50svh - 13.9vw - 15.8rem),
-      calc(50svh - 31.5rem)
+      calc(50svh - 11.4vw - 14.2rem),
+      calc(50svh - 29rem)
     );
     background: var(--bg-page);
   }
 
   .research-overview {
-    padding: clamp(5.5rem, 8vw, 8rem) 0 clamp(6rem, 9vw, 9rem);
-    background: var(--bg-page-alt);
+    /* Bottom pad is half the hero→heading gap; the problems-section top pad is
+       the other half, so the two stack to one gap equal to that above (they no
+       longer straddle a background color change now the page is one cream). */
+    padding: clamp(5.5rem, 8vw, 8rem) 0 clamp(2.75rem, 4vw, 4rem);
+    background: var(--bg-page);
   }
 
   .research-intro {
@@ -238,7 +292,8 @@ const projects = [
     display: grid;
     grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1.72fr);
     gap: clamp(1.5rem, 3vw, 3rem);
-    margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
+    /* Same as .research-intro so the heading→content gap matches that section. */
+    margin-bottom: clamp(3rem, 5vw, 4.75rem);
   }
 
   .focus-intro .section-heading {
@@ -296,7 +351,8 @@ const projects = [
   }
 
   .problems-section {
-    padding: clamp(6rem, 9vw, 9rem) 0 clamp(7rem, 10vw, 10rem);
+    /* Top pad pairs with .research-overview's bottom pad (see there). */
+    padding: clamp(2.75rem, 4vw, 4rem) 0 clamp(7rem, 10vw, 10rem);
     background: var(--bg-page);
   }
 
@@ -333,16 +389,23 @@ const projects = [
     min-width: 0;
     margin: 0;
     padding: clamp(2.5rem, 4.5vw, 4.25rem) clamp(1rem, 2.1vw, 1.75rem);
-    background: var(--bg-page-alt);
+    background: var(--bg-card);
   }
 
   .feature-logo {
     display: flex;
-    flex: 1 1 auto;
+    /* Compact (not flex:1): the logo and its caption sit together as one
+       centered unit rather than the logo floating up and the caption pinned
+       to the bottom of the panel. */
+    flex: 0 0 auto;
     width: 100%;
     min-height: 0;
     align-items: center;
     justify-content: center;
+    /* Per-logo nudge: X pulls the logo toward its text column (the media and
+       text columns aren't equal width, so a centered logo sits too far out);
+       Y fine-tunes the vertical position. The caption tracks the same X below. */
+    transform: translate(var(--logo-shift-x, 0), var(--logo-shift-y, 0));
   }
 
   .feature-logo :global(img) {
@@ -361,15 +424,12 @@ const projects = [
     flex-direction: column;
     align-items: center;
     gap: 0.25rem;
-    /* The caption is aligned to the consortium link's bottom edge at runtime
-       (see the align-captions script below) via a translateY on this element,
-       because the link and acronym heights both depend on how their text
-       wraps at the current width, which no single CSS value can track. This
-       margin is only a sane no-JS fallback resting position. */
-    margin-bottom: 1.45rem;
     color: var(--text-secondary);
     font-family: var(--font-body);
     text-align: center;
+    /* Resting transform: track the logo's horizontal shift. The script overrides
+       this to also bottom-align the acronym with the consortium link. */
+    transform: translate(var(--logo-shift-x, 0), 0);
   }
 
   .caption-long {
@@ -377,6 +437,12 @@ const projects = [
     font-size: clamp(0.98rem, 1.5vw, 1.3rem);
     font-weight: 600;
     line-height: 1.45;
+  }
+
+  /* The initial of each word that spells the acronym, tinted to match it. */
+  .caption-initial {
+    color: var(--purdue-aged);
+    font-weight: 700;
   }
 
   .caption-acronym {
@@ -399,7 +465,8 @@ const projects = [
     margin-bottom: 1rem;
     color: var(--purdue-aged);
     font-family: var(--font-label);
-    font-size: 0.85rem;
+    /* Kept in step with .project-link for a consistent label scale. */
+    font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.12em;
   }
@@ -433,7 +500,8 @@ const projects = [
     border-bottom: 2px solid var(--purdue-aged);
     color: var(--purdue-aged);
     font-family: var(--font-label);
-    font-size: 0.9rem;
+    /* Matches .project-index for a consistent label scale. */
+    font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     line-height: 1.35;
@@ -482,6 +550,16 @@ const projects = [
         'text';
       grid-template-columns: 1fr;
       min-height: 0;
+    }
+
+    /* The per-logo nudge (--logo-shift-x/-y) only compensates for the unequal
+       two-column desktop layout; in the stacked single-column layout the media
+       panel is centered, so the shift would push logos/captions off-center (and
+       can crowd OASIS toward its padding). Reset it here. The JS clears the
+       caption's inline transform on mobile, so this rule governs it too. */
+    .feature-logo,
+    .feature-caption {
+      transform: none;
     }
 
     .feature-image {
