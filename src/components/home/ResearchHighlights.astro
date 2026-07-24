@@ -222,8 +222,11 @@ const projects = [
   }
 
   .research-overview {
-    padding: clamp(5.5rem, 8vw, 8rem) 0 clamp(6rem, 9vw, 9rem);
-    background: var(--bg-page-alt);
+    /* Bottom pad is half the hero→heading gap; the problems-section top pad is
+       the other half, so the two stack to one gap equal to that above (they no
+       longer straddle a background color change now the page is one cream). */
+    padding: clamp(5.5rem, 8vw, 8rem) 0 clamp(2.75rem, 4vw, 4rem);
+    background: var(--bg-page);
   }
 
   .research-intro {
@@ -238,7 +241,8 @@ const projects = [
     display: grid;
     grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1.72fr);
     gap: clamp(1.5rem, 3vw, 3rem);
-    margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
+    /* Same as .research-intro so the heading→content gap matches that section. */
+    margin-bottom: clamp(3rem, 5vw, 4.75rem);
   }
 
   .focus-intro .section-heading {
@@ -296,7 +300,8 @@ const projects = [
   }
 
   .problems-section {
-    padding: clamp(6rem, 9vw, 9rem) 0 clamp(7rem, 10vw, 10rem);
+    /* Top pad pairs with .research-overview's bottom pad (see there). */
+    padding: clamp(2.75rem, 4vw, 4rem) 0 clamp(7rem, 10vw, 10rem);
     background: var(--bg-page);
   }
 
@@ -333,7 +338,7 @@ const projects = [
     min-width: 0;
     margin: 0;
     padding: clamp(2.5rem, 4.5vw, 4.25rem) clamp(1rem, 2.1vw, 1.75rem);
-    background: var(--bg-page-alt);
+    background: var(--bg-card);
   }
 
   .feature-logo {

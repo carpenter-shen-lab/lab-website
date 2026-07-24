@@ -144,7 +144,13 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     position: relative;
     z-index: 1;
     width: min(44rem, calc(100% - (var(--site-gutter) * 2)));
-    margin-left: var(--site-gutter);
+    /* Match the content column's left edge (see .content-frame): the gutter
+       until the column hits its cap, then the centering offset. Keeps the hero
+       aligned with the header and every section at any width. */
+    margin-left: max(
+      var(--site-gutter),
+      calc((100% - var(--content-frame-max)) / 2)
+    );
     margin-right: auto;
     padding: clamp(5rem, 10vh, 8rem) 0 4rem;
     text-align: left;
@@ -275,8 +281,9 @@ const [networkMotionSmall, networkMotionMedium, networkMotionLarge] = await Prom
     }
 
     .hero-content {
+      /* margin-left is inherited from the base rule so the hero stays aligned
+         to the content column past the column's cap; only the width changes. */
       width: min(40rem, calc(100% - (var(--site-gutter) * 2)));
-      margin-left: var(--site-gutter);
     }
   }
 
