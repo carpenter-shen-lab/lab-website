@@ -31,7 +31,7 @@ const projects = [
     url: 'https://oasisconsortium.org/',
     label: 'OASIS Consortium',
     graphic: oasisLogo,
-    graphicAlt: 'OASIS Consortium logo: a stylized palm and caduceus in a gold disc.',
+    graphicAlt: 'OASIS Consortium logo: a stylized palm and caduceus in a warm gray disc.',
     longName: 'Omics for Assessing Signatures for Integrated Safety',
     acronym: 'OASIS',
     // This logo's artwork reads small at the shared height, so scale it up.
@@ -261,11 +261,13 @@ function acronymParts(longName: string, acronym: string) {
        height H in a viewport V wants an offset of (V - H)/2 = 50svh - H/2 (svh
        so mobile browser-UI changes don't shift it). H grows ~linearly with
        content width (the video cards scale) until the frame caps at 104rem,
-       giving H/2 = min(13.9vw + 15.8rem, 31.5rem); subtracting a min is adding
-       a max, keeping it one CSS value. */
+       giving H/2 = min(11.4vw + 14.2rem, 29rem); subtracting a min is adding
+       a max, keeping it one CSS value. (Retuned when .research-overview's bottom
+       pad was cut by ~5rem: −2.5vw fluid, −2.5rem at the cap, −1.6rem at the
+       narrow end.) */
     scroll-margin-top: max(
-      calc(50svh - 13.9vw - 15.8rem),
-      calc(50svh - 31.5rem)
+      calc(50svh - 11.4vw - 14.2rem),
+      calc(50svh - 29rem)
     );
     background: var(--bg-page);
   }
@@ -548,6 +550,16 @@ function acronymParts(longName: string, acronym: string) {
         'text';
       grid-template-columns: 1fr;
       min-height: 0;
+    }
+
+    /* The per-logo nudge (--logo-shift-x/-y) only compensates for the unequal
+       two-column desktop layout; in the stacked single-column layout the media
+       panel is centered, so the shift would push logos/captions off-center (and
+       can crowd OASIS toward its padding). Reset it here. The JS clears the
+       caption's inline transform on mobile, so this rule governs it too. */
+    .feature-logo,
+    .feature-caption {
+      transform: none;
     }
 
     .feature-image {
