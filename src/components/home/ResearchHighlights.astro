@@ -38,6 +38,8 @@ const projects = [
     logoScale: 1.16,
     logoShiftX: '3rem',
     logoShiftY: '1rem',
+    // Drop the caption a touch for more breathing room below the tall disc.
+    captionShiftY: '0.5rem',
   },
   {
     title: 'Mapping the Chemical Universe',
@@ -131,6 +133,7 @@ function acronymParts(longName: string, acronym: string) {
                 project.logoScale ? `--logo-scale: ${project.logoScale};` : '',
                 project.logoShiftX ? `--logo-shift-x: ${project.logoShiftX};` : '',
                 project.logoShiftY ? `--logo-shift-y: ${project.logoShiftY};` : '',
+                project.captionShiftY ? `--caption-shift-y: ${project.captionShiftY};` : '',
               ].join(' ').trim() || undefined}
             >
               <div class="feature-logo">
@@ -220,8 +223,11 @@ function acronymParts(longName: string, acronym: string) {
       // Reset to the CSS resting transform (keeps --logo-shift-x, no vertical shift).
       caption.style.transform = '';
       if (!sideBySide) return;
+      // Align the acronym to the link, then apply any per-card downward nudge
+      // (--caption-shift-y) to open a little space between the logo and caption.
       const delta = glyphBottom(linkText) - glyphBottom(acronym);
-      caption.style.transform = `translate(var(--logo-shift-x, 0px), ${delta}px)`;
+      caption.style.transform =
+        `translate(var(--logo-shift-x, 0px), calc(${delta}px + var(--caption-shift-y, 0px)))`;
     });
   }
 
