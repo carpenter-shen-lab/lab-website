@@ -54,6 +54,12 @@ const papers = defineCollection({
     type: z.enum(['research', 'review', 'conference', 'preprint', 'book-chapter']).default('research'),
     highlight: z.boolean().default(false),
     labAuthors: z.array(z.string()).default([]),
+    // Source publication-list sequence number (higher = more recent). Used to
+    // order papers within a year, newest first.
+    number: z.number().optional(),
+    // Raw bibliographic tail printed after the journal (volume/pages, PMID,
+    // PMCID, and the "(Research Article)" type label), verbatim from the source.
+    meta: z.string().optional(),
   }),
 });
 
