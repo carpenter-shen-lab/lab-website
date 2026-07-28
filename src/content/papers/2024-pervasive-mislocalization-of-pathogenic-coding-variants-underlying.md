@@ -9,6 +9,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/196_Lacost
 type: "research"
 highlight: false
 labAuthors: ["Carpenter AE**"]
-meta: "S0092-8674(24)01021-3. PMID: 39353438 PMCID: PMC11568917. (Research Article) * contributed equally **supervised equally"
+meta: "187, 6725-6741.e13. S0092-8674(24)01021-3. PMID: 39353438 PMCID: PMC11568917. (Research Article) * contributed equally **supervised equally"
 number: 196
 ---
