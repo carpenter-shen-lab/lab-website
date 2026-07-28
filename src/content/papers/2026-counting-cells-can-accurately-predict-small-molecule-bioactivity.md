@@ -9,6 +9,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/documents/
 type: "research"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "doi: 10.1038/s41467-026-68725-5 PMID: 41651839. PMCID: In progress. (Research Article)"
+meta: "doi: 10.1038/s41467-026-68725-5 PMID: 41651839. (Research Article)"
 number: 215
 ---

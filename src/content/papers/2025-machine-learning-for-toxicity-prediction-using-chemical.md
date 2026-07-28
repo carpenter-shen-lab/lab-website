@@ -6,7 +6,7 @@ year: 2025
 doi: "10.1021/acs.chemrestox.5c00033"
 pmid: "40314361"
 pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/204_seal_chemrestox.pdf"
-type: "research"
+type: "review"
 highlight: false
 labAuthors: ["Carpenter AE"]
 meta: "19;38(5):759-807.PMID: 40314361; PMCID: PMC12093382. (Review Article) * Selected as ACS Editors' Choice"

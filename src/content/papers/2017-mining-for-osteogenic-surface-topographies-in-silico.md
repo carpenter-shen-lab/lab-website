@@ -9,6 +9,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/107_Hulsho
 type: "research"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "137:49-60. PMID: 28535442. PMCID: N/A (Research article)"
+meta: "137:49-60. PMID: 28535442 (Research article)"
 number: 107
 ---

@@ -9,6 +9,6 @@ github: "https://github.com/carpenterlab/2016_pawlowski_mlcb"
 type: "conference"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "PMCID: N/A (Conference paper)"
+meta: "(Conference paper)"
 number: 104
 ---

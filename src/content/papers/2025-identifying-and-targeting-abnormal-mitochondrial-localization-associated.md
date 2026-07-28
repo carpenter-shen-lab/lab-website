@@ -7,6 +7,5 @@ doi: "10.1101/2025.10.08.676630"
 type: "preprint"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "(Preprint)"
 number: 214.5
 ---

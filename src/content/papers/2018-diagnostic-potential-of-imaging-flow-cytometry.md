@@ -9,6 +9,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/112_Doan_T
 type: "review"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "112:39-45. PMID: 29395345. PMCID: N/A (Review article)"
+meta: "112:39-45. PMID: 29395345 (Review article)"
 number: 112
 ---

@@ -9,6 +9,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/200_serran
 type: "research"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "PMID: 40032995. PMCID: In process. (Research Article)"
+meta: "PMID: 40032995. (Research Article)"
 number: 201
 ---

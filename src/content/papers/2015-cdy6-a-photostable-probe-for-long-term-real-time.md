@@ -9,6 +9,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/82-Jeong_C
 type: "research"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "19;22(2):299-307. PMID: 25601075. PMCID: N/A. (Research article)"
+meta: "19;22(2):299-307. PMID: 25601075. (Research article)"
 number: 82
 ---

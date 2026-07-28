@@ -7,6 +7,5 @@ doi: "10.64898/2026.02.14.705848"
 type: "preprint"
 highlight: true
 labAuthors: ["Shen R", "Carpenter AE"]
-meta: "(Preprint)"
 number: 216
 ---

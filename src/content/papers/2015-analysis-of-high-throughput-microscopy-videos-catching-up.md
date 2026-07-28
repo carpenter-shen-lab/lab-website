@@ -8,6 +8,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/87-Arbelle
 type: "conference"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "The 18th International Conference on Medical Image Computing and Computer Assisted Interventions. Lecture Notes in Computer Science (9351)218–225. PMID/PMCID: N/A. (Computational conference paper)"
+meta: "The 18th International Conference on Medical Image Computing and Computer Assisted Interventions. Lecture Notes in Computer Science (9351)218–225. (Computational conference paper)"
 number: 87
 ---

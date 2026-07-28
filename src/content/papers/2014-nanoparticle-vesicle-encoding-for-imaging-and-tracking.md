@@ -9,6 +9,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/79_Rees_Na
 type: "research"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "11(11):1177-1181. PMID: 25218182. PMCID: N/A (Research article)"
+meta: "11(11):1177-1181. PMID: 25218182 (Research article)"
 number: 79
 ---

@@ -8,6 +8,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/documents/
 type: "conference"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "arXiv. doi:10.48550/arXiv.2510.14143 PMID/PMCID: N/A. (Conference Paper)"
+meta: "arXiv. doi:10.48550/arXiv.2510.14143. (Conference Paper)"
 number: 213
 ---

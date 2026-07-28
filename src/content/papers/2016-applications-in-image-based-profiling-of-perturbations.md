@@ -9,6 +9,6 @@ pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/93_Caicedo
 type: "review"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "39:134-142. PMID: 27089218. PMCID: N/A. (Review article)"
+meta: "39:134-142. PMID: 27089218. (Review article)"
 number: 93
 ---

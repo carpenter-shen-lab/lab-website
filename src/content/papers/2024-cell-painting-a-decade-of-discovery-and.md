@@ -6,7 +6,7 @@ year: 2024
 doi: "10.1038/s41592-024-02528-8"
 pmid: "39639168"
 pdf: "https://carpenter-singh-lab.broadinstitute.org/files/anne/files/198_Seal_NatureMethods_2024.pdf"
-type: "research"
+type: "review"
 highlight: false
 labAuthors: ["Carpenter AE"]
 meta: "PMID: 39639168 PMCID: PMC11810604. (Review Article) * contributed equally"

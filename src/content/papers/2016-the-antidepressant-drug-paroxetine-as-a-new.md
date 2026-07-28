@@ -7,6 +7,6 @@ doi: "10.1039/C5MD00596E"
 type: "research"
 highlight: false
 labAuthors: ["Carpenter AE"]
-meta: "doi:10.1039/C5MD00596E PMID/PMCID: N/A (Research article). *contributed equally"
+meta: "doi:10.1039/C5MD00596E (Research article). *contributed equally"
 number: 210
 ---

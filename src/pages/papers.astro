@@ -5,8 +5,11 @@ import { getCollection } from 'astro:content';
 const CARPENTER_SCHOLAR = 'https://scholar.google.com/citations?user=pj6Bz0gAAAAJ&hl=en';
 const SHEN_SCHOLAR = 'https://scholar.google.com/citations?user=L9f8qagAAAAJ&hl=en';
 
+// Sort by year desc, then by source sequence number desc within a year. A
+// hand-added paper with no `number` defaults to Infinity so it sorts to the
+// top of its year (i.e. treated as the newest), not the bottom.
 const papers = (await getCollection('papers')).sort(
-  (a, b) => b.data.year - a.data.year || (b.data.number ?? 0) - (a.data.number ?? 0),
+  (a, b) => b.data.year - a.data.year || (b.data.number ?? Infinity) - (a.data.number ?? Infinity),
 );
 
 // Group by year (descending) for a classic publication list.
