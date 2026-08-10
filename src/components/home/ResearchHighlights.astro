@@ -201,7 +201,13 @@ function acronymParts(longName: string, acronym: string) {
     const section = document.querySelector<HTMLElement>('.research-section');
     const overview = document.querySelector<HTMLElement>('.research-overview');
     if (section && overview) {
-      const offset = (window.innerHeight - overview.getBoundingClientRect().height) / 2;
+      // --research-landing-nudge trims the centered offset so the landing sits a
+      // touch lower, leaving room under the video grid. Read from CSS so the
+      // styled fallback and this measured path stay driven by one value.
+      const nudge =
+        parseFloat(getComputedStyle(section).getPropertyValue('--research-landing-nudge')) || 0;
+      const offset =
+        (window.innerHeight - overview.getBoundingClientRect().height) / 2 - nudge;
       section.style.scrollMarginTop = `${offset}px`;
     }
 
@@ -265,9 +271,16 @@ function acronymParts(longName: string, acronym: string) {
        a max, keeping it one CSS value. (Retuned when .research-overview's bottom
        pad was cut by ~5rem: −2.5vw fluid, −2.5rem at the cap, −1.6rem at the
        narrow end.) */
-    scroll-margin-top: max(
-      calc(50svh - 11.4vw - 14.2rem),
-      calc(50svh - 29rem)
+    /* Lands the #research jump slightly further down than dead-center, opening a
+       little breathing room below the video grid. Subtracted from the centered
+       offset by both the CSS below and the script above, so this is the single
+       value to tune. Kept in px (not rem) so the script can parseFloat it. */
+    --research-landing-nudge: 24px;
+    scroll-margin-top: calc(
+      max(
+        calc(50svh - 11.4vw - 14.2rem),
+        calc(50svh - 29rem)
+      ) - var(--research-landing-nudge)
     );
     background: var(--bg-page);
   }
