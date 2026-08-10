@@ -79,7 +79,7 @@ src/
 Two skills cover frontend design on this repo. Use them together:
 
 - **[purdue-brand](.agents/skills/purdue-brand/SKILL.md)** — encodes Purdue Marcom rules (palette, type, logo, voice, 77° diagonals). Loads first so brand constraints are in scope.
-- **[impeccable](.agents/skills/impeccable/SKILL.md)** — design quality, composition, motion, audit. Reads `PRODUCT.md` + `DESIGN.md` at the repo root, which are already seeded with the Purdue rules.
+- **[impeccable](.agents/skills/impeccable/SKILL.md)** — design quality, composition, motion, audit. Reads `docs/PRODUCT.md` + `docs/DESIGN.md` (the loader auto-falls-back to `docs/`), which are already seeded with the Purdue rules.
 
 Typical sequence for a visual change:
 
