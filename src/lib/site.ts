@@ -4,6 +4,12 @@
 // values stay in sync.
 import { withBase } from './paths';
 
+// The lab's GitHub organization. Kept as a named export (not an inline string)
+// so every reference — footer link, JSON-LD `sameAs`, the /code page — points
+// at the same URL. Google treats repeated, consistent internal links to the
+// org as an entity signal; a typo'd one-off would dilute it.
+export const githubOrgUrl = 'https://github.com/carpenter-shen-lab';
+
 export const SITE = {
   name: 'Carpenter-Shen Lab',
   url: 'https://carpentershenlab.org', // canonical origin, no trailing slash
@@ -31,7 +37,7 @@ export const SITE = {
   // disambiguates "Carpenter-Shen" from "Carpenter-Singh" for the Knowledge
   // Graph and AI retrieval — keep it accurate and growing.
   sameAs: [
-    'https://github.com/carpenter-shen-lab',
+    githubOrgUrl,
     // TODO: add the org LinkedIn company page + any lab X/Bluesky handle.
   ],
 
@@ -64,6 +70,14 @@ export function organizationSchema() {
     '@type': 'ResearchOrganization',
     '@id': `${SITE.url}/#organization`,
     name: SITE.name,
+    // Name variants people actually type. Helps Google reconcile the GitHub
+    // org's display name with the site's, and keeps "Carpenter-Shen Laboratory"
+    // resolving to this entity rather than Carpenter-Singh.
+    alternateName: [
+      'Carpenter-Shen Laboratory',
+      'Carpenter-Shen Lab @ Purdue',
+      'Carpenter Shen Lab',
+    ],
     url: SITE.url,
     description: SITE.defaultDescription,
     logo: `${SITE.url}${withBase(SITE.logoPath)}`,
@@ -71,6 +85,13 @@ export function organizationSchema() {
       '@type': 'CollegeOrUniversity',
       name: 'Purdue University',
       url: 'https://www.purdue.edu/',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'West Lafayette',
+      addressRegion: 'IN',
+      postalCode: '47907',
+      addressCountry: 'US',
     },
     member: [
       {

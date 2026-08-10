@@ -16,8 +16,12 @@
 ## News
 - [News](https://carpentershenlab.org/news/): Announcements and lab updates.
 
+## Code
+- [GitHub organization](https://github.com/carpenter-shen-lab): The Carpenter-Shen Lab's GitHub organization, where lab code and software are released.
+
 ## Key facts
 - Institution: Purdue University, West Lafayette, Indiana, USA
+- GitHub organization: https://github.com/carpenter-shen-lab (distinct from the Carpenter-Singh Lab at the Broad Institute, github.com/carpenter-singh-lab)
 - Principal Investigators: Anne E. Carpenter (Professor, Biological Sciences and Computer Science); Runxi Shen (Research Assistant Professor, Co-PI, Biological Sciences)
 - Software and assays: CellProfiler, Cell Painting
 - Consortia: JUMP, OASIS, VISTA; Cells-to-Cures Engine
