@@ -52,6 +52,7 @@ export const SITE = {
       'https://scholar.google.com/citations?user=pj6Bz0gAAAAJ&hl=en',
     ],
     runxiShen: [
+      'https://runxi-shen.github.io/homepage/',
       'https://www.linkedin.com/in/runxi-shen/',
       'https://github.com/runxi-shen',
       'https://x.com/wshenrx',
@@ -103,6 +104,7 @@ export function organizationSchema() {
       {
         '@type': 'Person',
         name: 'Runxi Shen',
+        alternateName: '沈润玺',
         jobTitle: 'Research Assistant Professor, Biological Sciences',
         sameAs: SITE.people.runxiShen,
       },
