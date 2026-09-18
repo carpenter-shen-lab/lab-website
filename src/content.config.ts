@@ -8,6 +8,7 @@ const team = defineCollection({
     role: z.enum([
       'principal-investigator',
       'co-pi',
+      'advisor',
       'senior-consultant',
       'senior-group-leader',
       'postdoc',
