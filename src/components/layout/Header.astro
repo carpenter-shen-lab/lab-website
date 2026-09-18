@@ -43,7 +43,7 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
            Shows at xl (1280px), not lg (1024px): the enlarged nav links + CTA
            plus the brand need ~1131px to fit the row without the two clusters
            overlapping, so the hamburger covers everything below xl. -->
-      <nav class="hidden xl:flex items-center gap-0">
+      <nav class="hidden xl:flex items-center gap-0" aria-label="Main navigation">
         {navLinks.map(link => (
           <a href={link.href} class="nav-link">
             {link.label}
@@ -65,7 +65,9 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
       <button
         id="mobile-menu-btn"
         class="menu-btn xl:hidden p-2 rounded-md self-center"
-        aria-label="Toggle menu"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
       >
         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -79,6 +81,8 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
     id="mobile-menu"
     class="xl:hidden hidden border-t"
     style="background: var(--nav-bg); border-color: var(--nav-border);"
+    role="navigation"
+    aria-label="Mobile navigation"
   >
     <div class="px-6 py-4 space-y-1">
       {navLinks.map(link => (
@@ -232,12 +236,13 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
 
 <script>
   function initMobileMenu() {
-    const btn = document.getElementById('mobile-menu-btn');
+    const btn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
     const menu = document.getElementById('mobile-menu');
     if (btn && !btn.dataset.listenerAttached) {
       btn.dataset.listenerAttached = 'true';
       btn.addEventListener('click', () => {
-        menu?.classList.toggle('hidden');
+        const isHidden = menu?.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', String(!isHidden));
       });
     }
   }

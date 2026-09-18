@@ -33,6 +33,7 @@ export function teamPhoto(filename?: string): string | undefined {
 export const roleLabels: Record<CollectionEntry<'team'>['data']['role'], string> = {
   'principal-investigator': 'Principal Investigator',
   'co-pi': 'Co-Principal Investigator',
+  'advisor': 'Advisor',
   'senior-consultant': 'Senior Consultant',
   'senior-group-leader': 'Senior Group Leader',
   'postdoc': 'Postdoctoral Fellow',
