@@ -40,6 +40,7 @@ export const roleLabels: Record<CollectionEntry<'team'>['data']['role'], string>
   'research-scientist': 'Research Scientist',
   'visiting-scientist': 'Visiting Scientist',
   'admin': 'Administrator',
+  'research-operations-administrator': 'Research Operations Administrator',
   'alumni': 'Alumni',
 };
 
@@ -80,3 +81,5 @@ export async function getTeamGrouped(): Promise<{ leads: TeamCardMember[]; membe
 
   return { leads, members };
 }
+
+
