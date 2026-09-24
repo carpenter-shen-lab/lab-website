@@ -15,6 +15,7 @@ const team = defineCollection({
       'research-scientist',
       'visiting-scientist',
       'admin',
+      'research-operations-administrator',
       'alumni',
     ]),
     title: z.string(),
