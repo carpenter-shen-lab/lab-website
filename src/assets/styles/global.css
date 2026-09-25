@@ -12,7 +12,7 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════════
-   LIGHT PURDUE THEME — warm cream surface, geometric sans typography
+   LIGHT PURDUE THEME — white surface, geometric sans typography
    Bright, sophisticated, brand-compliant.
    ═══════════════════════════════════════════════════════════════════ */
 
@@ -27,8 +27,8 @@
   --content-frame-max: 104rem;
 
   /* ─── Surface system ─── */
-  --bg-page: #FAF7EF;          /* warm cream — tinted toward Boilermaker Gold */
-  --bg-page-alt: #F2EDDF;      /* slightly deeper cream — Dust-adjacent */
+  --bg-page: #FFFFFF;          /* white */
+  --bg-page-alt: #F5F3EE;      /* very light warm off-white — subtle section tint */
   --bg-card: #FFFFFF;
   --bg-elevated: #FFFFFF;
 
@@ -47,7 +47,7 @@
   --text-on-dark: #F5F1E6;
   --text-on-dark-secondary: #A8A29A;
   --text-on-accent: #1A1A1A;
-  --text-link: #8E6F3E;         /* Aged — AA-safe on cream */
+  --text-link: #7A5C2A;         /* darker Aged — AA-safe on white (5.0:1) */
 
   /* ─── Purdue palette tokens ─── */
   --purdue-gold:        #CFB991;   /* Boilermaker Gold */
@@ -80,7 +80,7 @@
   --border-dark:   rgba(207, 185, 145, 0.15);
 
   /* ─── Navigation ─── */
-  --nav-bg: rgba(250, 247, 239, 0.85);  /* translucent cream */
+  --nav-bg: rgba(255, 255, 255, 0.92);  /* translucent white */
   --nav-text: #1A1A1A;
   --nav-border: rgba(142, 111, 62, 0.18);
 
