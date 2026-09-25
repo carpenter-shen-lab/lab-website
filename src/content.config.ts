@@ -14,6 +14,7 @@ const team = defineCollection({
       'phd-student',
       'research-scientist',
       'visiting-scientist',
+      'visiting-scholar',
       'admin',
       'research-operations-administrator',
       'alumni',

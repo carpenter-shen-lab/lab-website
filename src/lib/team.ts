@@ -1,4 +1,4 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+√import { getCollection, type CollectionEntry } from 'astro:content';
 import type { SocialLinkSet } from './social';
 
 // Resolve team photos through Astro's asset pipeline. The .md files store a
@@ -39,6 +39,7 @@ export const roleLabels: Record<CollectionEntry<'team'>['data']['role'], string>
   'phd-student': 'PhD Student',
   'research-scientist': 'Research Scientist',
   'visiting-scientist': 'Visiting Scientist',
+  'visiting-scholar':'Visiting Scholar', 
   'admin': 'Administrator',
   'research-operations-administrator': 'Research Operations Administrator',
   'alumni': 'Alumni',
