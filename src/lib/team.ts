@@ -1,4 +1,4 @@
-√import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { SocialLinkSet } from './social';
 
 // Resolve team photos through Astro's asset pipeline. The .md files store a
