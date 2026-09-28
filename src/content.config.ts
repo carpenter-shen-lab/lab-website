@@ -18,6 +18,7 @@ const team = defineCollection({
       'admin',
       'research-operations-administrator',
       'alumni',
+      'advisor',
     ]),
     title: z.string(),
     photo: z.string().optional(),
