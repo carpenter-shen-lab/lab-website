@@ -43,7 +43,7 @@ export const roleLabels: Record<CollectionEntry<'team'>['data']['role'], string>
   'admin': 'Administrator',
   'research-operations-administrator': 'Research Operations Administrator',
   'alumni': 'Alumni',
-  'advisor',
+  'advisor':'Advisor',
 };
 
 // Roles shown as large "lead" cards at the top. Everyone else visible is
