@@ -1,6 +1,6 @@
 ---
 name: "Shantanu Singh"
-role: "senior-group-leader"
+role: "advisor"
 title: "Principal Investigator, Broad Institute"
 photo: "shantanu_singh_resized.jpg"
 bio: "I lead the image-based profiling team at the Broad Institute of MIT and Harvard. We develop machine learning and statistical methods to create fingerprints of genes, chemicals, and diseases from microscopy images of cells."
