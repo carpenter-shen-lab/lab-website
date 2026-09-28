@@ -1,5 +1,4 @@
 ---
-nano src/content/team/shantanu-singh.mdadv---
 name: "Shantanu Singh"
 role: "advisor"
 title: "Principal Investigator, Broad Institute"
