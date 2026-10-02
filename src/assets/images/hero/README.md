@@ -4,13 +4,14 @@ These assets are intentionally tracked through Astro's image pipeline. Keep prod
 
 ## Production
 
-- `hero-cell-network-circle-champagne-motion-v4-4k-handdrawn.png` is the current high-resolution production master for the slowly rotating cellular network. It is the v3 etched network warped through a gentle, smoothed displacement field so the connecting lines gain a subtle hand-drawn wobble while the radial cell bodies stay crisp. Generated at the full 4096 master resolution; Astro emits responsive WebP variants from this source.
+- `hero-cell-network-circle-white-motion-v5-4k-handdrawn.png` is the current high-resolution production master for the slowly rotating cellular network. It is the v4 handdrawn-warp artwork with its background corrected to pure white (#FFFFFF) via a per-channel white-point stretch, to match `--bg-page` (also #FFFFFF; see global.css) rather than the original champagne/cream tone the file name of the prior version referenced. Generated at the full 4096 master resolution; Astro emits responsive WebP variants from this source.
 - Reduced-motion mode uses this same production master with its rotation disabled, keeping the composition static and equally sharp without loading a separate fallback.
 
-The champagne treatment remains the visual direction: it preserves network detail without competing with the hero copy or Purdue identity.
+The white background keeps the network flush against the page with no visible seam, while the hand-drawn linework and composition remain unchanged from v4.
 
 ## Reference Only
 
+- `hero-cell-network-circle-champagne-motion-v4-4k-handdrawn.png` is the prior approved production master (champagne/cream background, #FAF6EF-ish). Retained so the v5 background-color change stays reviewable and reversible.
 - `hero-cell-network-circle-champagne-motion-v3-4k-crisp.png` is the prior approved production master (crisp, un-warped). Retained so the v4 change stays reviewable and reversible.
 - `hero-cell-network-circle-champagne-motion-v3-4k.png` preserves the softer high-resolution reconstruction before deterministic contrast and edge refinement.
 - `hero-cell-network-champagne-v4-handdrawn-ref-{subtle,medium,loose}.png` are stronger hand-drawn warp settings kept for reference. They were **not** chosen: at amplitudes large enough to clearly read as hand-drawn, the ~1-2px linework fragments into a distressed, grainy texture and the radial cell bodies dissolve. That is a technical limit of warping thin raster lines, not an approved look; only the gentle setting adds character without shredding detail. (These are 2048px previews, not 4k.)
