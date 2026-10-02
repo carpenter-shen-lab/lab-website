@@ -27,8 +27,8 @@
   --content-frame-max: 104rem;
 
   /* ─── Surface system ─── */
-  --bg-page: #FAF7EF;          /* warm cream — tinted toward Boilermaker Gold */
-  --bg-page-alt: #F2EDDF;      /* slightly deeper cream — Dust-adjacent */
+  --bg-page: #FFFFFF;          /* warm cream — tinted toward Boilermaker Gold */
+  --bg-page-alt: #F5F5F5;      /* slightly deeper cream — Dust-adjacent */
   --bg-card: #FFFFFF;
   --bg-elevated: #FFFFFF;
 
@@ -80,7 +80,7 @@
   --border-dark:   rgba(207, 185, 145, 0.15);
 
   /* ─── Navigation ─── */
-  --nav-bg: rgba(250, 247, 239, 0.85);  /* translucent cream */
+  --nav-bg: rgba(255, 255, 255, 0.85);  /* translucent cream */
   --nav-text: #1A1A1A;
   --nav-border: rgba(142, 111, 62, 0.18);
 
