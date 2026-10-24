@@ -53,8 +53,6 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
         <!-- Join the Lab — rectangular CTA, vertically centered -->
         <a
           href={joinUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           class="join-cta"
         >
           Join the Lab
@@ -84,7 +82,7 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
       {navLinks.map(link => (
         <a href={link.href} class="nav-link-mobile">{link.label}</a>
       ))}
-      <a href={joinUrl} target="_blank" rel="noopener noreferrer" class="join-cta-mobile">
+      <a href={joinUrl} class="join-cta-mobile">
         Join the Lab
       </a>
     </div>

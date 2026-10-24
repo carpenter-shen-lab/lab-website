@@ -1,0 +1,187 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const applicationUrl = 'https://forms.cloud.microsoft/r/FjTytQEb1C';
+---
+
+<PageLayout
+  title="Postdoctoral position: machine learning for drug discovery | Carpenter-Shen Lab"
+  description="Join the Carpenter-Shen Lab at Purdue University as a postdoctoral researcher developing machine learning methods for image-based drug discovery."
+>
+  <article class="recruiting">
+    <header class="position-header content-frame">
+      <span class="section-label">Recruiting</span>
+      <h1>Postdoctoral position: machine learning for drug discovery</h1>
+      <p class="location">Carpenter-Shen Lab, Purdue University, West Lafayette, Indiana</p>
+      <div class="section-divider mt-7 w-24 mx-auto"></div>
+      <a class="apply-button mt-7" href={applicationUrl}>Apply Online <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <div class="position-body content-frame">
+      <div class="introduction">
+        <p class="lead">Discover causes and cures for disease through research in the Carpenter–Shen laboratory!</p>
+        <p>Want to devote your expertise in data science to accelerate the pace at which new medicines are found? Our lab develops and applies methods to extract quantitative information from high-throughput biological images.</p>
+        <p>We seek a postdoctoral researcher to join our efforts to glean insights from large collections of images. There is much more information present in microscopy images than is commonly perceived by eye. We harvest this information, developing novel methods to characterize cellular populations at single-cell resolution. This work has the potential to transform how both the targets and therapies for disease are identified.</p>
+      </div>
+
+      <section aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Research projects</h2>
+        <p>We aim to revolutionize the process of drug discovery in several projects, including:</p>
+        <ul>
+          <li>Identify the function of unknown genes and predict mutation impact, for personalized medicine</li>
+          <li>Repurpose existing drugs to new diseases</li>
+          <li>Identify potential therapies for bipolar disorder and psychosis, based on cell morphology changes</li>
+          <li>Predict and classify toxicity of compounds destined for clinical trials or agrochemical use</li>
+          <li>Develop multimodal alignment methods to link image profiles to find drug-gene matches</li>
+          <li>Design AI agent systems to let biologists query, retrieve, and reason over large-scale image databases</li>
+          <li>We are also open to your ideas that align well with our interests and expertise!</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="about-you-heading">
+        <h2 id="about-you-heading">About you</h2>
+        <ul>
+          <li>Ph.D. required in a computational field (Data Science, Computer Science, Computational Biology, Bioinformatics, Cheminformatics, or related) with data science experience in biomedical domains.</li>
+          <li>Expertise analyzing large-scale and/or high-dimensional biological data is highly desired.</li>
+          <li>You have outstanding integrity, initiative, organizational &amp; collaborative ability, and communication skills.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="about-us-heading">
+        <h2 id="about-us-heading">About us</h2>
+        <p>Our mission is to make biological discoveries by developing advanced methods to quantify and mine the rich information in images. We work as a collaborative team making discoveries to influence patient treatment. Our lab offers a professional, conscientious environment passionate about driving scientific progress.</p>
+        <p>Our lab pioneered Cell Painting, a leading image-based profiling assay used worldwide to quantify biological processes. Our open-source CellProfiler software, cited in over 23,000 papers, has enabled discoveries leading to several clinical trials, including two successful in cancer so far. We also launched a major Cell Painting consortium with ten pharmaceutical companies to produce the largest public Cell Painting dataset. Through OASIS, we created the largest public dataset combining Cell Painting, transcriptomics, and proteomics for toxicity assessment. In VISTA, we aim to systematically and scalably uncover disease phenotypes and drugs that can reverse them for disease caused by coding variants.</p>
+      </section>
+
+      <section class="next-steps" aria-labelledby="next-steps-heading">
+        <h2 id="next-steps-heading">Next steps</h2>
+        <p>Please express interest by submitting your CV and a personalized cover letter to this <a class="form-link" href={applicationUrl}>online form</a>.</p>
+      </section>
+    </div>
+  </article>
+</PageLayout>
+
+<style>
+  .recruiting {
+    padding-block: 2.5rem 7rem;
+    background: var(--bg-content);
+  }
+
+  .position-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  h1 {
+    margin-top: 0.75rem;
+    color: var(--text-heading);
+    font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .location {
+    max-width: 72rem;
+    margin: 1.5rem auto 0;
+    color: var(--text-secondary);
+    font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .position-body {
+    max-width: 88rem;
+    margin-inline: auto;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+  }
+
+  .lead {
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  p + p {
+    margin-top: 1.5rem;
+  }
+
+  section {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  h2 {
+    margin-bottom: 1.25rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: 1.4rem;
+    margin-top: 1.25rem;
+  }
+
+  li {
+    padding-left: 0.35rem;
+  }
+
+  li + li {
+    margin-top: 0.85rem;
+  }
+
+  li::marker {
+    color: var(--purdue-aged);
+  }
+
+  .next-steps {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: var(--bg-page-alt);
+    border-top: 2px solid var(--purdue-gold);
+  }
+
+  .next-steps p {
+    font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .apply-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    background: var(--purdue-gold);
+    color: var(--text-on-accent);
+    font-weight: 700;
+    border-radius: 3px;
+    transition: background 0.18s ease;
+  }
+
+  .apply-button:hover {
+    background: var(--purdue-field);
+    color: var(--text-on-accent);
+  }
+
+  .form-link {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .form-link:hover {
+    color: var(--text-primary);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a {
+      transition: none;
+    }
+  }
+</style>
