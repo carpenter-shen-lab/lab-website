@@ -29,21 +29,21 @@ const { title, description, image, type, brandAsH1 = false } = Astro.props;
 <style>
   .skip-nav {
     position: absolute;
-    top: -100%;
+    top: 0;
+    transform: translateY(-100%);
     left: 1rem;
     z-index: 9999;
     padding: 0.5rem 1rem;
     background: var(--purdue-rush);
-    color: #1A1A1A;
+    color: var(--text-on-accent);
     font-weight: 700;
     font-size: 1rem;
     text-decoration: none;
     border-radius: 0 0 4px 4px;
-    transition: top 0.15s ease;
   }
   .skip-nav:focus {
-    top: 0;
-    outline: 3px solid #1A1A1A;
+    transform: translateY(0);
+    outline: 3px solid var(--text-primary);
     outline-offset: 2px;
   }
 </style>

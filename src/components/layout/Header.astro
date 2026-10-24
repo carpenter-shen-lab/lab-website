@@ -53,8 +53,6 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
         <!-- Join the Lab — rectangular CTA, vertically centered -->
         <a
           href={joinUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           class="join-cta"
         >
           Join the Lab
@@ -88,7 +86,7 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
       {navLinks.map(link => (
         <a href={link.href} class="nav-link-mobile">{link.label}</a>
       ))}
-      <a href={joinUrl} target="_blank" rel="noopener noreferrer" class="join-cta-mobile">
+      <a href={joinUrl} class="join-cta-mobile">
         Join the Lab
       </a>
     </div>
@@ -238,12 +236,23 @@ const BrandTag = brandAsH1 ? 'h1' : 'span';
   function initMobileMenu() {
     const btn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
     const menu = document.getElementById('mobile-menu');
-    if (btn && !btn.dataset.listenerAttached) {
+    if (btn && menu && !btn.dataset.listenerAttached) {
       btn.dataset.listenerAttached = 'true';
+      btn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')));
       btn.addEventListener('click', () => {
-        const isHidden = menu?.classList.toggle('hidden');
+        const isHidden = menu.classList.toggle('hidden');
         btn.setAttribute('aria-expanded', String(!isHidden));
       });
+      // Let keyboard users dismiss the menu and return to its toggle.
+      const closeOnEscape = (event: KeyboardEvent) => {
+        if (event.key === 'Escape' && !menu.classList.contains('hidden')) {
+          menu.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.focus();
+        }
+      };
+      btn.addEventListener('keydown', closeOnEscape);
+      menu.addEventListener('keydown', closeOnEscape);
     }
   }
 

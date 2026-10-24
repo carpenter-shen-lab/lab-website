@@ -33,15 +33,17 @@ export function teamPhoto(filename?: string): string | undefined {
 export const roleLabels: Record<CollectionEntry<'team'>['data']['role'], string> = {
   'principal-investigator': 'Principal Investigator',
   'co-pi': 'Co-Principal Investigator',
-  'advisor': 'Advisor',
   'senior-consultant': 'Senior Consultant',
   'senior-group-leader': 'Senior Group Leader',
   'postdoc': 'Postdoctoral Fellow',
   'phd-student': 'PhD Student',
   'research-scientist': 'Research Scientist',
   'visiting-scientist': 'Visiting Scientist',
+  'visiting-scholar':'Visiting Scholar', 
   'admin': 'Administrator',
+  'research-operations-administrator': 'Research Operations Administrator',
   'alumni': 'Alumni',
+  'advisor':'Advisor',
 };
 
 // Roles shown as large "lead" cards at the top. Everyone else visible is
@@ -81,3 +83,5 @@ export async function getTeamGrouped(): Promise<{ leads: TeamCardMember[]; membe
 
   return { leads, members };
 }
+
+

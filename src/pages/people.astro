@@ -12,7 +12,7 @@ const { leads, members } = await getTeamGrouped();
   description="Meet the researchers of the Carpenter-Shen Lab at Purdue University."
 >
   <section style="background: var(--bg-content);">
-    <!-- Full-viewport banner: header + PI cards land complete on first paint -->
+    <!-- Content-sized intro keeps the heading aligned with News and Papers. -->
     <div class="team-banner">
       <div class="content-frame">
         <!-- Section header — sized to match the Research section -->
@@ -35,7 +35,7 @@ const { leads, members } = await getTeamGrouped();
       </div>
     </div>
 
-    <!-- Everyone else, revealed on scroll below the banner -->
+    <!-- Remaining team members follow the PI cards in normal document flow. -->
     <div class="pt-6 pb-16">
       <div class="content-frame">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-[88rem] mx-auto">
@@ -56,8 +56,6 @@ const { leads, members } = await getTeamGrouped();
         </p>
         <a
           href={joinUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           class="join-us-btn"
         >
           Join Us
@@ -68,19 +66,10 @@ const { leads, members } = await getTeamGrouped();
 </PageLayout>
 
 <style>
-  /* Full-viewport banner: fills the screen below the nav (main has pt-20 =
-     80px). min-height (not height) lets it grow on short windows so the PI
-     cards never clip; svh stays stable across browser/fullscreen chrome. */
+  /* Match the other pages' pt-10 without viewport-dependent centering. */
   .team-banner {
-    min-height: calc(100svh - 80px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 2rem;
+    padding-top: 2.5rem;
     padding-bottom: 2rem;
-  }
-  @supports not (height: 100svh) {
-    .team-banner { min-height: calc(100vh - 80px); }
   }
 
   .join-us-btn {
