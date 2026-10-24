@@ -40,9 +40,9 @@ function isLabAuthor(author: string, labAuthors: string[]): boolean {
         </h1>
         <p class="scholar-pages mt-6 max-w-6xl mx-auto">
           Our Google Scholar pages (with citation metrics):
-          <a href={CARPENTER_SCHOLAR} target="_blank" rel="noopener noreferrer">Carpenter</a>
+          <a href={CARPENTER_SCHOLAR} target="_blank" rel="noopener noreferrer" aria-label="Anne Carpenter's Google Scholar profile">Carpenter</a>
           <span class="sep" aria-hidden="true">|</span>
-          <a href={SHEN_SCHOLAR} target="_blank" rel="noopener noreferrer">Shen</a>
+          <a href={SHEN_SCHOLAR} target="_blank" rel="noopener noreferrer" aria-label="Runxi Shen's Google Scholar profile">Shen</a>
         </p>
         <div class="section-divider mt-7 w-24 mx-auto"></div>
       </div>
@@ -76,16 +76,16 @@ function isLabAuthor(author: string, labAuthors: string[]): boolean {
                     {paper.data.meta && <p class="paper-meta">{paper.data.meta}</p>}
                     <div class="paper-links">
                       {paper.data.doi && (
-                        <a href={`https://doi.org/${paper.data.doi}`} target="_blank" rel="noopener noreferrer">DOI</a>
+                        <a href={`https://doi.org/${paper.data.doi}`} target="_blank" rel="noopener noreferrer" aria-label={`DOI for: ${paper.data.title}`}>DOI</a>
                       )}
                       {paper.data.pmid && (
-                        <a href={`https://pubmed.ncbi.nlm.nih.gov/${paper.data.pmid}/`} target="_blank" rel="noopener noreferrer">PubMed</a>
+                        <a href={`https://pubmed.ncbi.nlm.nih.gov/${paper.data.pmid}/`} target="_blank" rel="noopener noreferrer" aria-label={`PubMed entry for: ${paper.data.title}`}>PubMed</a>
                       )}
                       {paper.data.pdf && (
-                        <a href={paper.data.pdf} target="_blank" rel="noopener noreferrer">PDF</a>
+                        <a href={paper.data.pdf} target="_blank" rel="noopener noreferrer" aria-label={`Download PDF of: ${paper.data.title}`}>PDF</a>
                       )}
                       {paper.data.github && (
-                        <a href={paper.data.github} target="_blank" rel="noopener noreferrer">Code</a>
+                        <a href={paper.data.github} target="_blank" rel="noopener noreferrer" aria-label={`Source code for: ${paper.data.title}`}>Code</a>
                       )}
                     </div>
                   </li>
